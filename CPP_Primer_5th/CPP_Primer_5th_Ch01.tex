@@ -1,0 +1,22 @@
+\section{Getting Started}
+\begin{itemize}
+
+\item A function definition has four elements: a \textbf{\textit{return type}}, a \textbf{\textit{function name}}, a (possibly empty) \textbf{\textit{parameter list}} enclosed in parentheses, and a \textbf{\textit{function body}}.
+
+\item The library defines four IO objects. To handle input, we use an object of type \texttt{istream} named \textbf{cin} (pronounced \textit{see-in}). This object is also referred to as the \textbf{standard input}. For output, we use an \texttt{ostream} object named \textbf{cout} (pronounced \textit{see-out}). This object is also known as the \textbf{standard output}. The library also defines two other \texttt{ostream} objects, named \textbf{cerr} and \textbf{clog} (pronounced \textit{see-err} and \textit{see-log}, respectively). We typically use \texttt{cerr}, referred to as the \textbf{standard error}, for warning and error messages and \texttt{clog} for general information about the execution of the program.
+
+\item \hspace*{1em}\texttt{\#include <iostream>}\\The name inside angle brackets (\texttt{iostream} in this case) refers to a \textbf{header}. Every program that uses a library facility must include its associated header.
+
+\item Writing \texttt{endl} has the effect of ending the current line and flushing the \textbf{buffer} associated with that device. Flushing the buffer ensures that all the output the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.
+
+\item Programmers often add print statements during debugging. Such statements should \textit{always} flush the stream. Otherwise, if the program crashes, output may be left in the buffer, leading to incorrect inferences about where the program crashed.
+
+\item Namespaces allow us to avoid inadvertent collisions between the names we define and uses of those same names inside a library.
+
+\item An incorrect comment is worse than no comment at all because it may mislead the reader.
+
+\item When we use an \texttt{istream} as a condition, the effect is to test the state of the stream. If the stream is valid---that is, if the stream hasn't encountered an error---then the test succeeds. An \texttt{istream} becomes invalid when we hit \textit{end-of-file} or encounter an invalid input, such as reading a value that is not an integer. An \texttt{istream} that is in an invalid state will cause the condition to yield false.
+
+\item A class defines a type along with a collection of operations that are related to that type.
+
+\end{itemize}
