@@ -1,6 +1,16 @@
 \section{Strings, Vectors, and Arrays}
 \begin{itemize}
 
-\item Referring to library
+\item\begin{tabular}{| l l |}
+ \hline
+ \multicolumn{2}{| c |}{\textbf{\texttt{Ways to Initialize a string}}} \\
+ \hline
+ \texttt{string s1} & {Default initialization; \texttt{s1} is the empty string.} \\
+ \texttt{string s2(s1)} & {\texttt{s2} is a copy of \texttt{s1}.} \\
+ \texttt{string s2 = s1} & Equivalent to \texttt{s2(s1)}, \texttt{s2} is a copy of \texttt{s1}. \\
+ \texttt{string s3("value")} & {\texttt{s3} is a copy of the string literal, not including the null.} \\
+ \texttt{string s3="value"} & {Equivalent to \texttt{s3("value")}, \texttt{s3} is a copy of the string literal.} \\
+ \texttt{string s4(n, 'c')} & {Initialize \texttt{s4} with \texttt{n} copies of the character \texttt{'c'}}. \\
+ \hline\end{tabular}
 
 \end{itemize}
