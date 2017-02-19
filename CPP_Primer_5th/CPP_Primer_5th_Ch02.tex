@@ -70,7 +70,7 @@
 
 \item As we've seen, when we dereference a pointer, we get the object to which the pointer points. Moreover, we can assign to that object. Thus, the type deduced by \texttt{decltype(*p)} is \texttt{int\&}, not plain \texttt{int}.
 
-\item When we apply \texttt{decltype} to a variable without any parentheses, we get the type of that variable. If we wrap the variable's name in one or more sets of parentheses, the conpiler will evaluate the operand as an expression. A variable is an expression that can be the left-hand side of an assignment. As a result, \texttt{decltype} on such an expression yields a reference.\\\hspace*{1em}\texttt{// }\textit{decltype of a parenthesized variable is always a reference}\\\hspace{1em}\texttt{decltype((i)) d; // }\textit{error: d is int\& and must be initialized}\\\hspace*{1em}\texttt{decltype(i) e; // }\textit{ok: e is an (uninitialized) int}
+\item When we apply \texttt{decltype} to a variable without any parentheses, we get the type of that variable. If we wrap the variable's name in one or more sets of parentheses, the compiler will evaluate the operand as an expression. A variable is an expression that can be the left-hand side of an assignment. As a result, \texttt{decltype} on such an expression yields a reference.\\\hspace*{1em}\texttt{// }\textit{decltype of a parenthesized variable is always a reference}\\\hspace*{1em}\texttt{decltype((i)) d; // }\textit{error: d is int\& and must be initialized}\\\hspace*{1em}\texttt{decltype(i) e; // }\textit{ok: e is an (uninitialized) int}
 
 \item It is a common mistake among new programmers to forget the semicolon at the end of a class definition.
 
