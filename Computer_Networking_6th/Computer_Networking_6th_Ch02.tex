@@ -1,6 +1,111 @@
 \section{Application Layer}
 \begin{itemize}
 
-\item The \textbf{application architecture}, 
+\item The \textbf{application architecture}, on the other hand, is designed by the application developer and dictates how the application is structured over the various end systems.
+
+\item In a \textbf{client-server architecture}, there is an always-on host, called the \textit{server}, which serves requests from many other hosts, called \textit{clients}.
+
+\item In a \textbf{P2P architecture}, there is minimal (or no) reliance on dedicated servers in data centers. Instead the application exploits direct communication between pairs of intermittently connected hosts, called \textit{peers}.
+
+\item In the jargon of operating systems, it is not actually programs but \textbf{processes} that communicate. A process can be thought of as a program that is running within an end system.
+
+\item Processes on two different end systems communicate with each other by exchanging \textbf{messages} across the computer network.
+
+\item \textit{In the context of a communication session between a pair of processes, the process that initiates the communication (that is, initially contacts the other process at the beginning of the session) is labeled as the \textbf{client}. The process that waits to be contacted to begin the session is the \textbf{server}.}
+
+\item A process sends message into, and receive messages from, the network through a software interface called a \textbf{socket}.
+
+\item A socket is the interface between the application layer and the transport layer within a host. It is also referred to as the \textbf{Application Programming Interface (API)} between the application and the network, since the socket is the programming interface with which network applications are built.
+
+\item In addition to knowing the address of the host to which a message is destined, the sending process must also identify the receiving process (more specifically, the receiving socket) running in the host. This information is needed because in general a host could be running many network applications. A destination \textbf{port number} serves this purpose.
+
+\item For many applications, data loss can have devastating consequences. Thus, to support these applications, something has to be done to guarantee that the data sent by one end of the application is delivered correctly and completely to the other end of the application. If a protocol provides such a guaranteed data delivery service, it is said to provide \textbf{reliable data transfer}.
+
+\item When a transport-layer protocol doesn't provide reliable data transfer, some of the data sent by the sending process may never arrive at the receiving process. This may be acceptable for \textbf{loss-tolerant applications}.
+
+\item Applications that have throughput requirements are said to be \textbf{bandwidth-sensitive applications}.
+
+\item While bandwidth-sensitive applications have specific throughput requirements, \textbf{elastic applications} can make use of as much, or as little, throughput as happens to be available.
+
+\item A transport-layer protocol can also provide timing guarantees. As with throughput guarantees, timing guarantees can come in many shapes and forms.
+
+\item Finally, a transport protocol can provide an application with one or more security services.
+
+\item The TCP service model includes a connection-oriented service and a reliable data transfer service.
+
+\item \texttt{Because privacy and other security issues have become critical for many applications, the Internet community has developed an enhancement for TCP, called \textbf{Secure Sockets Layer (SSL)}.}
+
+\item UDP is a no-frills, lightweight transport protocol, providing minimal services.
+
+\item An \textbf{application-layer protocol} defines how an application's processes, running on different end systems, pass messages to each other.
+
+\item The \textbf{HyperText Transfer Protocol (HTTP)}, the Web's application-layer protocol, is at the heart of the Web. HTTP is implemented in two programs: a client program and a server program. The client program and server program, executing on different end systems, talk to each other by exchanging HTTP messages. HTTP defines the structure of these messages and how the client and server exchange the messages.
+
+\item Because an HTTP server maintains no information about the clients, HTTP is said to be a \textbf{stateless protocol}.
+
+\item For HTTP with non-persistent connections, each TCP connection is closed after the sever sends the object---the connection does not persist for other objects.
+
+\item We define the \textbf{round-trip time (RTT)}, which is the time it takes for a small packet to travel from client to server and then back to the client.
+
+\item With persistent connections, the server leaves the TCP connection open after sending a response. Subsequent requests and responses between the same client and server can be sent over the same connection.
+
+\item Below we provide a typical HTTP request message:\\
+\hspace*{1em}\texttt{GET /somedir/page.html HTTP/1.1}\\
+\hspace*{1em}\texttt{Host: www.someschool.edu}\\
+\hspace*{1em}\texttt{Connection: close}\\
+\hspace*{1em}\texttt{User-agent: Mozilla/5.0}\\
+\hspace*{1em}\texttt{Accept-language: fr}
+
+\item The first line of an HTTP request message is called the \textbf{request line}; the subsequent lines are called the \textbf{header lines}.
+
+\item Below we provide a typical HTTP response message:\\
+\hspace*{1em}\texttt{HTTP/1.1 200 OK}\\
+\hspace*{1em}\texttt{Connection: close}\\
+\hspace*{1em}\texttt{Date: Tue, 09 Aug 2011 15:44:04 GMT}\\
+\hspace*{1em}\texttt{Server: Apache/2.2.3 (CentOS)}\\
+\hspace*{1em}\texttt{Last-Modified: Tue, 09 Aug 2011 15:11:03 GMT}\\
+\hspace*{1em}\texttt{Content-Length: 6821}\\
+\hspace*{1em}\texttt{Content-Type: text/html}\\
+\hspace*{1em}\\
+\hspace*{1em}\texttt{(data data data data data ...)}
+
+\item The response message has three sections: an initial \textbf{status line}, six \textbf{header lines}, and then the \textbf{entity body}.
+
+\item Cookies can be used to create a user session layer on top of stateless HTTP.
+
+\item A \textbf{Web cache}---also called a \textbf{proxy server}---is a network entity that satisfies HTTP requests on the behalf of an origin Web server.
+
+\item Hit rates---the fraction of requests that are satisfied by a cache---typically range from 0.2 to 0.7 in practice.
+
+\item Through the use of \textbf{Content Distribution Networks (CDNs)}, Web caches are increasingly playing an important role in the Internet.
+
+\item HTTP has a mechanism that allows a cache to verify that its objects are up to date. This mechanism is called the \textbf{conditional GET}.
+
+\item FTP uses two parallel TCP connections to transfer a file, a \textbf{control connection} and a \textbf{data connection}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{itemize}
