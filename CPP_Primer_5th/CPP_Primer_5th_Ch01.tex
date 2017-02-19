@@ -7,9 +7,7 @@
 
 \item \hspace*{1em}\texttt{\#include <iostream>}\\The name inside angle brackets (\texttt{iostream} in this case) refers to a \textbf{header}. Every program that uses a library facility must include its associated header.
 
-\item Writing \texttt{endl} has the effect of ending the current line and flushing the \textbf{buffer} associated with that device. Flushing the buffer ensures that all the output the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.
-
-\item Programmers often add print statements during debugging. Such statements should \textit{always} flush the stream. Otherwise, if the program crashes, output may be left in the buffer, leading to incorrect inferences about where the program crashed.
+\item Writing \texttt{endl} has the effect of ending the current line and flushing the \textbf{buffer} associated with that device. Flushing the buffer ensures that all the output the program has generated so far is actually written to the output stream, rather than sitting in memory waiting to be written.\\Programmers often add print statements during debugging. Such statements should \textit{always} flush the stream. Otherwise, if the program crashes, output may be left in the buffer, leading to incorrect inferences about where the program crashed.
 
 \item Namespaces allow us to avoid inadvertent collisions between the names we define and uses of those same names inside a library.
 
