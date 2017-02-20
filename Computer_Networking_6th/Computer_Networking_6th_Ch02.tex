@@ -1,64 +1,58 @@
 \section{Application Layer}
 \begin{itemize}
 
-\item The \textbf{application architecture}, on the other hand, is designed by the application developer and dictates how the application is structured over the various end systems.
+\item
+The \textbf{application architecture}, is designed by the application developer and dictates how the application is structured over the various end systems.
 
-\item In a \textbf{client-server architecture}, there is an always-on host, called the \textit{server}, which serves requests from many other hosts, called \textit{clients}.
+\item
+\textit{In the context of a communication session between a pair of processes, the process that initiates the communication (that is, initially contacts the other process at the beginning of the session) is labeled as the \textbf{client}. The process that waits to be contacted to begin the session is the \textbf{server}.}\\
+In a \textbf{client-server architecture}, there is an always-on host, called the \textit{server}, which serves requests from many other hosts, called \textit{clients}.\\In a \textbf{P2P architecture}, there is minimal (or no) reliance on dedicated servers in data centers. Instead the application exploits direct communication between pairs of intermittently connected hosts, called \textit{peers}.
 
-\item In a \textbf{P2P architecture}, there is minimal (or no) reliance on dedicated servers in data centers. Instead the application exploits direct communication between pairs of intermittently connected hosts, called \textit{peers}.
+\item
+In the jargon of operating systems, it is not actually programs but \textbf{processes} that communicate. A process can be thought of as a program that is running within an end system.\\
+Processes on two different end systems communicate with each other by exchanging \textbf{messages} across the computer network.
 
-\item In the jargon of operating systems, it is not actually programs but \textbf{processes} that communicate. A process can be thought of as a program that is running within an end system.
+\item
+A process sends message into, and receives messages from, the network through a software interface called a \textbf{socket}.\\
+A socket is the interface between the application layer and the transport layer within a host. It is also referred to as the \textbf{Application Programming Interface (API)} between the application and the network, since the socket is the programming interface with which network applications are built.\\
+In addition to knowing the address of the host to which a message is destined, the sending process must also identify the receiving process (more specifically, the receiving socket) running in the host. This information is needed because in general a host could be running many network applications. A destination \textbf{port number} serves this purpose.
 
-\item Processes on two different end systems communicate with each other by exchanging \textbf{messages} across the computer network.
+\item
+For many applications, data loss can have devastating consequences. Thus, to support these applications, something has to be done to guarantee that the data sent by one end of the application is delivered correctly and completely to the other end of the application. If a protocol provides such a guaranteed data delivery service, it is said to provide \textbf{reliable data transfer}. When a transport-layer protocol doesn't provide reliable data transfer, some of the data sent by the sending process may never arrive at the receiving process. This may be acceptable for \textbf{loss-tolerant applications}.\\
+Applications that have throughput requirements are said to be \textbf{bandwidth-sensitive applications}. While bandwidth-sensitive applications have specific throughput requirements, \textbf{elastic applications} can make use of as much, or as little, throughput as happens to be available.\\
+A transport-layer protocol can also provide timing guarantees. As with throughput guarantees, timing guarantees can come in many shapes and forms.\\
+Finally, a transport protocol can provide an application with one or more security services.
 
-\item \textit{In the context of a communication session between a pair of processes, the process that initiates the communication (that is, initially contacts the other process at the beginning of the session) is labeled as the \textbf{client}. The process that waits to be contacted to begin the session is the \textbf{server}.}
+\item
+The TCP service model includes a connection-oriented service and a reliable data transfer service.\\
+UDP is a no-frills, lightweight transport protocol, providing minimal services.
 
-\item A process sends message into, and receive messages from, the network through a software interface called a \textbf{socket}.
+\item
+Because privacy and other security issues have become critical for many applications, the Internet community has developed an enhancement for TCP, called \textbf{Secure Sockets Layer (SSL)}.
 
-\item A socket is the interface between the application layer and the transport layer within a host. It is also referred to as the \textbf{Application Programming Interface (API)} between the application and the network, since the socket is the programming interface with which network applications are built.
+\item
+An \textbf{application-layer protocol} defines how an application's processes, running on different end systems, pass messages to each other.
 
-\item In addition to knowing the address of the host to which a message is destined, the sending process must also identify the receiving process (more specifically, the receiving socket) running in the host. This information is needed because in general a host could be running many network applications. A destination \textbf{port number} serves this purpose.
+\item
+The \textbf{HyperText Transfer Protocol (HTTP)}, the Web's application-layer protocol, is at the heart of the Web. HTTP is implemented in two programs: a client program and a server program. The client program and server program, executing on different end systems, talk to each other by exchanging HTTP messages. HTTP defines the structure of these messages and how the client and server exchange the messages.\\Because an HTTP server maintains no information about the clients, HTTP is said to be a \textbf{stateless protocol}.
 
-\item For many applications, data loss can have devastating consequences. Thus, to support these applications, something has to be done to guarantee that the data sent by one end of the application is delivered correctly and completely to the other end of the application. If a protocol provides such a guaranteed data delivery service, it is said to provide \textbf{reliable data transfer}.
+\item
+For HTTP with non-persistent connections, each TCP connection is closed after the sever sends the object---the connection does not persist for other objects.\\
+With persistent connections, the server leaves the TCP connection open after sending a response. Subsequent requests and responses between the same client and server can be sent over the same connection.
 
-\item When a transport-layer protocol doesn't provide reliable data transfer, some of the data sent by the sending process may never arrive at the receiving process. This may be acceptable for \textbf{loss-tolerant applications}.
-
-\item Applications that have throughput requirements are said to be \textbf{bandwidth-sensitive applications}.
-
-\item While bandwidth-sensitive applications have specific throughput requirements, \textbf{elastic applications} can make use of as much, or as little, throughput as happens to be available.
-
-\item A transport-layer protocol can also provide timing guarantees. As with throughput guarantees, timing guarantees can come in many shapes and forms.
-
-\item Finally, a transport protocol can provide an application with one or more security services.
-
-\item The TCP service model includes a connection-oriented service and a reliable data transfer service.
-
-\item \texttt{Because privacy and other security issues have become critical for many applications, the Internet community has developed an enhancement for TCP, called \textbf{Secure Sockets Layer (SSL)}.}
-
-\item UDP is a no-frills, lightweight transport protocol, providing minimal services.
-
-\item An \textbf{application-layer protocol} defines how an application's processes, running on different end systems, pass messages to each other.
-
-\item The \textbf{HyperText Transfer Protocol (HTTP)}, the Web's application-layer protocol, is at the heart of the Web. HTTP is implemented in two programs: a client program and a server program. The client program and server program, executing on different end systems, talk to each other by exchanging HTTP messages. HTTP defines the structure of these messages and how the client and server exchange the messages.
-
-\item Because an HTTP server maintains no information about the clients, HTTP is said to be a \textbf{stateless protocol}.
-
-\item For HTTP with non-persistent connections, each TCP connection is closed after the sever sends the object---the connection does not persist for other objects.
-
-\item We define the \textbf{round-trip time (RTT)}, which is the time it takes for a small packet to travel from client to server and then back to the client.
-
-\item With persistent connections, the server leaves the TCP connection open after sending a response. Subsequent requests and responses between the same client and server can be sent over the same connection.
+\item
+We define the \textbf{round-trip time (RTT)}, which is the time it takes for a small packet to travel from client to server and then back to the client.
 
 \item Below we provide a typical HTTP request message:\\
 \hspace*{1em}\texttt{GET /somedir/page.html HTTP/1.1}\\
 \hspace*{1em}\texttt{Host: www.someschool.edu}\\
 \hspace*{1em}\texttt{Connection: close}\\
 \hspace*{1em}\texttt{User-agent: Mozilla/5.0}\\
-\hspace*{1em}\texttt{Accept-language: fr}
+\hspace*{1em}\texttt{Accept-language: fr}\\
+The first line of an HTTP request message is called the \textbf{request line}; the subsequent lines are called the \textbf{header lines}.
 
-\item The first line of an HTTP request message is called the \textbf{request line}; the subsequent lines are called the \textbf{header lines}.
-
-\item Below we provide a typical HTTP response message:\\
+\item
+Below we provide a typical HTTP response message:\\
 \hspace*{1em}\texttt{HTTP/1.1 200 OK}\\
 \hspace*{1em}\texttt{Connection: close}\\
 \hspace*{1em}\texttt{Date: Tue, 09 Aug 2011 15:44:04 GMT}\\
@@ -67,45 +61,58 @@
 \hspace*{1em}\texttt{Content-Length: 6821}\\
 \hspace*{1em}\texttt{Content-Type: text/html}\\
 \hspace*{1em}\\
-\hspace*{1em}\texttt{(data data data data data ...)}
+\hspace*{1em}\texttt{(data data data data data ...)}\\
+The response message has three sections: an initial \textbf{status line}, six \textbf{header lines}, and then the \textbf{entity body}.
 
-\item The response message has three sections: an initial \textbf{status line}, six \textbf{header lines}, and then the \textbf{entity body}.
+\item
+Cookies can be used to create a user session layer on top of stateless HTTP.
 
-\item Cookies can be used to create a user session layer on top of stateless HTTP.
+\item
+A \textbf{Web cache}---also called a \textbf{proxy server}---is a network entity that satisfies HTTP requests on the behalf of an origin Web server.\\
+Hit rates---the fraction of requests that are satisfied by a cache---typically range from 0.2 to 0.7 in practice.\\
+Through the use of \textbf{Content Distribution Networks (CDNs)}, Web caches are increasingly playing an important role in the Internet.\\
+HTTP has a mechanism that allows a cache to verify that its objects are up to date. This mechanism is called the \textbf{conditional GET}.
 
-\item A \textbf{Web cache}---also called a \textbf{proxy server}---is a network entity that satisfies HTTP requests on the behalf of an origin Web server.
+\item
+FTP uses two parallel TCP connections to transfer a file, a \textbf{control connection} and a \textbf{data connection}.
 
-\item Hit rates---the fraction of requests that are satisfied by a cache---typically range from 0.2 to 0.7 in practice.
+\item
+The Internet mail system has three major components: \textbf{user agents}, \textbf{mail servers}, and the \textbf{Simple Mail Transfer Protocol (SMTP)}.\\
+SMTP is at the heart of Internet electronic mail. As mentioned above, SMTP transfers messages from senders' mail servers to the recipients' mail servers.
 
-\item Through the use of \textbf{Content Distribution Networks (CDNs)}, Web caches are increasingly playing an important role in the Internet.
+\item
+There are currently a number of popular mail access protocols, including \textbf{Post Office Protocol---Version 3 (POP3)}, \textbf{Internet Mail Access Protocol (IMAP)}, and HTTP.\\
+POP3 begins when the user agent (the client) opens a TCP connection to the mail server (the server) on port 110. With the TCP connection established, POP3 progresses through three phases: authorization, transaction, and update.\\
+An IMAP server will associate each message with a folder; when a message first arrives at the server, it is associated with the recipient's INBOX folder. Another important feature of IMAP is that it has commands that permit a user agent to obtain components of messages.
 
-\item HTTP has a mechanism that allows a cache to verify that its objects are up to date. This mechanism is called the \textbf{conditional GET}.
+\item
+People prefer the more mnemonic hostname identifier, while routers prefer fixed-length, hierarchically structured IP addresses. In order to reconcile these preferences, we need a directory service that translates hostnames to IP addresses. This is the main task of the Internet's \textbf{domain name system (DNS)}.\\
+Interaction of the various DNS servers makes use of both \textbf{recursive queries} and \textbf{iterative queries}.\\
+In truth, DNS extensively exploits DNS caching in order to improve the delay performance and to reduce the number of DNS messages ricocheting around the Internet.\\
+The DNS servers that together implement the DNS distributed database store \textbf{resource records (RRs)}, including RRs that provide hostname-to-IP address mappings.\\
+A \textbf{registrar} is a commercial entity that verifies the uniqueness of the domain name, enters the domain name into the DNS database, and collects a small fee from you for its services.
 
-\item FTP uses two parallel TCP connections to transfer a file, a \textbf{control connection} and a \textbf{data connection}.
+\item
+The first type of attack that comes to mind is a DDoS bandwidth-flooding attack against DNS servers.\\
+In a man-in-the-middle attack, the attacker intercepts queries from hosts and returns bogus replies.\\
+Another important DNS attack is not an attack on the DNS service per se, but instead exploits the DNS infrastructure to launch a DDoS attack against a targeted host (for example, your university's mail server).
 
+\item
+With a P2P architecture, there is minimal (or no) reliance on always-on infrastructure servers. Instead, pairs of intermittently connected hosts, called peers, communicate directly with each other.\\In P2P file distribution, each peer can redistribute any portion of the file it has received to any other peers, thereby assisting the server in the distribution process.
 
+\item
+BitTorrent is a popular P2P protocol for file distribution. In BitTorrent lingo, the collection of all peers participating in the distribution of a particular file is called a \textit{torrent}.\\
+Each torrent has an infrastructure node called a \textit{tracker}. When a peer joins a torrent, it registers itself with the tracker and periodically informs the tracker that it is still in the torrent.\\
+In deciding which chunks to request, a peer uses a technique called \textbf{rarest first}.\\
+To determine which requests a peer responds to, BitTorrent uses a clever trading algorithm. The basic idea is that a peer gives priority to the neighbors that are currently supplying his data \textit{at the highest rate}.
 
+\item
+In the P2P system, each peer will only hold a small subset of the totality of the (key, value) pairs. We'll allow any peer to query the distributed database with a particular key. The distributed database will then locate the peers that have the corresponding (key, value) pairs and return the key-value pairs to the querying peer. Any peer will also be allowed to insert new key-value pairs into the database. Such a distributed database is referred to as an \textbf{distributed hash table (DHT)}.
 
+\item
+\textbf{Distributed Hash Tables (DHTs)}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\item
+A hash function is a many-to-one function for which two different inputs can have the same output (same integer), but the likelihood of the having the same output is extremely small.
 
 \end{itemize}
