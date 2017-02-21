@@ -2,5 +2,170 @@
 \begin{itemize}
 
 \item
+On the sending side, the transport layer converts the application-layer messages it receives from a sending application process into transport-layer packets, known as transport-layer \textbf{segments} in Internet terminology.\\
+On the receiving side, the network layer extracts the transport-layer segment from the datagram and passes the segment up to the transport layer. The transport layer then processes the received segment, making the data in the segment available to the receiving application.
+
+\item
+Whereas a transport-layer protocol provides logical communication between \textit{processes} running on different hosts, a network-layer protocol provides logical communication between \textit{hosts}.
+
+\item
+The Internet, and more generally a TCP/IP network, makes two distinct transport-layer protocols available to the application layer. One of these protocols is \textbf{UDP} (User Datagram Protocol), which provides an unreliable, connectionless service to the invoking application. The second of these protocols is \textbf{TCP} (Transmission Control Protocol), which provides a reliable, connection-oriented service to the invoking application.
+
+\item
+The IP service model is a \textbf{best-effort delivery service}. This means that IP makes its "best effort" to deliver segments between communicating hosts, \textit{but it makes no guarantees}.
+
+\item
+Extending host-to-host delivery to process-to-process delivery is called \textbf{transport-layer multiplexing} and \textbf{demultiplexing}.
+
+\item
+TCP also provides \textbf{congestion control}. Congestion control is not so much a service provided to the invoking application as it is a service for the Internet as a whole, a service for the general good.
+
+\item
+Although we have introduced multiplexing and demultiplexing in the context of the Internet transport protocols, it's important to realize that they are concerns whenever a single protocol at one layer (at the transport layer or elsewhere) is used by multiple protocols at the next higher layer.
+
+\item
+Typically, the client side of the application lets the transport layer automatically (and transparently) assign the port number, whereas the server side of the application assigns a specific port number.
+
+\item
+It is important to note that a UDP socket is fully identified by a two-tuple consisting of a destination IP address and a destination port number.
+
+\item
+One subtle difference between a TCP socket and a UDP socket is that a TCP socket is identified by a four-tuple: (source IP address, source port number, destination IP address, destination port number).
+
+\item
+If we determine that a port is open on a host, we may be able to map that port to a specific application running on the host.
+
+\item
+In fact, today's high-performance Web servers often use only one process, and create a new thread with a new connection socket for each new client connection. (A thread can be viewed as a lightweight subprocess.)
+
+\item
+UDP does just about as little as a transport protocol can do. Aside from the multiplexing/demultiplexing function and some light error checking, it adds nothing to IP.
+The length field specifies the number of bytes in the UDP segment (header plus data).
+The checksum is used by the receiving host to check whether errors have been introduced into the segment. In truth, the checksum is also calculated over a few of the fields in the IP header in addition to the UDP segment.
+UDP at the sender side performs the 1s complement of the sum of all the 16-bit words in the segment, with any overflow encountered during the sum being wrapped around.
+Given that neither link-by-link reliability nor in-memory error detection is guaranteed, UDP must provide error detection at the transport layer, \textit{on an end-to-end basis}, if the end-end data transfer service is to provide error detection. This is an example of the celebrated \textit{end-end principle} in system design, which states that since certain functionality (error detection, in this case) must be implemented on an end-end basis:"functions placed at the lower levels may be redundant or of little value when compared to the cost of providing them at the higher level."
+
+\item
+With a reliable channel, no transferred data bits are corrupted (flipped from 0 to 1, or vice versa) or lost, and all are delivered in the order in which they were sent. This is precisely the service model offered by TCP to the Internet applications that invoke it.\\
+It is the responsibility of a \textbf{reliable data transfer protocol} to implement this service abstraction. This task is made difficult by the fact that the layer \textit{below} the reliable data transfer protocol may be unreliable.
+
+\item
+The control messages allow the receiver to let the sender know what has been received correctly, and what has been received in error and thus requires repeating. In a computer network setting, reliable data transfer protocols based on such retransmission are known as \textbf{ARQ (Automatic Repeat reQuest) protocols}.\\
+Then sender will not send a new piece of data until it is sure that the receiver has correctly received the current packet. Because of this behavior, such protocols are known as \textbf{stop-and-wait} protocols.\\
+A simple solution to the duplicate packets problem (and one adopted in almost all existing data transfer protocols, including TCP) is to add a new field to the data packet and have the sender number its data packets by putting a \textbf{sequence number} into this field.\\
+The protocol whose packet sequence numbers alternate between 0 and 1 is sometimes known as the \textbf{alternating-bit protocol}.\\
+We define the \textbf{utilization} of the sender (or the channel) as the fraction of time the sender is actually busy sending bits into the channel.\\
+Rather than operate in a stop-and-wait manner, the sender is allowed to send multiple packets without waiting for acknowledgements. Since the many in-transit sender-to-receiver packets can be visualized as filling a pipeline, this technique is known as \textbf{pipelining}.\\
+In a \textbf{Go-Back-N (GBN) protocol}, the sender is allowed to transmit multiple packets (when available) without waiting for an acknowledgement, but is constrained to have no more than some maximum allowable number, N, of unacknowledged packets in the pipeline.\\
+As the protocol operates, this window slides forward over the sequence number space. For this reason, N is often referred to as the \textbf{window size} and the GBN protocol it self as a \textbf{sliding-window protocol}.\\
+In our GBN protocol, an acknowledge for a packet with sequence number \textit{n} will be taken to be a \textbf{cumulative acknowledgement}, indicating that all packets with a sequence number up to and including \textit{n} have been correctly received at the receiver.\\
+It is important to note that the receiver reacknowledges (rather than ignores) already received packets with certain sequence numbers \textit{below} the current window base.\\
+Because sequence numbers may be reused, some care must be taken to guard against such duplicate packets. The approach taken in practice is to ensure that a sequence number is not reused until the sender is "sure" that any previously sent packets with sequence number \textit{x} are no longer in the network. This is done by assuming that a packet cannot "live" in the network longer than some fixed maximum amount of time.
+
+\item
+A TCP connection provides a \textbf{full-duplex service}. A TCP connection is also always \textbf{point-to-point}, that is, between a single sender and a single receiver.
+
+\item
+For now it suffices to know that the client first sends a special TCP segment; the server responds with a second special TCP segment; and finally the client responds again with a third special segment. Because three segments are sent between the two hosts, this connection-establishment procedure is often referred to as a \textbf{three-way handshake}.
+
+\item
+The maximum amount of data that can be grabbed and placed in a segment is limited by the \textbf{maximum segment size (MSS)}. The MSS is typically set by first determining the length of the largest link-layer frame that can be sent by the local sending host (the so-called \textbf{maximum transmission unit, MTU}), and then setting the MSS to ensure that a TCP segment (when encapsulated in an IP datagram) plus the TCP/IP header length (typical 40 bytes) will fit into a single link-layer frame. Approaches have also been proposed for discovering the path MTU---the largest link-layer frame that can be sent on all links from source to destination---and setting the MSS based on the path MTU value. Note that the MSS is the maximum amount of application-layer data in the segment, not the maximum size of the TCP segment including headers.
+
+\item
+TCP views data as an unstructured, but ordered, stream of bytes. TCP's use of sequence numbers reflects this view in that sequence numbers are over the stream of transmitted bytes and \textit{not} over the series of transmitted segments. The \textbf{sequence number for a segment} is there for the byte-stream number of the first byte in the segment.
+
+\item
+The \textit{acknowledgement number that Host A puts in its segment is the sequence number of the next byte Host A is expecting from Host B}.
+
+\item
+Because TCP only acknowledges bytes up to the first missing byte in the stream, TCP is said to provide \textbf{cumulative acknowledgements}.
+
+\item
+Note that the acknowledgement for client-to-server data is carried in a segment carrying server-to-client data; this acknowledgement is said to be \textbf{piggybacked} on the server-to-client data segment.
+
+\item
+The sample RTT, denoted \texttt{SampleRTT}, for a segment is the amount of time between when the segment is sent (that is, passed to IP) and when an acknowledgement for the segment is received.\\
+\hspace*{1em}\texttt{EstimatedRTT = (1 - \alpha) * EstimatedRTT + \alpha * SampleRTT }
+
+\item
+The RTT variation, \texttt{DevRTT}, is defined as an estimate of how much \texttt{SampleRTT} typically deviates from \texttt{EstimatedRTT}.\\
+\hspace*{1em}\texttt{DevRTT = (1 - \beta) * DevRTT + \beta * |SampleRTT - EstimatedRTT |}
+
+\item
+It is therefore desirable to set the timeout equal to the \texttt{EstimatedRTT} plus some margin. The margin should be large when there is a lot of fluctuation in the \texttt{SampleRTT} values; it should be small when there is little fluctuation.\\
+\hspace*{1em}\texttt{TimeoutInterval = EstimatedRTT + 4 * DevRTT}
+
+\item
+TCP creates a \textbf{reliable data transfer service} on top of IP's unreliable best-effort service.
+
+\item
+A \textbf{duplicate ACK} is an ACK that reacknowledges a segment for which the sender has already received an earlier acknowledgement.
+
+\item
+If the TCP sender receives three duplicate ACKs for the same data, it takes this as an indication that the segment following the segment that has been ACKed three times has been lost. In the case that three duplicate ACKs are received, the TCP sender performs a \textbf{fast retransmit}, retransmitting the missing segment \textit{before} that segment's timer expires.
+
+\item
+A proposed modification to TCP, the so-called \textbf{selective acknowledgement}, allows a TCP receiver to acknowledge out-of-order segments selectively rather than just cumulatively acknowledging the last correctly received, in-order segment.
+
+\item
+TCP provides a \textbf{flow-control service} to its applications to eliminate the possibility of the sender overflowing the receiver's buffer.
+
+\item
+As noted earlier, a TCP sender can also be throttled due to congestion within the IP network; this form of sender control is referred to as \textbf{congestion control}.
+
+\item
+TCP provides flow control by having the \textit{sender} maintain a variable called the \textbf{receive window}.
+
+\item
+Suppose Host B's receive buffer becomes full so that \texttt{rwnd = 0}. After advertising \texttt{rwnd = 0} to Host A, also suppose that B has \textit{nothing} to send to A. Host A is never informed that some space has opened up in Host B's receiver buffer---Host A is blocked and can transmit no more data! To solve this problem, the TCP specification requires Host A to continue to send segments with one data byte when B's receive window is zero.
+
+\item
+This TCP connection management protocol; sets the stage for a classic Denial of Service (Dos) attack known as the \textbf{SYN flood attack}. In this attack, the attacker(s) send a large number of TCP SYN segments, without completing the third handshake step.\\
+Fortunately, an effective defense known as \textbf{SYN cookies} are now deployed in most major operating systems.\\
+Instead of creating a half-open TCP connection for this SYN, the server creates an initial TCP sequence number that is a complicated function (hash function) of source and destination IP addresses and port numbers of the SYN segment, as well as a secret number only known to the server. This carefully crafted initial sequence number is the so-called "cookie".
+
+\item
+\textit{One cost of a congested network---large queuing delays are experienced as the packet-arrival rate nears the link capacity.}\\
+\textit{Another cost of a congested network---the sender must perform retransmissions in order to compensate for dropped (lost) packets due to buffer overflow.}\\
+\textit{Yet another cost of a congested network---unneeded retransmissions by the sender in the face of large delays may cause a router to use its link bandwidth to forward unneeded copies of a packet.}\\
+\textit{Yet another cost of dropping a packet due to congestion---when a packet is dropped along a path, the transmission capacity that was used at each of the upstream links to forward that packet to the point at which it is dropped ends up having been wasted.}
+
+\item
+At the broadest level, we can distinguish among congestion-control approaches by whether the network layer provides any explicit assistance to the transport layer for congestion-control purposes:\\
+\textit{End-to-end congestion control.}\\
+\textit{Network-assisted congestion control.}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{itemize}
