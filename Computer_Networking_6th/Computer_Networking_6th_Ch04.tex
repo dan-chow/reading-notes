@@ -1,0 +1,93 @@
+\section{The Network Layer}
+\begin{itemize}
+
+\item
+In this chapter, we'll make an important distinction between the \textbf{forwarding} and \textbf{routing} functions of the network layer. Forwarding involves the transfer of a packet from an incoming link to an outgoing link within a \textit{single} router. Routing involves \textit{all} of a network's routers, whose collective interactions via routing protocols determines the paths that packets take on their trips from source to destination node.
+
+\item
+\textit{Forwarding} refers to the router-local action of transferring a packet from an input interface to the appropriate output link interface. \textit{Routing} refers to the network-wide process that determines the end-to-end paths that packets take from source to destination.
+
+\item
+We'll reserve the term \textit{packet switch} to mean a general packet-switching device that transfers a packet from input link interface to output link interface, according to the value in a field in the header of the packet. Some packet switches, called \textbf{link-layer switches}, base their forwarding decision on values in the fields of the link-layer frames; switches are thus referred to as link-layer (layer 2) devices. Other packet switches, called \textbf{routers}, base their forwarding decision on the value in the network-layer field. Routers are thus network-layer (layer 3) devices, but must also implement layer 2 protocols as well, since layer 3 devices require the services of layer 2 to implement their (layer 3) functionality.
+
+\item
+In an analogous manner, some network-layer architectures---for example, ATM, frame delay, and MPLS---require the routers along the chosen path from source to destination to handshake with each other in order to set up state before network-layer data packets within a given source-to-destination connection can begin to flow. In the network layer, this process is referred to as \textit{connection setup}.
+
+\item
+The Internet's network layer provides a single service, known as \textbf{best-effort service}.
+
+\item
+Two of the more important ATM service models are constant bit rate and available bit rate service:
+\begin{itemize}
+\item\textit{\textbf{Constant bit rate (CBR) ATM network service.}}
+\item\textit{\textbf{Available bit rate (ABR) ATM network service.}}
+\end{itemize}
+
+\item
+In a similar manner, a network layer can provide connectionless service or connection service between two hosts.\\
+Computer networks that provide only a connection service at the network layer are called \textbf{virtual-circuit (VC) networks}; computer networks that provide only a connectionless service at the network layer are called \textbf{datagram networks}.\\
+We saw in the previous chapter that the transport-layer connection-oriented service is implemented at the edge of the network in the end systems; we'll see shortly that the network-layer connection service is implemented in the routers in the network core as well as in the end system.
+
+\item
+A VC consists of (1) a path (that is, a series of links and routers) between the source and destination hosts, (2) VC numbers, one number for each link along the path, and (3) entries in the forwarding table in each router along the path. A packet belonging to a virtual circuit will carry a VC number in its header. Because a virtual circuit may have a different VC number on each link, each intervening router must replace the VC number of each traversing packet with a new VC number. The new VC number is obtained from the forwarding table.
+
+\item
+There are three identifiable phases in a virtual circuit:
+\begin{itemize}
+\item\textit{VC setup.}
+\item\textit{Data transfer.}
+\item\textit{VC teardown.}
+\end{itemize}
+
+\item
+During transport-layer connection setup, the two end systems aline determine the parameters (for example, initial sequence number and flow-control window size) of their transport-layer connection. Although the two end systems are aware of the transport-layer connection, the routers within the network are completely oblivious to it. On the other hand, with a VC network layer, \textit{routers along the path between the two end systems are involved in VC setup, and each router is fully aware of all the VCs passing through it}.
+
+\item
+The messages that the end systems send into the network to initiate the terminate a VC, and the messages passed between the routers to set up the VC (that is, to modify connection state in router tables) are known as \textbf{signaling messages}, and the protocols used to exchange these messages are often referred to as \textbf{signaling protocols}.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{itemize}
