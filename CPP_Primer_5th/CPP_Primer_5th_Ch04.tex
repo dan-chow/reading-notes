@@ -1,0 +1,75 @@
+\section{Expressions}
+\begin{itemize}
+
+\item
+Understanding expressions with multiple operators requires understanding the \textbf{\textit{precedence}} and \textbf{\textit{associativity}} of the operators and may depend on the \textbf{\textit{order of evaluation}} of the operands.
+
+\item
+What may be a bit surprising is that small integral type operands (e.g., \texttt{bool}, \texttt{char}, \texttt{short}, etc.) are generally \textbf{promoted} to a larger integral type, typically \texttt{int}.
+
+\item
+The language defines what the operators mean when applied to built-in and compound types. We can also define what most operators mean when applied to class types. Because such definitions give an alternative meaning to an existing operator symbol, we refer to them as \texttt{overloaded operators}.
+
+\item
+Every expression in C++ is either an \textbf{rvalue} (pronounced "are-value") or an \textbf{lvalue} (pronounced "ell-value").\\
+The important point is that we can use an lvalue when an rvalue is required, but we cannot use an rvalue when a lvalue is required.
+
+\item
+Precedence specifies how the operands are grouped. It says nothing about the order in which the operands are evaluated.
+
+\item
+Earlier versions of the language permitted a negative quotient to be rounded up or down; the new standard requires the quotient to be rounded toward zero (i.e., truncated).\\
+The modulus operator is defined so that if \texttt{m} and \texttt{n} are integers and \texttt{n} is nonzero, then \texttt{(m/n)*n + m\%n} is equal to \texttt{m}. By implication, if \texttt{m/n} is nonzero, it has the same sign as \texttt{m}.
+
+\item
+The logical \texttt{AND} and \texttt{OR} operators always evaluate their left operand before the right. Moreover, the right operand is evaluated \textit{if and only if} the left operand does not determine the result. This strategy is known as \textbf{short-circuit evaluation}.
+
+\item
+Under the new standard, we can use a braced initializer list on the right-hand side.
+
+\item
+Unlike the other binary operators, assignment is right associative.\\
+Because assignment has lower precedence than the relational operators, parentheses are usually needed around assignments in conditions.
+
+\item
+The increment (\texttt{++}) and decrement (\texttt{--}) operators provide a convenient notational shorthand for adding or subtracting 1 from an object. This notation rises above mere convenience when we use these operators with iterators, because many iterators do not support arithmetic.\\
+There are two forms of these operators: prefix and postfix.  The prefix form increments (or decrements) its operand and yields the \textit{changed} object as its result. The postfix operators increment (or decrement) the operand but yield a copy of the original, \textit{unchanged} value as its result.
+
+\item
+The dot operator fetches a member from an object of class type; arrow is defined so that \textit{ptr}\texttt{->}\textit{mem} is a synonym for \textit{(*ptr).mem}.
+
+\item
+The conditional operator has fairly low precedence.
+
+\item
+The bitwise operators take operands of integral type that they use as a collection of bits. These operators let us test and set individual bits.\\
+The left-shift operator (the \texttt{<<} \textbf{operator}) inserts 0-valued bits on the right. The behavior of the right-shift operator (the \texttt{>>} \textbf{operator}) depends on the type of the left-hand operand: If that operand is \texttt{unsigned}, then the operator inserts 0-valued bits on the left; if it is a sighed type, the result is implementation defined---either copies of the sign bit or 0-valued bits are inserted on the left.
+
+\item
+The \texttt{\textbf{sizeof}} operator returns the size, in bytes, of an expression or a type name. The operator is right associative. The result of \texttt{sizeof} is a constant expression of type \texttt{size\_t}. The operator takes one of two forms:\\
+\hspace*{1em}\texttt{sizeof} (\textit{type})\\
+\hspace*{1em}\texttt{sizeof} \textit{expr}
+
+\item
+Under the new standard, we can use the scope operator to ask for the size of a member of a class type.
+
+\item
+The \textbf{comma operator} takes two operands, which it evaluates from left to right. Like the logical \texttt{AND} and logical \texttt{OR} and the conditional operator, the comma operator guarantees the order in which its operands are evaluated.\\
+The left-hand expression is evaluated and its result is discarded. The result of a comma expression is the value of its right-hand expression. The result is an lvalue if the right-hand operand is an lvalue.
+
+\item
+Rather than attempt to add values of the two different types, C++ defines a set of conversions to transform the operands to a common type. These conversions are carried out automatically without programmer intervention---and sometimes without programmer knowledge. For that reason, they are referred to as \textbf{implicit conversions}.
+
+\item
+We use a \textbf{cast} to request an explicit conversion.\\
+A named cast has the following form:\\
+\hspace*{1em}\textit{cast-name}\texttt{<}\textit{type}\texttt{>}\textit{(expression);}\\
+where \textit{type} is the target type of the conversion, and \textit{expression} is the value to be cast. If \textit{type} is a reference, then the result is an lvalue. The \textit{cast-name} may be one of \texttt{\textbf{static\_cast}}, \texttt{\textbf{dynamic\_cast}}, \texttt{\textbf{const\_cast}}, and \texttt{\textbf{reinterpret\_cast}}.
+
+\item
+In early versions of C++, an explicit cast took one of the following two forms:\\
+\hspace*{1em}\textit{type (expr);} // \textit{function-style cast notation}\\
+\hspace*{1em}\textit{(type) expr;} // \textit{C-language-style cast notation}\\
+Old-style casts are less visible than are named casts. Because they are easily overlooked, it is more difficult to track down a rouge cast.
+
+\end{itemize}
