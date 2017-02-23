@@ -40,7 +40,7 @@ There are three identifiable phases in a virtual circuit:
 \end{itemize}
 
 \item
-During transport-layer connection setup, the two end systems aline determine the parameters (for example, initial sequence number and flow-control window size) of their transport-layer connection. Although the two end systems are aware of the transport-layer connection, the routers within the network are completely oblivious to it. On the other hand, with a VC network layer, \textit{routers along the path between the two end systems are involved in VC setup, and each router is fully aware of all the VCs passing through it}.
+During transport-layer connection setup, the two end systems alone determine the parameters (for example, initial sequence number and flow-control window size) of their transport-layer connection. Although the two end systems are aware of the transport-layer connection, the routers within the network are completely oblivious to it. On the other hand, with a VC network layer, \textit{routers along the path between the two end systems are involved in VC setup, and each router is fully aware of all the VCs passing through it}.
 
 \item
 The messages that the end systems send into the network to initiate the terminate a VC, and the messages passed between the routers to set up the VC (that is, to modify connection state in router tables) are known as \textbf{signaling messages}, and the protocols used to exchange these messages are often referred to as \textbf{signaling protocols}.
@@ -158,6 +158,163 @@ An IP address is technically associated with an interface, rather than with the 
 
 \item
 These addresses are typically written in so-called \textbf{dotted-decimal notation}, in which each byte of the address is written in its decimal form and is separated by a period (dot) from other bytes in the address.
+
+\item
+A subnet is also called an \textit{IP network} or simply a \textit{network} in the Internet literature. IP addressing assigns an address to a subnet, e.g.,, 223.1.1.0/24, where the /24 notation, sometimes known as a \textbf{subnet mask}, indicates that the leftmost 24 bits of the 32-bit quantity define the subnet address.
+
+\item
+\textit{To determine the subnets, detach each interface from its host or router, creating islands of isolated networks, with interfaces terminating the end points of the isolated networks. Each of these isolated networks is called a \textit{subnet}.}
+
+\item
+The Internet's address assignment strategy is known as a \textbf{classless Interdomain Routing (CIDR---pronounced \textit{cider}).} CIDR generalizes the notion of subnet addressing. As with subnet addressing, the 32-bit IP address is divided into two parts and again has the dotted-decimal from \textit{a.b.c.d/x}, where \textit{x} indicates the number of bits in the first part of the address.\\
+The \textit{x} most significant bits of an address of the form \textit{a.b.c.d/x} constitute the network portion of the IP address, and are often referred to as the \textbf{prefix} (or \textit{network prefix}) of the address.\\
+The remaining 32-\textit{x} bits of an address can be thought of as distinguishing among the devices \textit{within} the organization, all of which have the same network prefix.\\
+Before CIDR was adopted, the network portions of an IP address were constrained to be 8, 16, or 24 bits in length, an addressing scheme known as \textbf{classful addressing}, since subnets with 8-, 16-, and 24-bit subnet addresses were known as class A, B, and C networks, respectively.
+
+\item
+We would be remiss if we did not mention yet another type of IP addresses, the IP broadcast address 255.255.255.255.
+
+\item
+IP addresses are managed under the authority of the Internet Corporation for Assigned Names and Numbers (ICANN). The role of the nonprofit ICANN organization is not only to allocate IP addresses, but also to manage the DNS root servers. It also has the very contentious job of assigning domain names and resolving domain name disputes.
+
+\item
+A system administrator will typically manually configure the IP addresses into the router (often remotely, with a network management tool). Host addresses can also be configured manually, but more often this task is now done using the \textbf{Dynamic Host Configuration Protocol (DHCP)}. DHCP allows a host to obtain (be allocated) an IP address automatically.\\
+In addition to host IP address assignment, DHCP also allows a host to learn additional information, such as its subnet mask, the address of its first-hop router (often called the default gateway), and the address of its local DNS server.\\
+Because of DHCP's ability to automate the network-related aspects of connecting a host into a network, it is often referred to as a \textbf{plug-and-play protocol}.
+
+\item
+In the simplest case, each subnet will have a DHCP server. If no server is present on the subnet, a DHCP relay agent (typically a router) that knows the address of a DHCP server for that network is needed.
+
+\item
+For a newly arriving host, the DHCP protocol is a four-step process:
+\begin{itemize}
+\item
+\textit{DHCP server discovery.} The first task of a newly arriving host is to find a DHCP server with which to interact. This is done using a \textbf{DHCP discover message}, which a client sends within a UDP packet to port 67.
+\item
+\textit{DHCP server offer(s).} A DHCP server receiving a DHCP discover message responds to the client with a \textbf{DHCP offer message} that is broadcast to all nodes on the subnet. Each server offer message contains the transaction ID of the received discover message, the proposed IP address for the client, the network mask, and an IP 	\textbf{address lease time}---the amount of time for which the IP address will be valid.
+\item
+\textit{DHCP request.} The newly arriving client will choose from among one or more server offers and respond to its selected offer with a \textbf{DHCP request message}, echoing back the configuration parameters.
+\item
+\textit{DHCP ACK.} The server responds to the DHCP request message with a \textbf{DHCP ACK message}, confirming the requested parameters.
+\end{itemize}
+
+\item
+Since a client may want to use its address beyond the lease's expiration, DHCP also provides a mechanism that allows a client to renew its lease on an IP address.
+
+\item
+A \textit{realm with private addresses} refers to a network whose addresses only have meaning to devices within that network.
+
+\item
+The trick is to use a \textbf{NAT translation table} at the NAT router, and to include port numbers as well as IP addresses in the table entries.
+
+\item
+Recall that in a P2P application, any participating Peer A should be able to initiate a TCP connection to any other participating Peer B. The essence of the problem is that if Peer B is behind a NAT, it cannot act as a server and accept TCP connections.\\
+This hack, called \textbf{connection reversal}, is actually used by many P2P applications for \textbf{NAT traversal}.
+
+\item
+NAT traversal is increasingly provided by Unversal Plus and Play (UPnP), which is a protocol that allows a host to discover and configure a nearby NAT. UPnP requires that both the host and the NAT be UPnP compatible. With UPnP, an application running in a host can request a NAT mapping between its (\textit{private IP address, private port number}) and the (\textit{public IP address, public port number}) for some requested public port number. If the NAT accepts the request and creates the mapping, then nodes from the outside can initiate TCP connections to (\textit{public IP address, public port number}). Furthermore, UPnP lets the application know the value of (\textit{public IP address, public port number}), so that the application can advertise it to the outside world.
+
+\item
+ICMP is used by hosts and routers to communicate network-layer information to each other.\\
+ICMP messages have a type and a code field, and contain the header and the first 8 bytes of the IP datagram that caused the ICMP message to be generated in the first place (so that the sender can determine the datagram that caused the error).
+
+\item
+The well-known ping programs sends an ICMP type 8 code 0 message to the specified host. The destination host, seeing the echo request, sends back a type 0 code 0 echo reply.
+
+\item
+Another interesting ICMP message is the source quench message. This message is seldom used in practice. Its original purpose was to perform congestion control---to allow a congested router to send an ICMP source quench message to a host to force that host to reduce its transmission rate.
+
+\item
+Interesting, Traceroute is implemented with ICMP messages. To determine the names and addresses of the routers between source and destination, Traceroute in the source sends a series of ordinary IP datagrams to the destination. Each of these datagrams carries a UDP segment with an unlikely UDP port number. The first of these datagrams has a TTL of 1, the second of 2, the third of 3, and so on. The source also starts timers for each of the datagrams. When the \textit{n}th datagram arrives at the \textit{n}th router, the \textit{n}th router observes that the TTL of the datagram has just expired. According the rules of the IP protocol, the router discards the datagram and sends a ICMP warning message to the source (type 11 code 0).\\
+How does a Traceroute source know when to stop sending UDP segments? Recall that the source increments the TTL field for each datagram it sends. Thus, one of the datagrams will eventually make it all the way to the destination host. Because this datagram contains a UDP segment with an unlikely port number, the destination host sends a port unreachable ICMP message (type 3 code 3) back to the source.
+
+\item
+The most important changes introduced in IPv6 are evident in the datagram format:
+\begin{itemize}
+\item\textit{Expanded addressing capabilities.}
+\item\textit{A streamlined 40-byte header.}
+\item\textit{Flow labeling and priority.}
+\item\textit{•}
+\end{itemize}
+
+\item
+In addition to unicast and multicast addresses, IPv6 has introduced a new type of address, called an \textbf{anycast address}, which allows a datagram to be delivered to any one of a group of hosts.
+
+\item
+Labeling of packets belonging to particular flows for which the sender requests special handling, such as nondefault quality of service or real-time service.
+
+\item
+IPv6 does not allow for fragmentation and reassembly at intermediate routers; these operations can be performed only by the source and destination. If an IPv6 datagram received by a router is too large to be forwarded over the outgoing link, the router simply drops the datagram and sends a ``Packet Too Big'' ICMP error message back to the sender. The sender can then resend the data, using a smaller IP datagram size.
+
+\item
+The options field is one of the possible next headers pointed to from within the IPv6 header.
+
+\item
+A new version of ICMP has been defined for IPv6. In addition to reorganizing the existing ICMP type and code definitions, ICMPv6 also added new types and codes required by the new IPv6 functionality. These include the ``Packet Too Big'' type, and an ``unrecognized IPv6 options'' error code. In addition, ICMPv6 subsumes the functionality of the Internet Group Management Protocol (IGMP). IGMP, which is used to manage a host's joining and leaving of multicast groups, was previously a separate protocol from ICMP in IPv4.
+
+\item
+Probably the most straightforward way to introduce IPv6-capable nodes is a \textbf{dual-stack} approach, where IPv6 nodes also have a complete IPv4 implementation.\\
+An alternative to the dual-stack approach is known as \textbf{tunneling}.
+
+\item
+IPsec has been designed to be backward compatible with IPv4 and IPv6. In particular, in order to reap the benefits of IPsec, we don't need to replace the protocol stacks in \textit{all} the routers and hosts in the Internet.\\
+For concreteness, we'll focus on IPsec's transport mode here. In this mode, two hosts first establish an IPsec session between themselves. (Thus IPsec is connection-oriented!) With the session in place, all TCP and UDP segments sent between the two hosts enjoy the security services provided by IPsec. On the sending side, the transport layer passes a segment to IPsec. IPsec then encrypts the segment, appends additional security fields to the segment, and encapsulates the resulting payload in an ordinary IP datagram. The sending host then sends the datagram into the Internet, which transports it to the destination host. There, IPsec decrypts the segment and passes the unencrypted segment to the transport layer.\\
+When two hosts have an IPsec session established between them, all TCP and UDP segments sent between them will be encrypted and authenticated. IPsec therefore provides blanket coverage, securing all communication between the two hosts for all network applications.
+
+\item
+Typically a host is attached directly to one router, the \textbf{default router} for the host (also called the \textbf{first-hop router} for the host). Whenever a host sends a packet, the packet is transferred to its default router. We refer to the default router of the source host as the \textbf{source router} and the default router of the destination host as the \textbf{destination router}. The problem of routing a packet from source host to destination host clearly boils down to the problem of routing the packet from source router to destination router.
+
+\item
+Given any two nodes \textit{x} and \textit{y}, there are typically many paths between the two nodes, with each path having a cost. One or more of these paths is a \textbf{least-cost path}. The least-cost problem is therefore clear: Find a path between the source and destination that has least cost.
+
+\item
+We can classify routing algorithms according to whether they are global or decentralized. A \textbf{global routing algorithm} computes the least-cost path between a source and destination using complete, global knowledge about the network. In a \textbf{decentralized routing algorithm}, the calculation of the least-cost path is carried out in an iterative, distributed manner.
+
+
+\item
+A second broad way to classify routing algorithms is according to whether they are static or dynamic. In \textbf{static routing algorithms}, routes change very slowly over time, often as a result of human intervention (for example, a human manually editing a router's forwarding table). \textbf{Dynamic routing algorithms} change the routing paths as the network traffic loads or topology change.
+
+\item
+A third way to classify routing algorithms is according to whether they are load-sensitive or load-insensitive. In a \textbf{load-sensitive algorithm}, link costs vary dynamically to reflect the current level of congestion in the underlying link. Today's Internet routing algorithms (such as RIP, OSPF, and BGP) are \textbf{load-insensitive}, as a link's cost does not explicitly reflect its current (or recent past) level of congestion.
+
+\item
+The link-state routing algorithm we present below is known as \textit{Dijkstra's algorithm}, named after its inventor. A closely related algorithm is Prim's algorithm. Dijkstra's algorithm computes the least-cost path from one node (the source, which we will refer to as \textit{u}) to all other nodes in the network. Dijkstra's algorithm is iterative and has the property that after the \textit{k}th iteration of the algorithm, the least-cost paths are known to \textit{k} destination nodes, and among the least-cost paths to all destination nodes, these \textit{k} paths will have the \textit{k} smallest costs.
+
+\item
+\textbf{Link-State (LS) Algorithm for Source Node u}
+%TODO
+
+\item
+Whereas the LS algorithm is an algorithm using global information, the \textbf{distance-vector (DV)} algorithm is iterative, asynchronous, and distributed.
+
+\item
+Let \(d_x(y)\) be the cost of the least-cost path from node \textit{x} to node \textit{y}. Then the least costs are related by the celebrated Bellman-Ford equation, namely,\\
+\hspace*{1em}\(d_x(y)\) = min\(_v\)$\{$\(c(x,v)+d_v(y)\)$\}$
+
+\item
+\textbf{Distance-Vector (DV) Algorithm}
+%TODO
+
+\item
+The result of the bad news about the increase in link cost has indeed traveled slowly!
+
+\item
+The specific looping scenario just described can be avoided using a technique known as \textit{poisoned reserve}. The idea is simple---if \textit{z} routes through \textit{y} to get to destination \textit{x}, then \textit{z} will advertise to \textit{y} that its distance to \textit{x} in infinity.
+
+\item
+A broad class of routing algorithms is based on viewing packet traffic as flows between sources and destinations in a network. In this approach, the routing problem can be formulated mathematically as a constrained optimization problem known as a network flow problem. Yet another set of routing algorithms we mention here are those derived from the telephony world. These \textbf{circuit-switched routing algorithms} are of interest to packet-switched data networking in cases where per-link resources (for example, buffers, or a fraction of the link bandwidth) are to be reserved for each connection that is routed over the link.
+
+\item
+We organize routers into \textbf{autonomous systems (ASs)}, with each AS consisting of a group of routers that are typically under the same administrative control (e.g., operated by the same ISP or belonging to the same company network). Routers within the same AS all run the same routing algorithm (for example, an LS or DV algorithm) and have information about each other. The routing algorithm running within an autonomous system is called an \textbf{intra-autonomous system routing protocol}. It will be necessary, of course, to connect ASs to each other, and thus one or more of the routers in an AS will have the added task of being responsible for forwarding packets to destinations outside the AS; these routers are called \textbf{gateway routers}.
+
+\item
+The two tasks---obtaining reachability information from neighboring ASs and propagating the reachability information to all routers internal to the AS---are handled by the \textbf{inter-AS routing protocol}.
+
+\item
+One approach, which is often employed in practice, is to use \textbf{hot-potato routing}. In hot-potato routing, the AS gets rid of the packet (the hot potato) as quickly as possible (more precisely, as inexpensively as possible). This is done by having a router send the packet to the gateway router that has the smallest router-to-gateway cost among all gateways with a path to the destination.
+
+
+
 
 
 
