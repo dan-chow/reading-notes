@@ -1,79 +1,110 @@
 \section{Computer Networks and the Internet}
 \begin{itemize}
 
-\item The Internet is a computer network that interconnects hundreds of millions of computing devices throughout the world.\\Indeed, the term \textit{computer network} is beginning to sound a bit dated, given the many nontraditional devices that are being hooked up to the Internet. In Internet jargon, all of these devices are called \textbf{hosts} or \textbf{end systems}.
+\item
+The Internet is a computer network that interconnects hundreds of millions of computing devices throughout the world.\\
+Indeed, the term \textit{computer network} is beginning to sound a bit dated, given the many nontraditional devices that are being hooked up to the Internet. In Internet jargon, all of these devices are called \textbf{hosts} or \textbf{end systems}.
 
-\item End systems are connected together by a network of \textbf{communication links} and \textbf{packet switches}. Packet switches come in many shapes and flavors, but the two most prominent types in today's Internet are \textbf{routers} and \textbf{link-layer switches}. End systems access the Internet through \textbf{Internet Service Providers (ISPs)}.
+\item
+End systems are connected together by a network of \textbf{communication links} and \textbf{packet switches}. Packet switches come in many shapes and flavors, but the two most prominent types in today's Internet are \textbf{routers} and \textbf{link-layer switches}. End systems access the Internet through \textbf{Internet Service Providers (ISPs)}.
 
-\item End systems, packet switches, and other pieces of Internet run \textbf{protocols} that control the sending and receiving of information within the Internet. The \textbf{Transmission Control Protocol (TCP)} and the \textbf{Internet Protocol (IP)} are two of the most important protocols in the Internet.
+\item
+End systems, packet switches, and other pieces of Internet run \textbf{protocols} that control the sending and receiving of information within the Internet. The \textbf{Transmission Control Protocol (TCP)} and the \textbf{Internet Protocol (IP)} are two of the most important protocols in the Internet.
 
-\item \textbf{Internet standards} are developed by the Internet Engineering Task Force (IETF). The IETF standards documents are called \textbf{requests for comments (RFCs)}.
+\item
+\textbf{Internet standards} are developed by the Internet Engineering Task Force (IETF). The IETF standards documents are called \textbf{requests for comments (RFCs)}.
 
-\item We can also describe the Internet from an entirely different angle---namely, as \textit{an infrastructure that provides services to applications}.
+\item
+We can also describe the Internet from an entirely different angle---namely, as \textit{an infrastructure that provides services to applications}.
 
-\item End systems attached to the Internet provide an \textbf{Application Programming Interface (API)} that specifies how a program running on one end system asks the Internet infrastructure to deliver data to a specific destination program running on another end system.
+\item
+End systems attached to the Internet provide an \textbf{Application Programming Interface (API)} that specifies how a program running on one end system asks the Internet infrastructure to deliver data to a specific destination program running on another end system.
 
-\item \textit{A \textbf{protocol} defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.}
+\item
+\textit{A \textbf{protocol} defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.}
 
-\item Hosts are sometimes further divided into two categories: \textbf{clients} and \textbf{servers}.
+\item
+Hosts are sometimes further divided into two categories: \textbf{clients} and \textbf{servers}.
 
-\item Today, the two most prevalent types of broadband residential access are \textbf{digital subscriber line (DSL)} and cable. While DSL makes use of the telco's existing local telephone infrastructure, \textbf{cable Internet access} makes use of the cable television company's existing cable television infrastructure.\\Although DSL and cable networks currently represent more than 90 percent of residential broadband access in the United States, an up-and-coming technology that promises even higher speeds is the deploy of \textbf{fiber to the home (FTTH)}. As the name suggests, the FTTH concept is simple---provide an optical fiber path from the CO directly to the home.
+\item
+Today, the two most prevalent types of broadband residential access are \textbf{digital subscriber line (DSL)} and cable. While DSL makes use of the telco's existing local telephone infrastructure, \textbf{cable Internet access} makes use of the cable television company's existing cable television infrastructure.\\
+Although DSL and cable networks currently represent more than 90 percent of residential broadband access in the United States, an up-and-coming technology that promises even higher speeds is the deploy of \textbf{fiber to the home (FTTH)}. As the name suggests, the FTTH concept is simple---provide an optical fiber path from the CO directly to the home.
 
-\item On corporate and university campuses, and increasingly in home settings, a local area network (LAN) is used to connect an end system to the edge router.
+\item
+On corporate and university campuses, and increasingly in home settings, a local area network (LAN) is used to connect an end system to the edge router.
 
-\item Examples of physical media include twisted-pair copper, coaxial cable, multimode fiber-optic cable, terrestrial radio spectrum, and satellite radio spectrum. Physical media fall into two categories: \textbf{guided media} and \textbf{unguided media}.\\Twisted pair consists of two insulated copper wires, each about 1 mm thick, arranged in a regular spiral pattern. The wires are twisted together to reduce the electrical interference from similar pairs close by.\\Two types of satellites are used in communications: \textbf{geostationary satellites} and \textbf{low-earth orbiting (LEO) satellites}.
+\item
+Examples of physical media include twisted-pair copper, coaxial cable, multimode fiber-optic cable, terrestrial radio spectrum, and satellite radio spectrum. Physical media fall into two categories: \textbf{guided media} and \textbf{unguided media}.\\
+Twisted pair consists of two insulated copper wires, each about 1 mm thick, arranged in a regular spiral pattern. The wires are twisted together to reduce the electrical interference from similar pairs close by.\\
+Two types of satellites are used in communications: \textbf{geostationary satellites} and \textbf{low-earth orbiting (LEO) satellites}.
 
-\item Most packet switches use \textbf{store-and-forward transmission} at the inputs to the links.\\If an arriving packet meeds to be transmitted onto a link but finds the link busy with the transmission of another packet, the arriving packet must wait in the output buffer. Thus, in addition to the store-and-forward delays, packets suffer output buffer \textbf{queuing delays}.\\Since the amount of buffer space is finite, an arriving packet may find that the buffer is completely full with other packets waiting for transmission. In this case, \textbf{packet loss} will occur---either the arriving packet or one of the already-queued packets will be dropped.
+\item
+Most packet switches use \textbf{store-and-forward transmission} at the inputs to the links.\\
+If an arriving packet meeds to be transmitted onto a link but finds the link busy with the transmission of another packet, the arriving packet must wait in the output buffer. Thus, in addition to the store-and-forward delays, packets suffer output buffer \textbf{queuing delays}.\\
+Since the amount of buffer space is finite, an arriving packet may find that the buffer is completely full with other packets waiting for transmission. In this case, \textbf{packet loss} will occur---either the arriving packet or one of the already-queued packets will be dropped.
 
-\item Each router has a \textbf{forwarding table} that maps destination addresses (or portions of the destination addresses) to that router's outbound links.
+\item
+Each router has a \textbf{forwarding table} that maps destination addresses (or portions of the destination addresses) to that router's outbound links.
 
-\item There are two fundamental approaches to moving data through a network of links and switches: \textbf{circuit switching} and \textbf{packet switching}.\\A circuit in a link is implemented with either \textbf{frequency-division multiplexing (FDM)} or \textbf{time-division multiplexing (TDM)}.
+\item
+There are two fundamental approaches to moving data through a network of links and switches: \textbf{circuit switching} and \textbf{packet switching}.\\
+A circuit in a link is implemented with either \textbf{frequency-division multiplexing (FDM)} or \textbf{time-division multiplexing (TDM)}.
 
-\item \textbf{Packet Switching Versus Circuit Switching}
+\item
+\textbf{Packet Switching Versus Circuit Switching}
 
-\item A \textbf{PoP} is simply a group of one or more routers (at the same location) in the provider's network where customer ISPs can connect into the provider ISP.\\Any ISP (except for tier-1 ISPs) may choose to \textbf{multi-home}, that is, to connect to two or more provider ISPs.\\A third-party company can create an \textbf{Internet Exchange Point (IXP)} (typically in a stand-alone building with its own switches), which is a meeting point where multiple ISPs can peer together.
+\item
+A \textbf{PoP} is simply a group of one or more routers (at the same location) in the provider's network where customer ISPs can connect into the provider ISP.\\
+Any ISP (except for tier-1 ISPs) may choose to \textbf{multi-home}, that is, to connect to two or more provider ISPs.\\
+A third-party company can create an \textbf{Internet Exchange Point (IXP)} (typically in a stand-alone building with its own switches), which is a meeting point where multiple ISPs can peer together.
 
-\item The most important of these delays are the \textbf{nodal processing delay}, \textbf{queuing delay}, \textbf{transmission delay}, and \textbf{propagation delay}; together, these delays accumulate to give a \textbf{total nodal delay}.\\The time required to examine the packet's header and determine where to direct the packet is part of the \textbf{processing delay}.\\At the queue, the packet experiences a \textbf{queuing delay} as it waits to be transmitted onto the link.\\Denote the length of the packet by \textit{L} bits, and denote the transmission rate of the link from router A to router B by \textit{R} bits/sec. The \textbf{transmission delay} is \textit{L/R}. This is the amount of time required to push (that is, transmit) all of the packet's bits into the link.\\The time required to propagate from the beginning of the link to router B is the \textbf{propagation delay}.
+\item
+The most important of these delays are the \textbf{nodal processing delay}, \textbf{queuing delay}, \textbf{transmission delay}, and \textbf{propagation delay}; together, these delays accumulate to give a \textbf{total nodal delay}.\\
+The time required to examine the packet's header and determine where to direct the packet is part of the \textbf{processing delay}.\\
+At the queue, the packet experiences a \textbf{queuing delay} as it waits to be transmitted onto the link.\\
+Denote the length of the packet by \textit{L} bits, and denote the transmission rate of the link from router A to router B by \textit{R} bits/sec. The \textbf{transmission delay} is \textit{L/R}. This is the amount of time required to push (that is, transmit) all of the packet's bits into the link.\\
+The time required to propagate from the beginning of the link to router B is the \textbf{propagation delay}.
 
-\item Let \textit{a} denote the average rate at which packets arrive at the queue (\textit{a} is in units of packets/sec). Recall that \textbf{R} is the transmission rate; that is, it is the rate (in bits/sec) at which bits are pushed out of the queue. Also suppose, fro simplicity, that all packets consist of \textit{L} bits. Then the average rate at which bits arrive at the queue is \textit{La} bits/sec. Finally, assume that the queue is very big, so that it can hold essentially an infinite number of bits. The ratio \textit{La/R}, called the \textbf{traffic intensity}, often plays an important role in estimating the extent of the queuing delay.\\A packet can arrive to find a full queue. With no place to store such a packet, a router will \textbf{drop} that packet; that is, the packet will be \textbf{lost}.
+\item
+Let \textit{a} denote the average rate at which packets arrive at the queue (\textit{a} is in units of packets/sec). Recall that \textbf{R} is the transmission rate; that is, it is the rate (in bits/sec) at which bits are pushed out of the queue. Also suppose, fro simplicity, that all packets consist of \textit{L} bits. Then the average rate at which bits arrive at the queue is \textit{La} bits/sec. Finally, assume that the queue is very big, so that it can hold essentially an infinite number of bits. The ratio \textit{La/R}, called the \textbf{traffic intensity}, often plays an important role in estimating the extent of the queuing delay.\\
+A packet can arrive to find a full queue. With no place to store such a packet, a router will \textbf{drop} that packet; that is, the packet will be \textbf{lost}.
 
-\item To define throughput, consider transferring a large file from Host A to Host B across a computer network. The \textbf{instantaneous throughput} at any instant of time is the rate (in bits/sec) at which Host B is receiving the file.
+\item
+To define throughput, consider transferring a large file from Host A to Host B across a computer network. The \textbf{instantaneous throughput} at any instant of time is the rate (in bits/sec) at which Host B is receiving the file.
 
-\item To provide structure to the design of network protocols, network designers organize protocols---and the network hardware and software that implement the protocols---in \textbf{layers}. We are again interested in the \textbf{services} that a layer offers to the layer above---the so-called \textbf{service model} of a layer.
+\item
+To provide structure to the design of network protocols, network designers organize protocols---and the network hardware and software that implement the protocols---in \textbf{layers}. We are again interested in the \textbf{services} that a layer offers to the layer above---the so-called \textbf{service model} of a layer.
 
-\item When taken together, the protocol of the various layers are called the \textbf{protocol stack}.\\The application layer is where network applications and their application-layer protocols reside.\\The Internet's transport layer transports application-layer messages between application endpoints.\\The Internet's network layer is responsible for moving network-layer packets known as \textbf{datagrams} from one host to another.\\To move a packet from one node (host or router) to the next node in the route, the network layer relies on the services of the link layer.\\While the job of the link layer is to move entire frames from one network element to an adjacent network element, the job of the physical layer is to move the \textit{individual bits} within the frame from one node to the next.
+\item
+When taken together, the protocol of the various layers are called the \textbf{protocol stack}.\\
+The application layer is where network applications and their application-layer protocols reside.\\
+The Internet's transport layer transports application-layer messages between application endpoints.\\
+The Internet's network layer is responsible for moving network-layer packets known as \textbf{datagrams} from one host to another.\\
+To move a packet from one node (host or router) to the next node in the route, the network layer relies on the services of the link layer.\\
+While the job of the link layer is to move entire frames from one network element to an adjacent network element, the job of the physical layer is to move the \textit{individual bits} within the frame from one node to the next.
 
-\item In particular, back in the late 1970s, the International Organization for Standardization (ISO) proposed that computer networks be organized around seven layers, called the Open System Interconnection (OSI) model.\\The role of the presentation layer is to provide services that allow communication applications to interpret the meaning of data exchanged.\\The session layer provides for delimiting and synchronization of data exchange, including the means to build a checkpointing and recovery scheme.
+\item
+In particular, back in the late 1970s, the International Organization for Standardization (ISO) proposed that computer networks be organized around seven layers, called the Open System Interconnection (OSI) model.\\
+The role of the presentation layer is to provide services that allow communication applications to interpret the meaning of data exchanged.\\
+The session layer provides for delimiting and synchronization of data exchange, including the means to build a checkpointing and recovery scheme.
 
-\item At each layer, a packet has two types of field: header fields and a \textbf{payload field}. The payload is typically a packet from the layer above.
+\item
+At each layer, a packet has two types of field: header fields and a \textbf{payload field}. The payload is typically a packet from the layer above.
 
-\item Unfortunately, along with all that good stuff comes malicious stuff---collectively known as \textbf{malware}---that can also enter and infect our devices.\\\textbf{Viruses} are malware that require some form of user interaction to infect the user's device.\\\textbf{Worms} are malware that can enter a device without and explicit user interaction.
+\item
+Unfortunately, along with all that good stuff comes malicious stuff---collectively known as \textbf{malware}---that can also enter and infect our devices.\\
+\textbf{Viruses} are malware that require some form of user interaction to infect the user's device.\\
+\textbf{Worms} are malware that can enter a device without and explicit user interaction.
 
-\item Another broad class of security threats are known as \textbf{denial-of-service (DoS) attacks}. As the name suggests, a DoS attack renders a network, host, or other piece of infrastructure unusable by legitimate users.\\In a \textbf{distributed DoS (DDoS)} attack, the attacker controls multiple sources and has each source blast traffic at the target.
+\item
+Another broad class of security threats are known as \textbf{denial-of-service (DoS) attacks}. As the name suggests, a DoS attack renders a network, host, or other piece of infrastructure unusable by legitimate users.\\
+In a \textbf{distributed DoS (DDoS)} attack, the attacker controls multiple sources and has each source blast traffic at the target.
 
-\item A passive receiver that records a copy of every packet that flies by is called a \textbf{packet sniffer}.
+\item
+A passive receiver that records a copy of every packet that flies by is called a \textbf{packet sniffer}.
 
-\item The ability to inject packets into the Internet with a false source address is known as \textbf{IP spoofing}, and is but one of many ways in which one user can masquerade as another user.\\To solve this problem, we will need \textit{end-point authentication}, that is, a mechanism that will allow us to determine with certainty if a message originates from where we think it does.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\item
+The ability to inject packets into the Internet with a false source address is known as \textbf{IP spoofing}, and is but one of many ways in which one user can masquerade as another user.\\
+To solve this problem, we will need \textit{end-point authentication}, that is, a mechanism that will allow us to determine with certainty if a message originates from where we think it does.
 
 \end{itemize}

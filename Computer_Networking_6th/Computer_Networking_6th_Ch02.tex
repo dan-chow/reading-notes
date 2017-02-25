@@ -6,7 +6,8 @@ The \textbf{application architecture}, is designed by the application developer 
 
 \item
 \textit{In the context of a communication session between a pair of processes, the process that initiates the communication (that is, initially contacts the other process at the beginning of the session) is labeled as the \textbf{client}. The process that waits to be contacted to begin the session is the \textbf{server}.}\\
-In a \textbf{client-server architecture}, there is an always-on host, called the \textit{server}, which serves requests from many other hosts, called \textit{clients}.\\In a \textbf{P2P architecture}, there is minimal (or no) reliance on dedicated servers in data centers. Instead the application exploits direct communication between pairs of intermittently connected hosts, called \textit{peers}.
+In a \textbf{client-server architecture}, there is an always-on host, called the \textit{server}, which serves requests from many other hosts, called \textit{clients}.\\
+In a \textbf{P2P architecture}, there is minimal (or no) reliance on dedicated servers in data centers. Instead the application exploits direct communication between pairs of intermittently connected hosts, called \textit{peers}.
 
 \item
 In the jargon of operating systems, it is not actually programs but \textbf{processes} that communicate. A process can be thought of as a program that is running within an end system.\\
@@ -34,7 +35,8 @@ Because privacy and other security issues have become critical for many applicat
 An \textbf{application-layer protocol} defines how an application's processes, running on different end systems, pass messages to each other.
 
 \item
-The \textbf{HyperText Transfer Protocol (HTTP)}, the Web's application-layer protocol, is at the heart of the Web. HTTP is implemented in two programs: a client program and a server program. The client program and server program, executing on different end systems, talk to each other by exchanging HTTP messages. HTTP defines the structure of these messages and how the client and server exchange the messages.\\Because an HTTP server maintains no information about the clients, HTTP is said to be a \textbf{stateless protocol}.
+The \textbf{HyperText Transfer Protocol (HTTP)}, the Web's application-layer protocol, is at the heart of the Web. HTTP is implemented in two programs: a client program and a server program. The client program and server program, executing on different end systems, talk to each other by exchanging HTTP messages. HTTP defines the structure of these messages and how the client and server exchange the messages.\\
+Because an HTTP server maintains no information about the clients, HTTP is said to be a \textbf{stateless protocol}.
 
 \item
 For HTTP with non-persistent connections, each TCP connection is closed after the sever sends the object---the connection does not persist for other objects.\\
@@ -98,7 +100,8 @@ In a man-in-the-middle attack, the attacker intercepts queries from hosts and re
 Another important DNS attack is not an attack on the DNS service per se, but instead exploits the DNS infrastructure to launch a DDoS attack against a targeted host (for example, your university's mail server).
 
 \item
-With a P2P architecture, there is minimal (or no) reliance on always-on infrastructure servers. Instead, pairs of intermittently connected hosts, called peers, communicate directly with each other.\\In P2P file distribution, each peer can redistribute any portion of the file it has received to any other peers, thereby assisting the server in the distribution process.
+With a P2P architecture, there is minimal (or no) reliance on always-on infrastructure servers. Instead, pairs of intermittently connected hosts, called peers, communicate directly with each other.\\
+In P2P file distribution, each peer can redistribute any portion of the file it has received to any other peers, thereby assisting the server in the distribution process.
 
 \item
 BitTorrent is a popular P2P protocol for file distribution. In BitTorrent lingo, the collection of all peers participating in the distribution of a particular file is called a \textit{torrent}.\\

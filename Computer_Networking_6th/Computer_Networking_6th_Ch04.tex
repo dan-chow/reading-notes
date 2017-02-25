@@ -2,9 +2,7 @@
 \begin{itemize}
 
 \item
-In this chapter, we'll make an important distinction between the \textbf{forwarding} and \textbf{routing} functions of the network layer. Forwarding involves the transfer of a packet from an incoming link to an outgoing link within a \textit{single} router. Routing involves \textit{all} of a network's routers, whose collective interactions via routing protocols determines the paths that packets take on their trips from source to destination node.
-
-\item
+In this chapter, we'll make an important distinction between the \textbf{forwarding} and \textbf{routing} functions of the network layer. Forwarding involves the transfer of a packet from an incoming link to an outgoing link within a \textit{single} router. Routing involves \textit{all} of a network's routers, whose collective interactions via routing protocols determines the paths that packets take on their trips from source to destination node.\\
 \textit{Forwarding} refers to the router-local action of transferring a packet from an input interface to the appropriate output link interface. \textit{Routing} refers to the network-wide process that determines the end-to-end paths that packets take from source to destination.
 
 \item
@@ -17,11 +15,7 @@ In an analogous manner, some network-layer architectures---for example, ATM, fra
 The Internet's network layer provides a single service, known as \textbf{best-effort service}.
 
 \item
-Two of the more important ATM service models are constant bit rate and available bit rate service:
-\begin{itemize}
-\item\textit{\textbf{Constant bit rate (CBR) ATM network service.}}
-\item\textit{\textbf{Available bit rate (ABR) ATM network service.}}
-\end{itemize}
+Two of the more important ATM service models are constant bit rate and available bit rate service: (1) Constant bit rate (CBR) ATM network service; (2) Available bit rate (ABR) ATM network service.
 
 \item
 In a similar manner, a network layer can provide connectionless service or connection service between two hosts.\\
@@ -29,15 +23,8 @@ Computer networks that provide only a connection service at the network layer ar
 We saw in the previous chapter that the transport-layer connection-oriented service is implemented at the edge of the network in the end systems; we'll see shortly that the network-layer connection service is implemented in the routers in the network core as well as in the end system.
 
 \item
-A VC consists of (1) a path (that is, a series of links and routers) between the source and destination hosts, (2) VC numbers, one number for each link along the path, and (3) entries in the forwarding table in each router along the path. A packet belonging to a virtual circuit will carry a VC number in its header. Because a virtual circuit may have a different VC number on each link, each intervening router must replace the VC number of each traversing packet with a new VC number. The new VC number is obtained from the forwarding table.
-
-\item
-There are three identifiable phases in a virtual circuit:
-\begin{itemize}
-\item\textit{VC setup.}
-\item\textit{Data transfer.}
-\item\textit{VC teardown.}
-\end{itemize}
+A VC consists of (1) a path (that is, a series of links and routers) between the source and destination hosts, (2) VC numbers, one number for each link along the path, and (3) entries in the forwarding table in each router along the path. A packet belonging to a virtual circuit will carry a VC number in its header. Because a virtual circuit may have a different VC number on each link, each intervening router must replace the VC number of each traversing packet with a new VC number. The new VC number is obtained from the forwarding table.\\
+There are three identifiable phases in a virtual circuit: (1) VC setup; (2) Data transfer; and (3) VC teardown.
 
 \item
 During transport-layer connection setup, the two end systems alone determine the parameters (for example, initial sequence number and flow-control window size) of their transport-layer connection. Although the two end systems are aware of the transport-layer connection, the routers within the network are completely oblivious to it. On the other hand, with a VC network layer, \textit{routers along the path between the two end systems are involved in VC setup, and each router is fully aware of all the VCs passing through it}.
@@ -46,33 +33,19 @@ During transport-layer connection setup, the two end systems alone determine the
 The messages that the end systems send into the network to initiate the terminate a VC, and the messages passed between the routers to set up the VC (that is, to modify connection state in router tables) are known as \textbf{signaling messages}, and the protocols used to exchange these messages are often referred to as \textbf{signaling protocols}.
 
 \item
-As a packet is transmitted from source to destination, it passes through a series of routers. Each of these routers uses the packet's destination address to forward the packet.
-
-\item
-The router matches a \textbf{prefix} of the packet's destination address with the entries in the table; if there's a match, the router forwards the packet to a link associated with the match.
-
-\item
-When there are multiple matches, the router uses the \textbf{longest prefix matching rule}; that is, it finds the longest matching entry in the table and forwards the packet to the link interface associated with the longest prefix match.
-
-\item
+As a packet is transmitted from source to destination, it passes through a series of routers. Each of these routers uses the packet's destination address to forward the packet.\\
+The router matches a \textbf{prefix} of the packet's destination address with the entries in the table; if there's a match, the router forwards the packet to a link associated with the match.\\
+When there are multiple matches, the router uses the \textbf{longest prefix matching rule}; that is, it finds the longest matching entry in the table and forwards the packet to the link interface associated with the longest prefix match.\\
 Because forwarding tables in datagram networks can be modified at any time, a series of packets sent from one end system to another may follow different paths through the network and may arrive out of order.
 
 \item
 Since the resulting Internet network-layer service model makes minimal (no!) service guarantees, it imposes minimal requirements on the network layer. This makes it easier to interconnect networks that use very different link-layer technologies (for example, satellite, Ethernet, fiber, or radio) that have very different transmission rates and loss characteristics.
 
 \item
-Four router components can be identified:
-\begin{itemize}
-\item\textit{Input ports.}
-\item\textit{Switching fabric.}
-\item\textit{Output ports.}
-\item\textit{Routing processor.}
-\end{itemize}
+Four router components can be identified: (1) Input ports; (2) Switching fabric; (3) Output ports; and (4) Routing processor.
 
 \item
-A router's input ports, output ports, and switching fabric together implement the forwarding function and are almost always implemented in hardware. These forwarding functions are sometimes collectively referred to as the \textbf{router forwarding plane}.
-
-\item
+A router's input ports, output ports, and switching fabric together implement the forwarding function and are almost always implemented in hardware. These forwarding functions are sometimes collectively referred to as the \textbf{router forwarding plane}.\\
 While the forwarding plane operates at the nanosecond time scale, a router's control functions---executing the routing protocols, responding to attached links that go up or down, and performing management functions---operate at the millisecond or second timescale. These \textbf{router control plane} functions are usually implemented in software and execute on the routing processor (typically a traditional CPU).
 
 \item
@@ -88,61 +61,41 @@ Although ``lookup'' is arguably the most important action in input port processi
 The ``match plus action'' abstraction is both powerful and prevalent in network devices.
 
 \item
-Switching can be accomplished in a number of ways:
-\begin{itemize}
-\item\textit{Switching via memory.}
-\item\textit{Switching via a bus.}
-\item\textit{Switching via an interconnection network.}
-\end{itemize}
+Switching can be accomplished in a number of ways: (1) Switching via memory; (2) Switching via a bus; (3) Switching via an interconnection network.
 
-\item
 \begin{figure}[h]
-\includegraphics[scale=0.3]{Img-04-01-Crossbar}
+\includegraphics[scale=0.3]{Img-04-01-Crossbar-switch}
 \centering
 \caption{Crossbar switch}
 \label{fig:fig-04-01}
 \end{figure}
+
+\item
 A crossbar switch is an interconnection network consisting of 2\textit{N}buses that connect \textit{N} input ports to \textit{N} output ports, as shown in figure \ref{fig:fig-04-01}. Each vertical bus intersects each horizontal bus at a crosspoint, which can be opened or closed at any time by the switch fabric controller (whose logic is part of the switching fabric itself). When a packet arrives from port A and needs to be forwarded to port Y, the switch controller closes the crosspoint at the intersection of buses A and Y, and port A then sends the packet onto its bus, which is picked up (only) by bus Y. Note that a packet from port B can be forwarded to port X at the same time, since the A-to-Y and B-to-X packets uses different input and output buses.
 
 \item
 Let's new consider these queues in a bit more detail, since as these queues grow large, the router's memory can eventually be exhausted and \textbf{packet loss} will occur when no memory is available to store arriving packets.
 
 \item
-A consequence of output queuing is that a \textbf{packet scheduler} at the output port must choose one packet among those queued for transmission. This selection might be done on a simple basis, such as first-come-first-served (FCFS) scheduling, or a more sophisticated scheduling discipline such as weighted fair queuing (WFQ), which shares the outgoing link fairly among the different end-to-end connections that have packets queued for transmission.
-
-\item
+A consequence of output queuing is that a \textbf{packet scheduler} at the output port must choose one packet among those queued for transmission. This selection might be done on a simple basis, such as first-come-first-served (FCFS) scheduling, or a more sophisticated scheduling discipline such as weighted fair queuing (WFQ), which shares the outgoing link fairly among the different end-to-end connections that have packets queued for transmission.\\
 Similarly, if there is not enough memory to buffer an incoming packet, a decision must be made to either drop the arriving packet (a policy known as \textbf{drop-tail}) or remove one or more already-queued packets to make room for the newly arrived packet. In some cases, it may be advantageous to drop (or mark the header of) a packet \textit{before} the buffer is full in order to provide a congestion signal to the sender. A number of packet-dropping and -marking policies (which collectively have become known as \textbf{active queue management (AQM)} algorithms) have been proposed and analyzed. One of the most widely studied and implemented AQM algorithms is the \textbf{Random Early Detection (RED)} algorithm.
 
 \item
 A a queued packet in an input queue must wait for transfer through the fabric (even though its output port is free) because it is blocked by another packet at the head of the line, this phenomenon is known as \textbf{head-of-line (HOL) blocking} in an input-queued switch
 
 \item
-The network-wide routing control plane is thus decentralized---with different pieces (e.g., of a routing algorithm) executing at different routers and interacting by sending control messages to each other.
-
-\item
-Additionally, router and switch vendors bundle their hardware data plane and software control plane together into closed (but inter-operable) platforms in a vertically integrated product.
-
-\item
+The network-wide routing control plane is thus decentralized---with different pieces (e.g., of a routing algorithm) executing at different routers and interacting by sending control messages to each other. Additionally, router and switch vendors bundle their hardware data plane and software control plane together into closed (but inter-operable) platforms in a vertically integrated product.\\
 Recently, a number of researchers have begun exploring new router control plane architectures in which part of the control plane is implemented in the routers (e.g., local measurement/reporting of link state, forwarding table installation and maintenance) along with the data plane, and part of the control plane can be implemented externally to the router (e.g., in a centralized server, which could perform route calculation). A well-defined API dictates how these two parts interact and communicate with each other.
 
 \item
 The Internet's network layer has three major components. The first component is the IP protocol. The second major component is the routing component, which determines the path a datagram follows from source to destination. The final component of the network layer is a facility to report errors in datagrams and respond to requests for certain network-layer information.
 
-\item
-The key fields in the IPv4 datagram are the following:
-\begin{itemize}
-\item\textit{Version number.}
-\item\textit{Header length.}
-\item\textit{Type of service.}
-\item\textit{Datagram length.}
-\item\textit{Identifier, flags, fragmentation offset.}
-\item\textit{Time-to-live.}
-\item\textit{Protocol.}
-\item\textit{Header checksum.}
-\item\textit{Source and destination IP addresses.}
-\item\textit{Options.}
-\item\textit{Data (payload).}
-\end{itemize}
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Img-04-02-IPv4-datagram-format}
+\centering
+\caption{IPv4 datagram format}
+\label{fig:fig-04-02}
+\end{figure}
 
 \item
 The header checksum is computed by treating each 2 bytes in the header as a number and summing these numbers using 1s complement arithmetic. Note that the checksum must be recomputed and stored again at each router, as the TTL field, and possibly the options field as well, may change.\\
@@ -154,19 +107,15 @@ The solution is to fragment the data in the IP datagram into two or more smaller
 To allow the destination host to perform these reassembly tasks, the designers of IP (version 4) put \textit{identification}, \textit{flag}, and \textit{fragmentation offset} fields in the IP datagram header.
 
 \item
-An IP address is technically associated with an interface, rather than with the host or router containing that interface.
-
-\item
+An IP address is technically associated with an interface, rather than with the host or router containing that interface.\\
 These addresses are typically written in so-called \textbf{dotted-decimal notation}, in which each byte of the address is written in its decimal form and is separated by a period (dot) from other bytes in the address.
 
 \item
-A subnet is also called an \textit{IP network} or simply a \textit{network} in the Internet literature. IP addressing assigns an address to a subnet, e.g.,, 223.1.1.0/24, where the /24 notation, sometimes known as a \textbf{subnet mask}, indicates that the leftmost 24 bits of the 32-bit quantity define the subnet address.
-
-\item
+A subnet is also called an \textit{IP network} or simply a \textit{network} in the Internet literature. IP addressing assigns an address to a subnet, e.g., 223.1.1.0/24, where the /24 notation, sometimes known as a \textbf{subnet mask}, indicates that the leftmost 24 bits of the 32-bit quantity define the subnet address.\\
 \textit{To determine the subnets, detach each interface from its host or router, creating islands of isolated networks, with interfaces terminating the end points of the isolated networks. Each of these isolated networks is called a \textit{subnet}.}
 
 \item
-The Internet's address assignment strategy is known as a \textbf{classless Interdomain Routing (CIDR---pronounced \textit{cider}).} CIDR generalizes the notion of subnet addressing. As with subnet addressing, the 32-bit IP address is divided into two parts and again has the dotted-decimal from \textit{a.b.c.d/x}, where \textit{x} indicates the number of bits in the first part of the address.\\
+The Internet's address assignment strategy is known as a \textbf{classless Interdomain Routing} (\textbf{CIDR}---pronounced \textit{cider}). CIDR generalizes the notion of subnet addressing. As with subnet addressing, the 32-bit IP address is divided into two parts and again has the dotted-decimal from \textit{a.b.c.d/x}, where \textit{x} indicates the number of bits in the first part of the address.\\
 The \textit{x} most significant bits of an address of the form \textit{a.b.c.d/x} constitute the network portion of the IP address, and are often referred to as the \textbf{prefix} (or \textit{network prefix}) of the address.\\
 The remaining 32-\textit{x} bits of an address can be thought of as distinguishing among the devices \textit{within} the organization, all of which have the same network prefix.\\
 Before CIDR was adopted, the network portions of an IP address were constrained to be 8, 16, or 24 bits in length, an addressing scheme known as \textbf{classful addressing}, since subnets with 8-, 16-, and 24-bit subnet addresses were known as class A, B, and C networks, respectively.
@@ -180,31 +129,23 @@ IP addresses are managed under the authority of the Internet Corporation for Ass
 \item
 A system administrator will typically manually configure the IP addresses into the router (often remotely, with a network management tool). Host addresses can also be configured manually, but more often this task is now done using the \textbf{Dynamic Host Configuration Protocol (DHCP)}. DHCP allows a host to obtain (be allocated) an IP address automatically.\\
 In addition to host IP address assignment, DHCP also allows a host to learn additional information, such as its subnet mask, the address of its first-hop router (often called the default gateway), and the address of its local DNS server.\\
-Because of DHCP's ability to automate the network-related aspects of connecting a host into a network, it is often referred to as a \textbf{plug-and-play protocol}.
-
-\item
+Because of DHCP's ability to automate the network-related aspects of connecting a host into a network, it is often referred to as a \textbf{plug-and-play protocol}.\\
 In the simplest case, each subnet will have a DHCP server. If no server is present on the subnet, a DHCP relay agent (typically a router) that knows the address of a DHCP server for that network is needed.
 
 \item
 For a newly arriving host, the DHCP protocol is a four-step process:
 \begin{itemize}
-\item
-\textit{DHCP server discovery.} The first task of a newly arriving host is to find a DHCP server with which to interact. This is done using a \textbf{DHCP discover message}, which a client sends within a UDP packet to port 67.
-\item
-\textit{DHCP server offer(s).} A DHCP server receiving a DHCP discover message responds to the client with a \textbf{DHCP offer message} that is broadcast to all nodes on the subnet. Each server offer message contains the transaction ID of the received discover message, the proposed IP address for the client, the network mask, and an IP 	\textbf{address lease time}---the amount of time for which the IP address will be valid.
-\item
-\textit{DHCP request.} The newly arriving client will choose from among one or more server offers and respond to its selected offer with a \textbf{DHCP request message}, echoing back the configuration parameters.
-\item
-\textit{DHCP ACK.} The server responds to the DHCP request message with a \textbf{DHCP ACK message}, confirming the requested parameters.
+\item[*]\textit{DHCP server discovery.} The first task of a newly arriving host is to find a DHCP server with which to interact. This is done using a \textbf{DHCP discover message}, which a client sends within a UDP packet to port 67.
+\item[*]\textit{DHCP server offer(s).} A DHCP server receiving a DHCP discover message responds to the client with a \textbf{DHCP offer message} that is broadcast to all nodes on the subnet. Each server offer message contains the transaction ID of the received discover message, the proposed IP address for the client, the network mask, and an IP 	\textbf{address lease time}---the amount of time for which the IP address will be valid.
+\item[*]\textit{DHCP request.} The newly arriving client will choose from among one or more server offers and respond to its selected offer with a \textbf{DHCP request message}, echoing back the configuration parameters.
+\item[*]\textit{DHCP ACK.} The server responds to the DHCP request message with a \textbf{DHCP ACK message}, confirming the requested parameters.
 \end{itemize}
 
 \item
 Since a client may want to use its address beyond the lease's expiration, DHCP also provides a mechanism that allows a client to renew its lease on an IP address.
 
 \item
-A \textit{realm with private addresses} refers to a network whose addresses only have meaning to devices within that network.
-
-\item
+A \textit{realm with private addresses} refers to a network whose addresses only have meaning to devices within that network.\\
 The trick is to use a \textbf{NAT translation table} at the NAT router, and to include port numbers as well as IP addresses in the table entries.
 
 \item
@@ -228,25 +169,17 @@ Another interesting ICMP message is the source quench message. This message is s
 Interesting, Traceroute is implemented with ICMP messages. To determine the names and addresses of the routers between source and destination, Traceroute in the source sends a series of ordinary IP datagrams to the destination. Each of these datagrams carries a UDP segment with an unlikely UDP port number. The first of these datagrams has a TTL of 1, the second of 2, the third of 3, and so on. The source also starts timers for each of the datagrams. When the \textit{n}th datagram arrives at the \textit{n}th router, the \textit{n}th router observes that the TTL of the datagram has just expired. According the rules of the IP protocol, the router discards the datagram and sends a ICMP warning message to the source (type 11 code 0).\\
 How does a Traceroute source know when to stop sending UDP segments? Recall that the source increments the TTL field for each datagram it sends. Thus, one of the datagrams will eventually make it all the way to the destination host. Because this datagram contains a UDP segment with an unlikely port number, the destination host sends a port unreachable ICMP message (type 3 code 3) back to the source.
 
-\item
-The most important changes introduced in IPv6 are evident in the datagram format:
-\begin{itemize}
-\item\textit{Expanded addressing capabilities.}
-\item\textit{A streamlined 40-byte header.}
-\item\textit{Flow labeling and priority.}
-\item\textit{•}
-\end{itemize}
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Img-04-03-IPv6-datagram-format}
+\centering
+\caption{IPv6 datagram format}
+\label{fig:fig-04-03}
+\end{figure}
 
 \item
-In addition to unicast and multicast addresses, IPv6 has introduced a new type of address, called an \textbf{anycast address}, which allows a datagram to be delivered to any one of a group of hosts.
-
-\item
-Labeling of packets belonging to particular flows for which the sender requests special handling, such as nondefault quality of service or real-time service.
-
-\item
-IPv6 does not allow for fragmentation and reassembly at intermediate routers; these operations can be performed only by the source and destination. If an IPv6 datagram received by a router is too large to be forwarded over the outgoing link, the router simply drops the datagram and sends a ``Packet Too Big'' ICMP error message back to the sender. The sender can then resend the data, using a smaller IP datagram size.
-
-\item
+In addition to unicast and multicast addresses, IPv6 has introduced a new type of address, called an \textbf{anycast address}, which allows a datagram to be delivered to any one of a group of hosts.\\
+Labeling of packets belonging to particular flows for which the sender requests special handling, such as nondefault quality of service or real-time service.\\
+IPv6 does not allow for fragmentation and reassembly at intermediate routers; these operations can be performed only by the source and destination. If an IPv6 datagram received by a router is too large to be forwarded over the outgoing link, the router simply drops the datagram and sends a ``Packet Too Big'' ICMP error message back to the sender. The sender can then resend the data, using a smaller IP datagram size.\\
 The options field is one of the possible next headers pointed to from within the IPv6 header.
 
 \item
@@ -278,58 +211,104 @@ A second broad way to classify routing algorithms is according to whether they a
 A third way to classify routing algorithms is according to whether they are load-sensitive or load-insensitive. In a \textbf{load-sensitive algorithm}, link costs vary dynamically to reflect the current level of congestion in the underlying link. Today's Internet routing algorithms (such as RIP, OSPF, and BGP) are \textbf{load-insensitive}, as a link's cost does not explicitly reflect its current (or recent past) level of congestion.
 
 \item
-The link-state routing algorithm we present below is known as \textit{Dijkstra's algorithm}, named after its inventor. A closely related algorithm is Prim's algorithm. Dijkstra's algorithm computes the least-cost path from one node (the source, which we will refer to as \textit{u}) to all other nodes in the network. Dijkstra's algorithm is iterative and has the property that after the \textit{k}th iteration of the algorithm, the least-cost paths are known to \textit{k} destination nodes, and among the least-cost paths to all destination nodes, these \textit{k} paths will have the \textit{k} smallest costs.
-
-\item
-\textbf{Link-State (LS) Algorithm for Source Node u}
-%TODO
-
-\item
-Whereas the LS algorithm is an algorithm using global information, the \textbf{distance-vector (DV)} algorithm is iterative, asynchronous, and distributed.
-
-\item
+The link-state routing algorithm we present below is known as \textit{Dijkstra's algorithm}, named after its inventor. A closely related algorithm is Prim's algorithm. Dijkstra's algorithm computes the least-cost path from one node (the source, which we will refer to as \textit{u}) to all other nodes in the network. Dijkstra's algorithm is iterative and has the property that after the \textit{k}th iteration of the algorithm, the least-cost paths are known to \textit{k} destination nodes, and among the least-cost paths to all destination nodes, these \textit{k} paths will have the \textit{k} smallest costs.\\
+Whereas the LS algorithm is an algorithm using global information, the \textbf{distance-vector (DV)} algorithm is iterative, asynchronous, and distributed.\\
 Let \(d_x(y)\) be the cost of the least-cost path from node \textit{x} to node \textit{y}. Then the least costs are related by the celebrated Bellman-Ford equation, namely,\\
 \hspace*{1em}\(d_x(y)\) = min\(_v\)$\{$\(c(x,v)+d_v(y)\)$\}$
 
-\item
-\textbf{Distance-Vector (DV) Algorithm}
-%TODO
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Img-04-04-Link-State-Algorithm}
+\centering
+\caption{Link-State (LS) Algorithm for Source Node \textit{u}}
+\label{fig:fig-04-04}
+\end{figure}
+
+\begin{figure}[h]
+\includegraphics[scale=0.3]{Img-04-05-Distance-Vector-Algorithm}
+\centering
+\caption{Distance-Vector (DV) Algorithm}
+\label{fig:fig-04-05}
+\end{figure}
 
 \item
-The result of the bad news about the increase in link cost has indeed traveled slowly!
-
-\item
+The result of the bad news about the increase in link cost has indeed traveled slowly!\\
 The specific looping scenario just described can be avoided using a technique known as \textit{poisoned reserve}. The idea is simple---if \textit{z} routes through \textit{y} to get to destination \textit{x}, then \textit{z} will advertise to \textit{y} that its distance to \textit{x} in infinity.
 
 \item
 A broad class of routing algorithms is based on viewing packet traffic as flows between sources and destinations in a network. In this approach, the routing problem can be formulated mathematically as a constrained optimization problem known as a network flow problem. Yet another set of routing algorithms we mention here are those derived from the telephony world. These \textbf{circuit-switched routing algorithms} are of interest to packet-switched data networking in cases where per-link resources (for example, buffers, or a fraction of the link bandwidth) are to be reserved for each connection that is routed over the link.
 
 \item
-We organize routers into \textbf{autonomous systems (ASs)}, with each AS consisting of a group of routers that are typically under the same administrative control (e.g., operated by the same ISP or belonging to the same company network). Routers within the same AS all run the same routing algorithm (for example, an LS or DV algorithm) and have information about each other. The routing algorithm running within an autonomous system is called an \textbf{intra-autonomous system routing protocol}. It will be necessary, of course, to connect ASs to each other, and thus one or more of the routers in an AS will have the added task of being responsible for forwarding packets to destinations outside the AS; these routers are called \textbf{gateway routers}.
-
-\item
+We organize routers into \textbf{autonomous systems (ASs)}, with each AS consisting of a group of routers that are typically under the same administrative control (e.g., operated by the same ISP or belonging to the same company network). Routers within the same AS all run the same routing algorithm (for example, an LS or DV algorithm) and have information about each other. The routing algorithm running within an autonomous system is called an \textbf{intra-autonomous system routing protocol}. It will be necessary, of course, to connect ASs to each other, and thus one or more of the routers in an AS will have the added task of being responsible for forwarding packets to destinations outside the AS; these routers are called \textbf{gateway routers}.\\
 The two tasks---obtaining reachability information from neighboring ASs and propagating the reachability information to all routers internal to the AS---are handled by the \textbf{inter-AS routing protocol}.
 
 \item
 One approach, which is often employed in practice, is to use \textbf{hot-potato routing}. In hot-potato routing, the AS gets rid of the packet (the hot potato) as quickly as possible (more precisely, as inexpensively as possible). This is done by having a router send the packet to the gateway router that has the smallest router-to-gateway cost among all gateways with a path to the destination.
 
+\item
+An intra-AS routing protocol is used to determine how routing is performed within an autonomous system (AS). Intra-AS routing protocols are also known as \textbf{interior gateway protocols}. Historically, two routing protocols have been used extensively for routing within an autonomous system in the Internet: the \textbf{Routing Information Protocol (RIP)} and \textbf{Open Shortest Path First (OSPF)}. A routing protocol closely related to OSPF is the \textbf{IS-IS} protocol.
 
+\item
+RIP uses the term \textit{hop}, which is the number of subnets traversed along the shortest path from source router to destination subnet, including the destination subnet.\\
+In RIP, routing updates are exchanged between neighbors approximately every 30 seconds using a \textbf{RIP response message}. The response message sent by a router or host contains a list of up to 25 destination subnets within the AS, as well as the sender's distance to each of those subnets. Response messages are also known as \textbf{RIP advertisements}.\\
+Routers send RIP request and response messages to each other over UDP using port number 520.\\
+A process called \textit{routed} (pronounced ``route dee'') executes RIP, that is, maintains routing information and exchanges messages with \textit{routed} processes running in neighboring routers.
 
+\item
+OSPF and its closely related cousin, IS-IS, are typically deployed in upper-tier ISPs whereas RIP is deployed in lower-tier ISPs and enterprise networks. The Open in OSPF indicates that the routing protocol specification is publicly available.\\
+OSPF advertisements are contained in OSPF messages that are carried directly by IP, with an upper-layer protocol of 89 for OSPF.\\
+Some of the advances embodied in OSPF include: (1) Security; (2) Multiple same-cost paths; (3) Integrated support for unicast and multicast routing; and (4) Support for hierarchy within a single routing domain.\\
+An OSPF autonomous system can be configured hierarchically into areas. Each area runs its own OSPF link-state routing algorithm, with each router in an area broadcasting its link state to all other routers in that area. Within each area, one or more \textbf{area border routers} are responsible for routing packets outside the area. The primary role of the backbone area is to route traffic between the other areas in the AS.
 
+\item
+The \textbf{Border Gateway Protocol} version 4 is the \textit{de facto} standard inter-AS routing protocol in today's Internet. It is commonly referred to as BGP4 or simply as \textbf{BGP}.\\
+As an inter-AS routing protocol, BGP provides each AS a mean to: (1) Obtain subnet reachability information from neighboring ASs; (2) Propagate the reachability information to all routers internal to the AS; and (3) Determine ``good'' routes to subnets based on the reachability information and on AS policy.\\
 
+\item
+In BGP, pairs of routers exchange routing information over semipermanent TCP connections using port 179. For each TCP connection, the two routers at the end of the connection are called \textbf{BGP peers}, and the TCP connection along with all the BGP messages sent over the connection is called a \textbf{BGP session}. Furthermore, a BGP session that spans two ASs is called an \textbf{external BGP (eBGP) session}, and a BGP session between routers in the same AS is called an \textbf{internal BGP (iBGP) session}.\\
+In BGP, an autonomous system is identified by its globally unique \textbf{autonomous system number (ASN)}.\\
+When a router advertises a prefix across a BGP session, it includes with the prefix a number of \textbf{BGP attributes}. In BGP jargon, a prefix along with its attributes is called a \textbf{route}. Thus, BGP peers advertise routes to each other. Two of the more important attributes are AS-PATH and NEXT-HOP.\\
+When a gateway router receives a route advertisement, it uses its \textbf{import policy} to decide whether to accept or filter the route and whether to set certain attributes such as the router preference metrics.
 
+\item
+All traffic entering a \textbf{stub network} must be destined for that network, and all traffic leaving a stub network must have originated in that network.
 
+\item
+In \textbf{broadcast routing}, the network layer provides a service of delivering a packet sent from a source node to all other nodes in the network; \textbf{multicast routing} enables a single source node to send a copy of a packet to a subset of the other network nodes.
 
+\item
+Perhaps the most straightforward way to accomplish broadcast communication is for the sending node to send a separate copy of the packet to each destination.\\
+The most obvious technique for achieving broadcast is a \textbf{flooding} approach in which the source node sends a copy of the packet to all of its neighbors. When a node receives a broadcast packet, it duplicates the packet and forwards it to all of its neighbors (except the neighbor from which it received the packet).\\
+In \textbf{sequence-number-controlled flooding}, a source node puts its address (or other unique identifier) as well as a \textbf{broadcast sequence number} into a broadcast packet, then sends the packet to all of its neighbors.\\
+A second approach to controlled flooding is known as \textbf{reverse path forwarding (RPF)}, also sometimes referred to as reverse path broadcast (RPB). The idea behind RPF is simple, yet elegant. When a router receives a broadcast packet with a given source address, it transmits the packet on all of its outgoing links (except the one on which it was received) only if the packet arrived on the link that is on its own shortest unicast path back to the source.
 
+\item
+More formally, a spanning tree of graph \textit{G = (N, E)} is a graph \textit{G' = (N, E')} such that \textit{E'} is a subset of \textit{E}, \textit{G'} is connected, \textit{G'} contains no cycles, and \textit{G'} contains all the original nodes in \textit{G}. If each link has an associated cost and the cost of a tree is the sum of the link costs, then a spanning tree whose cost is the minimum of all of the graph's spanning trees is called (not surprisingly) a \textbf{minimum spanning tree}.\\
+In the \textbf{center-based approach} to building a spanning tree, a center node (also known as a \textbf{rendezvous point} or a \textbf{core}) is defined. Nodes then unicast tree-join messages addressed to the center node. A tree-join message is forwarded using unicast routing toward the center until it either arrives at a node that already belongs to the spanning tree or arrives at the center.
 
+\item
+In the Internet, the single identifier that represents a group of receivers is a class D multicast IP address. The group of receivers associated with a class D address is referred to as a \textbf{multicast group}.
 
+\item
+The IGMP protocol version 3 operates between a host and its directly attached router.\\
+IGMP provides the means for a host to inform its attached router that an application running on the host wants to join a specific multicast group.\\
+Network-layer multicast in the Internet thus consists of two complementary components: IGMP and multicast routing protocols.\\
+Like ICMP, IGMP messages are carried (encapsulated) within an IP datagram, with an IP protocol number of 2.
 
+\item
+The term soft state was coined by Clark, who described the notion of periodic state refresh messages being sent by an end system, and suggested that with such refresh messages, state could be lost in a crash and then automatically restored by subsequent refresh messages---all transparently to the end system and without invoking any explicit crash-recovery procedures.
 
+\item
+In practice, two approaches have been adopted for determining the multicast routing tree, both of which we have already studied in the context of broadcast routing. The two approaches differ according to whether a single group-shared tree is used to distribute the traffic for \textit{all} senders in the group, or whether a source-specific routing tree is constructed for each individual sender: (1) Multicast routing using a group-shared tree; and (2) Multicast routing using a source-based tree.
 
+\item
+The solution to the problem of receiving unwanted multicast packets under RPF is known as \textbf{pruning}. A multicast router that receives multicast packets and has no attached hosts joined to that group will send a prune message to its upstream router. If a router receives prune messages fro each of its downstream routers, then it can forward a prune message upstream.
 
+\item
+The first multicast routing protocol used in the Internet was the \textbf{Distance-Vector Multicast Routing Protocol (DVMRP)}. DVMRP implements source-based trees with reverse path forwarding and pruning. DVMRP uses an RPF algorithm with pruning, as discussed above. Perhaps the most widely used Internet multicast routing protocol is the \textbf{Protocol-Independent Multicast (PIM)}, which explicitly recognizes two multicast distribution scenarios.\\
+In dense mode, multicast group members are densely located; that is, many or most of the routers in the area need to be involved in routing multicast datagrams. PIM dense mode is a flood-and-prune reverse path forwarding technique similar in spirit to DVMRP.\\
+In sparse mode, the number of routers with attached group members is small with respect to the total number of routers; group members are widely dispersed. PIM sparse mode uses rendezvous points to set up the multicast distribution tree. In \textbf{source-specific multicast (SSM)}, only a single sender is allowed to send traffic into the multicast tree, considerably simplifying tree construction and maintenance.
 
-
-
-
+\item
+Multiprotocol extensions to BGP are defined to allow it to carry routing information for other protocols, including multicast information. The Multicast Source Discovery Protocol (MSDP) can be used to connect together rendezvous points in different PIM sparse mode domains.
 
 \end{itemize}
