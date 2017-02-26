@@ -1,0 +1,124 @@
+\section{Computer Networks and the Internet}
+\begin{itemize}
+
+\item
+When we say a wireless is ``associated'' with a base station, we mean that (1) host is within the wireless communication distance of the base station, and (2) the host uses that base station to relay data between it (the host) and the larger network.
+
+\item
+Hosts associated with a base station are often referred to as operating in \textbf{infrastructure mode}, since all traditional network services (e.g., address assignment and routing) are provided by the network to which a host is connected via the base station. In \textbf{ad hoc network}, wireless hosts have no such infrastructure with which to connect. In the absence of such infrastructure, the hosts themselves must provide for services such as routing, address assignment, DNS-like name translation, and more.
+
+\item
+Indeed, we can find a number of important differences between a wired link and a wireless link: (1) Decreasing signal strength; (2) Interference from other sources; and (3) Multipath propagation.
+
+\item
+The \textbf{signal-to-noise (SNR)} is a relative measure of the strength of the received signal (i.e., the information being transmitted) and this noise.
+
+\item
+With the so-called \textbf{hidden terminal problem}, physical obstructions in the environment (for example, a mountain or a building) may prevent A and C from hearing each other's transmissions, even though A's and C's transmissions are indeed interfering at the destination, B. A second scenario that results in undetectable collisions at the receiver results from  the \textbf{fading} of a signal's strength as it propagates through the wireless medium.
+
+\item
+In a CDMA protocol, each bit being sent is encoded by multiplying the bit by a signal (the code) that changes at a much faster rate (known as the \textbf{chipping rate}) than the original sequence of data bits.
+
+\item
+Although many technologies and standards for wireless LANs were developed in the 1990s, one particular class of standards has clearly emerged as the winner: the \textbf{IEEE 802.11 wireless LAN}, also known as \textbf{WiFi}.
+
+\item
+The fundamental building block of the 802.11 architecture is the \textbf{basic service set (BSS)}. A BSS contains one or more wireless stations and a central \textbf{base station}, known as an \textbf{access point (AP)} in 802.11 parlance.
+
+\item
+When a network administrator installs an AP, the administrator assigns a one- or two-word \textbf{Service Set Identifier (SSID)} to the access point.\\
+The administrator must also assign a channel number to the AP. To understand channel numbers, recall that 802.11 operates in the frequency range of 2.4 GHz to 2.485 GHz. Within this 85 MHz band, 802.11 defines 11 partially overlapping channels. Any two channels are non-overlapping if and only if they are separated by four or more channels.
+
+\item
+A \textbf{WiFi jungle} is any physical location where a wireless station receives a sufficiently strong signal from two or more APs.
+
+\item
+The 802.11 standard requires that an AP periodically send \textbf{beacon frames}, each of which includes the AP's SSID and MAC address.
+
+\item
+The process of scanning channels and listening for beacon frames is known as \textbf{passive scanning}. A wireless host can also perform \textbf{active scanning}, by broadcasting a probe frame that will be received by all APs within the wireless host's range.
+
+\item
+In order to create an association with a particular AP, the wireless station may be required to authenticate itself to the AP. 802.11 wireless LANs provide a number of alternatives for authentication and access. One approach, used by many companies, is to permit access to a wireless network based on station's MAC address. A second approach, used by many Internet caf\'{e}s, employs usernames and passwords. In both cases, the AP typically communicates with an authentication server, relaying information between the wireless end-point station and the authentication server using a protocol such as RADIUS or DIAMETER.
+
+\item
+Inspired by the huge success of Ethernet and its random access protocols, the designers of 802.11 chose a random access protocol for 802.11 wireless LANs. This random access protocol is referred to as \textbf{CSMA with collision avoidance}, or more succinctly as \textbf{CSMA/CA}.
+
+\item
+When the destination station receives a frame that passes the CRC, it waits a short period of time known as the \textbf{Short Inter-frame Spacing (SIFS)} and then sends back an acknowledgement frame.
+
+\item
+If initially the station senses the channel idle, it transmits its frame after a short period of time known as the \textbf{Distributed Inter-frame Spacing (DIFS)}.
+
+\item
+In 802.11, if the two stations sense the channel busy, they both immediately enter random backoff, hopefully choosing different backoff values.
+
+\item
+In order to avoid the hidden terminals problem, the IEEE 802.11 protocol allows a station to use a short \textbf{Request to Send (RTS)} control frame and a short \textbf{Clear to Send (CTS)} control frame to \textit{reserve} access to the channel.
+
+%TODO The 802.11 frame IMG
+
+\item
+The 802.11 standard defines the three address fields as follows:
+\begin{itemize}
+\item[*]Address 2 is the MAC address of the station that transmits the frame.
+\item[*]Address 1 is the MAC address of the wireless station that is to receive the frame.
+\item[*]To understand address 3, recall that the BSS (consisting of the AP and wireless stations) is part of a subnet, and that this subnet connects to other subnets via some router interface. Address 3 contains the MAC address of this router interface.
+\end{itemize}
+
+\item
+When the host moves between BSSs in the same subnet, how does the switch know that the host has moved from one AP to another? One solution (a bit of hack, really) is for AP2 to send a broadcast Ethernet frame with H1's source address to the switch just after the new association.
+
+\item
+Some 802.11 implementations have a rate adaptation capability that adaptively selects the underlying physical-layer modulation technique to use based on current or recent channel characteristics.
+
+\item
+A node is able to explicitly alternate between sleep and wake states. A node indicates to the access point that it will be going to sleep by setting the power-management bit in the header of an 802.11 frame to 1.
+
+\item
+Two other IEEE 802 protocols---Bluetooth and Zigbee (defined in the IEEE 802.15.1 and IEEE 802.15.4 standards) and WiMAX (defined in the IEEE 802.16 standard)---are standards for communicating over shorter and longer distances, respectively.
+
+\item
+802.15.1 networks operate in the 2.4 GHz unlicensed radio band in a TDM manner, with time slots of 625 microseconds. During each time slot, a sender transmits on one of 79 channels, with the channel changing in a known but pseudorandom manner from slot to slot. This form of channel hopping, known as \textbf{frequency-hopping spread spectrum (FHSS)}, spreads transmissions in time over the frequency spectrum. 802.15.1 can provide data rates up to 4 Mbps.\\
+802.15.1 networks are ad hoc networks: No network infrastructure (e.g., an access point) is needed to interconnect 802.15.1 devices. Thus, 802.15.1 devices must organize themselves. 802.15.1 devices are first organized into a \textbf{piconet} of up to eight active devices. One of these devices is designated as the master, with the remaining devices acting as slaves.
+
+\item
+While Bluetooth networks provide a ``cable replacement'' data rate of over a Megabit per second, Zigbee is targeted at lower-powered, lower-data-rate, lower-duty-cycle applications than Bluetooth.
+
+\item
+In our description of cellular network architecture in this section, we'll adopt the terminology of the \textit{Global System for Mobile Communications (\textbf{GSM})} standards.
+
+\item
+The term \textit{cellular} refers to the fact that the region covered by a cellular network is partitioned into a number of geographic coverage areas, known as \textbf{cells}. Each cell contains a \textbf{base transceiver station (BTS)} that transmits signals to and receives signals from the mobile stations in its cell.
+
+\item
+A GSM network's \textbf{base station controller (BSC)} will typically service several tens of base transceiver stations. The role of the BSC is to allocate BTS radio channels to mobile subscribers, perform \textbf{paging} (finding the cell in which a mobile user is resident), and perform handoff of mobile users. THe base station controller and its controlled base transceiver stations collectively constitute a GSM \textbf{base station system (BSS)}.
+
+\item
+As we'll see, the \textbf{mobile switching center (MSC)} plays the central role in user authorization and accounting (e.g., determining whether a mobile device is allowed to connect to the cellular network), call establishment and teardown, and handoff.
+
+\item
+In our discussion below, we'll focus on the UMTS (Universal Mobile Telecommunications Service) 3G standards developed by the 3rd Generation Partnership Project (3GPP), a widely deployed 3G technology.
+
+\item
+Given the considerable amount of existing infrastructure
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{itemize}
