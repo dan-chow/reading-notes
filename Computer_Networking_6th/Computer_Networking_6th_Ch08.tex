@@ -1,0 +1,164 @@
+\section{Security in Computer Networks}
+\begin{itemize}
+
+\item
+We can identify the following desirable properties of \textbf{secure communication}: (1) Confidentiality; (2) Message integrity; (3) End-point authentication; and (4) Operational security.
+
+\item
+In \textbf{symmetric key systems}, Alice's and Bob's keys are identical and are secret. In \textbf{public key systems}, a pair of keys is used. One of the keys is known to both Bob and Alice (indeed, it is known to the whole world). The other key is known only by either Bob or Alice (but not both).
+
+\item
+When considering how easy it might be for Trudy to break Bob and Alice's encryption scheme, one can distinguish three different scenarios, depending on what information the intruder has: (1) Ciphertext-only attack; (2) Known-plaintext attack; and (3) Chosen-plaintext attack.
+
+\item
+There are two broad classes of symmetric encryption techniques: \textbf{stream ciphers} and \textbf{block ciphers}.
+
+\item
+The purpose of the rounds is to make each input bit affect most (if not all) of the final output bits.
+
+\item
+In order to have our cake and eat it too, block ciphers typically use a technique called \textbf{Cipher Block Chaining (CBC)}. The basic idea is to send only \textit{one random value along with the very first message, and then have the sender and receiver use the computed coded blocks in place of the subsequent random number}.
+
+\item
+Is it possible for two parties to communicate with encryption without having a shared secret key that is known in advance? In 1976, Diffie and Hellman demonstrated an algorithm (known now as Diffie-Hellman Key Exchange) to do just that---a radically different and marvelously elegant approach toward secure communication that has led to the development of today's public key cryptography systems.
+
+\item
+Rather than Bob and Alice sharing a single secret key (as in the case of symmetric key systems), Bob (the recipient of Alice's messages) instead has two keys---a \textbf{public key} that is available to \textit{everyone} in the world (including Trudy the intruder) and a \textbf{private key} that is known only to Bob.
+
+\item
+The \textbf{RSA algorithm} (named after its founders, Ron Rivest, Adi Shamir, and Leonard Adleman) has become almost synonymous with public key cryptography.
+
+\item
+If \textit{p} and \textit{q} are prime, \textit{n = pq}, and \textit{z} = (\textit{p} - 1)(\textit{q} - 1), then \(x^y\) mod \textit{n} is the same as x\textsuperscript{\textit{y} mod \textit{z}} mod \textit{n}. Applying this result with \textit{x = m} and \textit{y = ed} we have\\
+\hspace*{1em}\(m^{ed}\) mod \textit{n} = m\textsuperscript(\textit{ed} mod z) mod \textit{n}\\
+But remember that we have chosen \textit{e} and \textit{d} such that \textit{ed} mod z = 1. This gives us\\
+\hspace*{1em}\(m^{ed}\) mod \textit{n} = m\textsuperscript(1) mod \textit{n} = \textit{m}\\
+which is exactly the result we are looking for! This wonderful result follows immediately from the modular arithmetic:\\
+\hspace*{1em}(\(m^d\) mod \textit{n})\textsuperscript(e) mod \textit{n} = \(m^{de}\) mod \textit{n} = (\(m^e\) mod \textit{n})\textsuperscript(\textit{d}) mod \textit{n}\\
+The security of RSA relies on the factor that there are no known algorithms for quickly factoring a number, in this case the public value \textit{n}, into the prime \textit{p} and \textit{q}.
+
+\item
+A \textbf{cryptographic hash function} is required to have the following additional property: It is computationally infeasible to find any two different messages \textit{x} and \textit{y} such that \textit{H(x) = H(y)}.
+
+\item
+The MD5 hash algorithm of Ron Rivest is in wide use today.
+
+\item
+The second major hash algorithm in use today is the Secure Hash Algorithm (SHA-1).
+
+\item
+To perform message integrity, in addition to using cryptographic hash functions, Alice and Bob will need a shared secret \textit{s}. This shared secret, which is nothing more than a string of bits, is called the \textbf{authentication key}.
+
+\item
+The most popular standard today is \textbf{HMAC}, which can be used wither with MD5 or SHA-1. HMAC actually runs data and the authentication key through the hash function twice.
+
+\item
+Thus, public-key cryptography is an excellent candidate for providing digital signatures.
+
+\item
+A more efficient approach is to introduce hash functions into the digital signature.
+
+\item
+An important application of digital signatures is \textbf{public key encryption}, that is, certifying that a public key belongs to a specific entity.
+
+\item
+Building a public key to a particular entity is typically done by a \textbf{Certification Authority (CA)}, whose job is to validate identities and issue certificates.
+
+\item
+\textbf{End-point authentication} is the process of ine entity proving its identity to another entity over a computer network.
+
+\item
+Here, authentication must be done solely on the basis of messages and data exchanged as part of an \textbf{authentication protocol}.
+
+\item
+A \textbf{nonce} is a number that a protocol will use only once in a lifetime.
+
+\item
+Written by Phil Zimmermann in 1991, \textbf{Pretty Good Privacy (PGP)} is an e-mail encryption scheme that has become a \textit{de facto} standard.
+
+\item
+This enhanced version of TCP is commonly known as \textbf{Secure Sockets Layer (SSL)}. A slightly modified version of SSL version 3, called \textbf{Transport Layer Security (TLS)}, has been standardized by the IETF.
+
+\item
+SSL provides a simple Application Programmer Interface (API) with sockets, which is similar and analogous to TCP's API. When an application wants to employ SSL, the application includes SSL classes/libraries.
+
+\item
+In principle, the MS, now shared by Bob and Alice, could be used as the symmetric session key for all subsequent encryption and data integrity checking. It is, however, generally considered safer for Alice and Bob to each use different cryptographic keys, and also to use different keys for encryption and integrity checking.
+
+\item
+We certainly do not want to wait until the end of the TCP session to verify the integrity of all of Bob's data that was sent over the entire session! To address this issue, SSL breaks the data stream into \textit{records}, appends a MAC to each record for integrity checking, and then encrypts the record+MAC.
+
+\item
+Instead, SSL allows Alice and Bob to agree on the cryptographic algorithms at the beginning of the SSL session, during the handshake phase.
+
+\item
+The last two steps (The client sends a MAC of all the handshake message \& The server sends a MAC of all the handshake messages) in SSL handshake protect the handshake from tampering.
+
+\item
+In summary, in SSL, nonces are used to defend against the ``connection replay attack'' and sequence numbers are used to defend against replaying individual packets during an ongoing session.
+
+\item
+But such a naive design sets the stage for the \textit{truncation attack} whereby Trudy once again gets in the middle of an ongoing SSL session and ends the session early with a TCP FIN. If Trudy were to do this, Alice would think she received all of Bob's data when actuality she only received a portion of it. The solution to this problem is to indicate in the type field whether the record serves to terminate the SSL session.
+
+\item
+The IP security protocol, more commonly known as \textbf{IPsec}, provides security at the network layer. IPsec secures IP datagrams between any two network-layer entities, including hosts and routers.
+
+\item
+Instead of deploying and maintaining a private network, many institutions today create VPNs over the existing public Internet.
+
+\item
+In the IPsec protocol suite, there are two principal protocols: the \textbf{Authentication Header (AH)} protocol and the \textbf{Encapsulation Security Payload (ESP)} protocol.
+
+\item
+Before sending IPsec datagrams from source entity to destination entity, the source and destination entities create a network-layer logical connection. This logical connection is called a \textbf{security association (SA)}.
+
+\item
+An IPsec entity stores the state information for all of its SAs in its \textbf{Security Association Database (SAD)}, which is a data structure in the entity's OS kernel.
+
+\item
+Having now described SAs, we can now describe the actual IPsec datagram. IPsec has two different packet forms, one for the so-called \textbf{tunnel mode} and the other for the so-called \textbf{transport mode}.
+
+\item
+Also, the protocol number in this new IPv4 header field is not set to that of TCP, UDP, or SMTP, but instead to 50, designating that this is an IPsec datagram using the ESP protocol.
+
+\item
+Along with a SAD, the IPsec entity also maintains another data structure called the \textbf{Security Policy Database (SPD)}. The SPD indicates what types of datagrams (as a function of source IP address, destination IP address, and protocol type) are to be IPsec processed; and for those that are to be IPsec processed, which SA should be used. In a sense, the information in a SPD indicates ``what'' to do with an arriving datagram; the information in the SAD indicates ``how'' to do it.
+
+\item
+Large, geographically distributed deployments require an automated mechanism for creating the SAs. IPsec does this with the Internet Key Exchange (IKE) protocol.
+
+\item
+In the following section, we discuss the security mechanisms initially standardized in the 802.11 specification, known collectively as \textbf{Wired Equivalent Privacy (WEP}. As the name suggests, WEP is meant to provide a level of security similar to that found in wired networks.
+
+\item
+The IEEE 802.11 WEP protocol was designed in 1999 to provide authentication and data encryption between a host and a wireless access point (that is, base station) using a symmetric shared key approach.
+
+\item
+802.11i operates in four phases: (1) Discovery; (2) Mutual authentication and Master Key (MK) generation; (3) Pairwise Master Key (PMK) generation; and (4) Temporal Key (TK) generation.
+
+\item
+The \textbf{Extensible Authentication Protocol (EAP)} defines the end-to-end message formats used in a simple request/response mode of interaction between the client and authentication server. EAP messages are encapsulated using \textbf{EAPoL} (EAP over LAN) and sent over the 802.11 wireless link. These EAP messages are then decapsulated at the access point, and then re-encapsulated using the \textbf{RADIUS} protocil fro transmission over UDP/IP to the authentication server. While the RADIUS server and protocol are not required by the 802.11i protocol, they are \textit{de facto} standard components for 802.11i. The recently standardized \textbf{DIAMETER} protocol is likely to replace RADIUS in the near future.
+
+\item
+A \textbf{firewall} is a combination of hardware and software that isolates an organization's internal network from the Internet at large, allowing some packets to pass and blocking others.\\
+A firewall has three goals: (1) All traffic from outside to inside, and vice versa, passes through the firewall; (2) Only authorized traffic, as defined by the local security policy, will be allowed to pass; and (3) The firewall itself is immune to penetration.
+
+\item
+Firewalls can be classified in three categories: \textbf{traditional packet filters}, \textbf{stateful filters}, and \textbf{application gateways}.
+
+\item
+Stateful filters actually track TCP connections, and use this knowledge to make filtering decisions.
+
+\item
+An \textbf{application gateway} is an application-specific server through which all application data (inbound and outbound) must pass.
+
+\item
+However, to detect many attack types, we need to perform \textbf{deep packet inspection}, that is, look beyond the header fields and into the actual application data that the packets carry.
+
+\item
+A device that generates alerts when it observes potentially malicious traffic is called an \textbf{intrusion detection system (IDS)}. A device that filters out suspicious traffic is called an \textbf{intrusion prevention system (IPS)}.
+
+\item
+IDS systems are broadly classified as either \textbf{signature-based systems} or \textbf{anomaly-based systems}.
+
+\end{itemize}
