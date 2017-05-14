@@ -3,7 +3,7 @@
 
 \item
 To read from the standard input, we write \texttt{std::cin}. These names use the scope operator(\texttt{::}), which says that the compiler should look in the scope of the left-hand operand for the name of the right-hand operand. Thus, \texttt{std::cin} says that we want to use the name \texttt{cin} from the namespace \texttt{std}.\\
-Referring to library names with this notation can be cumbersome. Fortunately, there are easier ways to use namespace members. The safest way is a \textbf{using declaration}:\\
+Referring to library names with this notation can be cumbersome. Fortunately, there are easier ways to use namespace members. The safest way is a \textbf{\texttt{using} declaration}:\\
 \hspace*{1em}\texttt{using namespace::name;}\\
 Code inside headers ordinarily should not use \texttt{using} declarations.
 
@@ -11,7 +11,7 @@ Code inside headers ordinarily should not use \texttt{using} declarations.
 A \textbf{\texttt{string}} is a variable-length sequence of characters. To use the \texttt{string} type, we must include the \texttt{string} header. Because it is part of the library, \texttt{string} is defined in the \texttt{std} namespace.
 
 \item
-When we initialize a variable using \texttt{=}, we are asking the compiler to \textbf{copy initialize} the object by copying the initializer on the right-hand side into the object being created. Otherwise, when we omit the \textbf{=}, we use \textbf{direct initialization}.
+When we initialize a variable using \texttt{=}, we are asking the compiler to \textbf{copy initialize} the object by copying the initializer on the right-hand side into the object being created. Otherwise, when we omit the \texttt{=}, we use \textbf{direct initialization}.
 
 \item
 \begin{tabular}{| p{4cm} p{10cm} |}
@@ -54,16 +54,16 @@ The newline that causes \texttt{getline} to return is discarded; the newline is 
 Although we don't know the precise type of \texttt{string::size\_type}, we do know that it is an unsigned type big enough to hold the size of any \texttt{string}. Any variable used to stroe the result from the \texttt{string size} operation should be of type \texttt{string::size\_type}.
 
 \item
-When we mix \textbf{string}s and string or character literals, at least one operand to each \texttt{+} operator must be of \texttt{string} type:\\
+When we mix \textbf{\texttt{string}}s and string or character literals, at least one operand to each \texttt{+} operator must be of \texttt{string} type:\\
 \hspace*{1em}\texttt{string s4 = s1 + ",";} // \textit{ok: adding a string and a literal}\\
 \hspace*{1em}\texttt{string s5 = "hello" + ", ";} // \textit{error: no string operand}
 
 \item
-In addition to facilities defined specifically for C++, the C++ library incorporates the C library. Headers in C have names of the form \texttt{\textit{name}.h}. The C++ versions of these headers are named c\textit{name}---they remove the \texttt{.h} suffix and precede the \textit{name} with the letter \texttt{c}. The \texttt{c} indicates that the header is part of the C library.
+In addition to facilities defined specifically for C\texttt{++}, the C\texttt{++} library incorporates the C library. Headers in C have names of the form \texttt{\textit{name}.h}. The C\texttt{++} versions of these headers are named c\textit{name}---they remove the \texttt{.h} suffix and precede the \textit{name} with the letter \texttt{c}. The \texttt{c} indicates that the header is part of the C library.
 
 \item
 If we want to do something to every character in a \texttt{string}, by far the best approach is to use a statement introduced by the new standard: the \textbf{range \texttt{for}} statement. This statement iterates through the elements in a given sequence and performs some operation on each value in that sequence.\\
-\hspace*{1em}\texttt{for (}\textit{declaration : expression})\\
+\hspace*{1em}\texttt{for (}\textit{declaration }:\textit{ expression})\\
 \hspace*{3em}\textit{statement}
 
 \item
@@ -88,19 +88,21 @@ If we want to do something to every character in a \texttt{string}, by far the b
 \end{tabular}
 
 \item
-The subscript operator (the \textbf{[] operator}) takes a \texttt{string::size\_type} value that denotes the position of the character we want to access. The operator returns a reference to the character at the given position.\\
-\textbf{The result of using an index outside this range is undefined. By implication, subscripting an empty \texttt{string} is undefined.}
+The subscript operator (the \textbf{\texttt{[]} operator}) takes a \texttt{string::size\_type} value that denotes the position of the character we want to access. The operator returns a reference to the character at the given position.\\
+The result of using an index outside this range is undefined. By implication, subscripting an empty \texttt{string} is undefined.
 
 \item
-A \textbf{\texttt{vector}} is a collection of objects, all of which have the same type. Every object in the collection has an associated index, which gives access to that object. A \texttt{vector} is often referred to as a \textbf{container} because it "contains" other objects.
+A \textbf{\texttt{vector}} is a collection of objects, all of which have the same type. Every object in the collection has an associated index, which gives access to that object. A \texttt{vector} is often referred to as a \textbf{container} because it \texttt{"}contains\texttt{"} other objects.
 
 \item
-A \texttt{vector} is a \textbf{class template}. C++ has both class and function templates.\\
+A \texttt{vector} is a \textbf{class template}. C\texttt{++} has both class and function templates.\\
 The process that the compiler uses to create classes or functions from templates is called \textbf{instantiation}.\\
-For a class template, we specify which class to instantiate by supplying additional information, the nature of which depends on the template. How we specify the information is always the same: We supply it inside a pair of angle brackets following the template's name.\\
-\hspace*{1em}\texttt{vector<int> ivec;} // \textit{ivec holds objects of type int}
+For a class template, we specify which class to instantiate by supplying additional information, the nature of which depends on the template. How we specify the information is always the same: We supply it inside a pair of angle brackets following the template's name:\\
+\hspace*{1em}\texttt{vector<int> ivec; // }\textit{ivec holds objects of type int}
 
-%table 3.4 TODO
+\item
+Another way to provide element values, is that under the new standard, we can list initialize a \texttt{vector} from a list of zero or more initial element values enclosed in curly braces.
+
 \item
 \begin{tabular}{| p{5cm} p{9cm} |}
 \hline
@@ -118,13 +120,13 @@ For a class template, we specify which class to instantiate by supplying additio
 
 \item
 If we use braces and there is no way to use the initializers to list initialize the object, then those values will be used to construct the object.\\
-\hspace*{1em}\texttt{vector<string> v5$\{$"hi"$\}$;} // \textit{list initialization: v5 has one element}\\
-\hspace*{1em}\texttt{vector<string> v6("hi");} // \textit{error: can't construct a vector from a string literal}\\
-\hspace*{1em}\texttt{vector<string> v7$\{$10$\}$;} // \textit{v7 has ten default-initialized elements}\\
-\hspace*{1em}\texttt{vector<string> v8$\{$10, "hi"$\}$;} // \textit{v8 has ten elements with value "hi"}
+\hspace*{1em}\texttt{vector<string> v5$\{$"hi"$\}$; // }\textit{list initialization: v5 has one element}\\
+\hspace*{1em}\texttt{vector<string> v6("hi"); // }\textit{error: can't construct a vector from a string literal}\\
+\hspace*{1em}\texttt{vector<string> v7$\{$10$\}$; // }\textit{v7 has ten default-initialized elements}\\
+\hspace*{1em}\texttt{vector<string> v8$\{$10, "hi"$\}$; // }\textit{v8 has ten elements with value "hi"}
 
 \item
-The \texttt{push\_back} operation takes a value and "pushes" that value as a new last element onto the "back" of the \texttt{vector}.
+The \texttt{push\_back} operation takes a value and \texttt{"}pushes\texttt{"} that value as a new last element onto the \texttt{"}back\texttt{"} of the \texttt{vector}.
 
 \item
 To use \texttt{size\_type}, we must name the type in which it is defined. A \texttt{vector} type \textit{always} includes its element type:\\
@@ -155,7 +157,7 @@ The subscript operator on \texttt{vector} (and \texttt{string}) fetches an exist
 Types that have iterators have members that return iterators. In particular, these types have members named \textbf{\texttt{begin}} and \textbf{\texttt{end}}.
 
 \item
-If the container is empty, the iterators returned by \texttt{begin} and \texttt{end} are equal---they are moth off-the-end iterators.
+If the container is empty, the iterators returned by \texttt{begin} and \texttt{end} are equal---they are both off-the-end iterators.
 
 \item
 \begin{tabular}{| p{3cm} p{11cm} |}
@@ -176,7 +178,7 @@ If the container is empty, the iterators returned by \texttt{begin} and \texttt{
 To let us ask specifically for the \texttt{const\_iterator} type, the new standard introduced two new functions named \texttt{cbegin} and \texttt{cend}.
 
 \item
-When we deference an iterator, we get the object that the iterator denotes. If that object has a class type, we may want to access a member of that object. Assuming \texttt{it} is an iterator into a \texttt{vector} of \texttt{string}s, we can check whether the \texttt{string} that \texttt{it} denotes is empty as follows:\\
+When we deference an iterator, we get the object that the iterator denotes. If that object has a class type, we may want to access a member of that object. For example, we might have a \texttt{vector} of \texttt{string}s and we might need to know whether a given element is empty. Assuming \texttt{it} is an iterator into this \texttt{vector}, we can check whether the \texttt{string} that \texttt{it} denotes is empty as follows:\\
 \hspace*{1em}\texttt{(*it).empty()}\\
 To simplify expressions such as this one, the language defines the arrow operator (the \textbf{\texttt{->} operator}). The arrow operator combines deference and member access into a single operation. That is, \texttt{it->mem} is a synonym for \texttt{(*it).mem}.
 
@@ -196,45 +198,45 @@ To simplify expressions such as this one, the language defines the arrow operato
 \hline
 \end{tabular}
 
-
 \item
 An array is a data structure that is similar to the library \texttt{vector} type but offers a different trade-off between performance and flexibility.
 
 \item
-Character arrays have an additional form of initialization: We can initialize such arrays from a string literal. When we use this form of initialization, it is important to remember that string literals end with a null character.\\
-\hspace*{1em}\texttt{char a3[] = "C++";} // \textit{null terminator added automatically}\\
-\hspace*{1em}\texttt{const char a4[6] = "Daniel";} // \textit{error: no space for the null!}
+Character arrays have an additional form of initialization: We can initialize such arrays from a string literal. When we use this form of initialization, it is important to remember that string literals end with a null character:\\
+\hspace*{1em}\texttt{char a3[] = "C++"; // }\textit{null terminator added automatically}\\
+\hspace*{1em}\texttt{const char a4[6] = "Daniel"; // }\textit{error: no space for the null!}
 
 \item
 We cannot initialize an array as a copy of another array, nor is it legal to assign one array to another.\\
 Some compilers allow array assignment as a \textbf{compiler extension}. It is usually a good idea to avoid using nonstandard features. Programs that use such features, will not work with a different compiler.
 
 \item
-\hspace*{1em}\texttt{int *ptrs[10];} // \textit{ptrs is an array of ten pointers to int}\\
-\hspace*{1em}\texttt{int \&refs[10] = /* ? */;} // \textit{error: no arrays of references}\\
-\hspace*{1em}\texttt{int (*Parray)[10] = \&arr;} // \textit{Parray points to an array of ten ints}\\
-\hspace*{1em}\texttt{int (\&arrRef)[10] = arr;} // \textit{arrRef refers to an array of ten ints}\\
+\hspace*{1em}\texttt{int *ptrs[10]; // }\textit{ptrs is an array of ten pointers to int}\\
+\hspace*{1em}\texttt{int \&refs[10] = /* ? */; // }\textit{error: no arrays of references}\\
+\hspace*{1em}\texttt{int (*Parray)[10] = \&arr; // }\textit{Parray points to an array of ten ints}\\
+\hspace*{1em}\texttt{int (\&arrRef)[10] = arr; // }\textit{arrRef refers to an array of ten ints}\\
 Because the array dimension follows the name being declared, it can be easier to read array declarations from the inside out rather than from right to left. Reading from the inside out makes it much easier to understand the type of \texttt{Parray}. We start by observing that the parentheses around \texttt{*Parray} mean that \texttt{Parray} is a pointer. Looking right, we see that \texttt{Parray} points to an array of size 10. Looking left, we see that the elements in that array are \texttt{int}s. Thus, \texttt{Parray} is a pointer to an array of ten \texttt{int}s.
 
 \item
 When we use a variable to subscript an array, we normally should define that variable to have type \textbf{\texttt{size\_t}}.\\
-In most expressions, when we use an object of array type, we are really using a pointer to the first element in that array.\\
+In most expressions, when we use an object of array type, we are really using a pointer to the first element in that array.
 
 \item
-To make it easier and safer to use points, the new library includes two functions, named \texttt{begin} and \texttt{end}. These functions act like the similarly named container members.\\
+To make it easier and safer to use points, the new library includes two functions, named \texttt{begin} and \texttt{end}. These functions act like the similarly named container members:\\
 \hspace*{1em}\texttt{auto n = end(arr) - begin(arr);} // \textit{n is the number of elements in arr}\\
 The result of subtracting two pointers is a library type named \textbf{\texttt{ptrdiff\_t}}.
 
 \item
 We can use the subscript operator on any pointer, as long as that pointer points to an element (or one past the last element) in an array:\\
 \hspace*{1em}\texttt{int *p = \&ia[2];} // \textit{p points to the element indexed by 2}\\
-\hspace*{1em}\texttt{int j = p[1];} // \textit{p[1] is equivalent to *(p+1)}\\
+\hspace*{1em}\texttt{int j = p[1]; // }\textit{p[1] is equivalent to *(p+1)}\\
+\hspace*{1em}\texttt{              // }\textit{p[1] is the same element as ia[3]}\\
 \hspace*{1em}\texttt{int k = p[-2];} // \textit{p[-2] is the same element as ia[0]}\\
 Unlike subscripts for \texttt{vector} and \texttt{string}, the index of the built-in subscript operator is not an \texttt{unsigned} type.
 
 \item
-Although C++ supports C-style strings, they should not be used by C++ programs. C-style strings are a surprisingly rich source of bugs and are the root cause of many security problems. They're also harder to use!\\
-Character string literals are an instance of a more general construct that C++ inherits from C: \textbf{C-style character strings}.
+Although C\texttt{++} supports C-style strings, they should not be used by C\texttt{++} programs. C-style strings are a surprisingly rich source of bugs and are the root cause of many security problems. They're also harder to use!\\
+Character string literals are an instance of a more general construct that C\texttt{++} inherits from C: \textbf{C-style character strings}.
 
 \item
 \begin{tabular}{| p{3cm} p{11cm} |}
@@ -251,22 +253,23 @@ Character string literals are an instance of a more general construct that C++ i
 \item
 The functions in table above do not verify their string parameters.\\
 The pointer(s) passed to these routines must point to null-terminated array(s):\\
-\hspace*{1em}\texttt{char ca[] = {'C', '+', '+'};} // \textit{not null terminated}\\
-\hspace*{1em}\texttt{cout << strlen(ca) << endl;} // \textit{disaster: ca isn't null terminated}
+\hspace*{1em}\texttt{char ca[] = $\{$'C', '+', '+'$\}$; // }\textit{not null terminated}\\
+\hspace*{1em}\texttt{cout << strlen(ca) << endl; // }\textit{disaster: ca isn't null terminated}
 
 \item
-\hspace*{1em}\texttt{string s("Hello World";)} // \textit{s holds Hello World}\\
-\hspace*{1em}\texttt{char *str = s;} // \textit{error: can't initialize a char* from a string}\\
-\hspace*{1em}\texttt{const char *str = s.c\_str()} // \textit{ok}\\
+\hspace*{1em}\texttt{string s("Hello World";) // }\textit{s holds Hello World}\\
+\hspace*{1em}\texttt{char *str = s; // }\textit{error: can't initialize a char* from a string}\\
+\hspace*{1em}\texttt{const char *str = s.c\_str() // }\textit{ok}\\
 If a program needs continuing access to the contents of the array returned by \texttt{str()}, the program must copy the array returned by \texttt{c\_str}.
 
 \item
-We can use an array to initialize a \texttt{vector}. To do so, we specify the address of the first element and on past the last element that we wish to copy:\\
+We can use an array to initialize a \texttt{vector}. To do so, we specify the address of the first element and one past the last element that we wish to copy:\\
 \hspace*{1em}\texttt{int int\_arr[] = $\{$0, 1, 2, 3, 4, 5$\}$;}\\
+\hspace*{1em}\texttt{// }\textit{ivec has six elements; each is a copy of the corresponding element in int\_arr}\\
 \hspace*{1em}\texttt{vector<int> ivec(begin(int\_arr), end(int\_arr));}
 
 \item
-Strictly speaking, there are no multidimensional arrays in C++. What are commonly referred to as multidimensional arrays are actually arrays of arrays.\\
+Strictly speaking, there are no multidimensional arrays in C\texttt{++}. What are commonly referred to as multidimensional arrays are actually arrays of arrays.\\
 \hspace*{1em}\texttt{int ia[3][4];}\\
 We can more easily understand these definitions by reading them from the inside out.
 
