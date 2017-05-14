@@ -82,19 +82,16 @@ For a class template, we specify which class to instantiate by supplying additio
 
 - Another way to provide element values, is that under the new standard, we can list initialize a `vector` from a list of zero or more initial element values enclosed in curly braces.
 
-\begin{tabular}{| p{5cm} p{9cm} |}
-\hline
-\multicolumn{2}{| c |}{\textbf{Ways to Initialize a \texttt{vector}}}\\
-\hline
-\texttt{vector<T> v1} & {\texttt{vector} that holds objects of type \texttt{T}. Default initialization; \texttt{v1} is empty.}\\
-\texttt{vector<T> v2(v1)} & {\texttt{v2} has a copy of each element in \texttt{v1}.}\\
-\texttt{vector<T> v2 = v1} & {Equivalent to \texttt{v2(v1)}, \texttt{v2} is a copy of the elements in \texttt{v1}.}\\
-\texttt{vector<T> v3(n, val)} & {\texttt{v3} has \texttt{n} elements with value \texttt{val}.}\\
-\texttt{vector<T> v4(n)} & {\texttt{v4} has \texttt{n} copies of a value-initialized object.}\\
-\texttt{vector<T> v5$\{$a,b,c...$\}$} & {\texttt{v5} has as many elements as there are initializers; elements are initialized by corresponding initializers.}\\
-\texttt{vector<T> v5 = $\{$a,b,c...$\}$} & {Equivalent to \texttt{v5$\{$a,b,c...$\}$}.}\\
-\hline
-\end{tabular}
+- <table>
+<tr><th colspan='2'>Ways to Initialize a vector</th></tr>
+<tr><td>vector<T> v1</td><td>vector that holds objects of type T. Default initialization; v1 is empty.</td></tr>
+<tr><td>vector<T> v2(v1)</td><td>v2 has a copy of each element in v1.</td></tr>
+<tr><td>vector<T> v2 = v1</td><td>Equivalent to v2(v1), v2 is a copy of the elements in v1.</td></tr>
+<tr><td>vector<T> v3(n, val)</td><td>v3 has n elements with value val.</td></tr>
+<tr><td>vector<T> v4(n)</td><td>v4 has n copies of a value-initialized object.</td></tr>
+<tr><td>vector<T> v5{a,b,c...}</td><td>v5 has as many elements as there are initializers; elements are initialized by corresponding initializers.</td></tr>
+<tr><td width='170'>vector<T> v5 = {a,b,c...}</td><td>Equivalent to v5{a,b,c...}.</td></tr>
+<table>
 
 - If we use braces and there is no way to use the initializers to list initialize the object, then those values will be used to construct the object.<br>
 
