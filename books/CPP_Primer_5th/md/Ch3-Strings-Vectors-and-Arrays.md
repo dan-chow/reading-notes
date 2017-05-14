@@ -10,7 +10,8 @@ Code inside headers ordinarily should not use `using` declarations.
 
 - When we initialize a variable using `=`, we are asking the compiler to **copy initialize** the object by copying the initializer on the right-hand side into the object being created. Otherwise, when we omit the `=`, we use **direct initialization**.
 
-- <table>
+- 
+<table>
 <tr><th colspan='2'>Ways to Initialize a string</th></tr>
 <tr><td>string s1</td><td>Default initialization; s1 is the empty string.</td><tr>
 <tr><td>string s2(s1)</td><td>s2 is a copy of s1.</td><tr>
