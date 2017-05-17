@@ -35,7 +35,7 @@ The newline that causes `getline` to return is discarded; the newline is *not* s
 		for (declaration : expression)
 			statement
 
-- `cctype` Functions
+- `cctype` Functions  
 ![Alt text](img/table-3-3.PNG)
 
 - The subscript operator (the **`[]` operator**) takes a `string::size_type` value that denotes the position of the character we want to access. The operator returns a reference to the character at the given position.  
@@ -51,7 +51,7 @@ For a class template, we specify which class to instantiate by supplying additio
 
 - Another way to provide element values, is that under the new standard, we can list initialize a `vector` from a list of zero or more initial element values enclosed in curly braces.
 
-- Ways to Initialize a `vector`
+- Ways to Initialize a `vector`  
 ![Alt text](img/table-3-4.PNG)
 
 - If we use braces and there is no way to use the initializers to list initialize the object, then those values will be used to construct the object.<br>
@@ -68,7 +68,7 @@ For a class template, we specify which class to instantiate by supplying additio
 		vector<int>::size_type // ok
 		vector::size_type // error
 
-- `vector` Operations
+- `vector` Operations  
 ![Alt text](img/table-3-5.PNG)
 
 - The subscript operator on `vector` (and `string`) fetches an existing element; it does *not* add an element.
@@ -77,7 +77,7 @@ For a class template, we specify which class to instantiate by supplying additio
 
 - If the container is empty, the iterators returned by `begin` and `end` are equal&mdash;they are both off-the-end iterators.
 
-- Standard Container Iterator Operations
+- Standard Container Iterator Operations  
 ![Alt text](img/table-3-6.PNG)
 
 - To let us ask specifically for the `const_iterator` type, the new standard introduced two new functions named `cbegin` and `cend`.
@@ -87,7 +87,7 @@ For a class template, we specify which class to instantiate by supplying additio
 		(*it).empty()
 To simplify expressions such as this one, the language defines the arrow operator (the **`->` operator**). The arrow operator combines deference and member access into a single operation. That is, `it->mem` is a synonym for `(*it).mem`.
 
-- Operations Supported by `vector` and `string` Iterators
+- Operations Supported by `vector` and `string` Iterators  
 ![Alt text](img/table-3-7.PNG)
 
 - An array is a data structure that is similar to the library `vector` type but offers a different trade-off between performance and flexibility.
@@ -127,7 +127,7 @@ Unlike subscripts for `vector` and `string`, the index of the built-in subscript
 - Although C++ supports C-style strings, they should not be used by C++ programs. C-style strings are a surprisingly rich source of bugs and are the root cause of many security problems. They're also harder to use!  
 Character string literals are an instance of a more general construct that C++ inherits from C: **C-style character strings**.
 
-- C-Style Character String Functions
+- C-Style Character String Functions  
 ![Alt text](img/table-3-8.PNG)
 
 - The functions in table above do not verify their string parameters.  
