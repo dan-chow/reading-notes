@@ -10,10 +10,10 @@ Code inside headers ordinarily should not use `using` declarations.
 
 - When we initialize a variable using `=`, we are asking the compiler to **copy initialize** the object by copying the initializer on the right-hand side into the object being created. Otherwise, when we omit the `=`, we use **direct initialization**.
 
-- Ways to Initialize a `string`
+- Ways to Initialize a `string`  
 ![Alt text](img/table-3-1.PNG)
 
-- `string` Operations
+- `string` Operations  
 ![Alt text](img/table-3-2.PNG)
 
 - Sometimes we do not want to ignore the whitespace in our input. In such cases, we can use the **`getline`** function instead of the `>>` operator.  
