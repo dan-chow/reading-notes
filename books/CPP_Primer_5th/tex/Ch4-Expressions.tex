@@ -11,7 +11,7 @@ What may be a bit surprising is that small integral type operands (e.g., \texttt
 The language defines what the operators mean when applied to built-in and compound types. We can also define what most operators mean when applied to class types. Because such definitions give an alternative meaning to an existing operator symbol, we refer to them as \textbf{overloaded operators}.
 
 \item
-Every expression in C++ is either an \textbf{rvalue} (pronounced \texttt{"}are-value\texttt{"}) or an \textbf{lvalue} (pronounced \texttt{"}ell-value\texttt{"}).\\
+Every expression in C\texttt{++} is either an \textbf{rvalue} (pronounced \texttt{"}are-value\texttt{"}) or an \textbf{lvalue} (pronounced \texttt{"}ell-value\texttt{"}).\\
 The important point is that we can use an lvalue when an rvalue is required, but we cannot use an rvalue when a lvalue is required.
 
 \item
@@ -59,7 +59,7 @@ The \textbf{comma operator} takes two operands, which it evaluates from left to 
 The left-hand expression is evaluated and its result is discarded. The result of a comma expression is the value of its right-hand expression. The result is an lvalue if the right-hand operand is an lvalue.
 
 \item
-Rather than attempt to add values of the two different types, C++ defines a set of conversions to transform the operands to a common type. These conversions are carried out automatically without programmer intervention---and sometimes without programmer knowledge. For that reason, they are referred to as \textbf{implicit conversions}.
+Rather than attempt to add values of the two different types, C\texttt{++} defines a set of conversions to transform the operands to a common type. These conversions are carried out automatically without programmer intervention---and sometimes without programmer knowledge. For that reason, they are referred to as \textbf{implicit conversions}.
 
 \item
 We use a \textbf{cast} to request an explicit conversion.\\
