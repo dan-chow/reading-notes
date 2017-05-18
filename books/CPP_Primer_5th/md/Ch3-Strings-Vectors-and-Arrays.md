@@ -119,8 +119,7 @@ The result of subtracting two pointers is a library type named **`ptrdiff_t`**.
 - We can use the subscript operator on any pointer, as long as that pointer points to an element (or one past the last element) in an array:
 
 		int *p = &ia[2]; // p points to the element indexed by 2
-		int j = p[1]; // p[1] is equivalent to *(p+1)
-		              // p[1] is the same element as ia[3]
+		int j = p[1]; // p[1] is equivalent to *(p+1), the same element as ia[3]
 		int k = p[-2]; // p[-2] is the same element as ia[0]
 Unlike subscripts for `vector` and `string`, the index of the built-in subscript operator is not an `unsigned` type.
 
