@@ -1,5 +1,7 @@
 Download 
 
+https://www.nsnam.org/wiki/Installation#Ubuntu.2FDebian
+
 - ERROR 1: #error This file requires compiler and library support for the ISO C++ 2011 standard
 	- Refer to [this link][cxx11], you have to configure the ns3 project using the following command:  
 `CXXFLAGS="-std=c++0x" ./waf -d debug --enable-examples --enable-tests configure`
@@ -15,3 +17,8 @@ Download
 [cxx11]: http://stackoverflow.com/questions/36379632/error-in-program-saying-this-file-requires-compiler-and-library-support-for-the
 [openssl]: https://unix.stackexchange.com/questions/87458/make-fatal-error-openssl-sha-h-no-such-file-or-directory
 [libgcrypt]: http://stackoverflow.com/questions/7150323/configure-unable-to-find-libgcrypt
+
+http://download.eclipse.org/technology/m2e/releases/
+http://www.eclipse.org/m2e/m2e-downloads.html
+
+http://m.blog.csdn.net/article/details?id=50879075
