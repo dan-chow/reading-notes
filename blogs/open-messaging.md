@@ -24,3 +24,7 @@ https://my.oschina.net/ericquan8/blog/817046
 http://blog.csdn.net/xxxxxx91116/article/details/50333161
 双缓冲
 可以起2个队列，一个读，一个写，这两个队列不断交换；这样可以解决一个问题，写和读不会出现并发问题，不需要上锁，能提高效率，但是仅仅适用于对put顺序没有要求的情况
+
+https://github.com/apache/incubator-rocketmq/blob/master/store/src/main/java/org/apache/rocketmq/store/CommitLog.java
+
+https://github.com/apache/incubator-rocketmq/blob/master/store/src/main/java/org/apache/rocketmq/store/MappedFile.java

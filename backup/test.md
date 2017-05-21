@@ -27,3 +27,5 @@ http://m.blog.csdn.net/article/details?id=50879075
 
 
 https://github.com/GENI-NSF/geni-tutorials/raw/master/OldTutorials/ContentCentricNetworking/ccnx-0.6.2.tar.gz
+
+https://github.com/ProjectCCNx/ccnx/releases
