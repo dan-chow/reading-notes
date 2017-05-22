@@ -1,4 +1,4 @@
-## Functions
+## 6. Functions
 
 - We execute a function through the **call operator**, which is a pair of parentheses.  
 A function call does two things: It initializes the function's parameters from the corresponding arguments, and it transfers control to that function.  

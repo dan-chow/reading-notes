@@ -1,0 +1,79 @@
+\section{Classes}
+\begin{itemize}
+
+\item
+\textit{The fundamental ideas} behind \textbf{classes} are \textbf{data abstraction} and \textbf{encapsulation}.
+
+\item
+We define and declare member functions similarly to ordinary functions. Member function \textit{must} be declared inside the class. Member functions \textit{may} be defined inside the class itself or outside the class body.
+
+\item
+Member functions access the object on which they were called through an extra, implicit parameter named \textbf{\texttt{this}}. When we call a member function, \texttt{this} is initialized with the address of the object on which the function was invoked.
+
+\item
+A \texttt{const} following the parameter list indicates that \texttt{this} is a pointer to \texttt{const}. Member functions that \texttt{const} in this way are \textbf{\texttt{const} member functions}.\\
+The fact that \texttt{this} is a pointer to \texttt{const} means that \texttt{const} member functions cannot change the object on which they are called.
+
+\item
+Ordinarily, functions that do output should do minimal formatting.
+
+\item
+Classes control object initialization by defining one or more special member functions known as \textbf{constructors}.\\
+Classes control default initialization by defining a special constructor, known as the \textbf{default constructor}.\\
+The compiler-generated constructor is known as the \textbf{synthesized default constructor}.\\
+Under the new standard, if we want the default behavior, we can ask the compiler to generate the constructor for us by writing \textbf{\texttt{= default}} after the parameter list.\\
+The \textbf{constructor initializer list} specifies initial values of one or more data members of the object being created.
+
+\item
+In C\texttt{++} we use \textbf{access specifiers} to enforce encapsulation.
+
+\item
+A class can allow another class or function to access its non\texttt{public} members by making that class or function a \textbf{friend}.
+
+\item
+A \textbf{\texttt{mutable} data member} is never \texttt{const}, even when it is a member of a \texttt{const} object.
+
+\item
+A class can also make another class its friend or it can declare specific member functions of another (previously defined) class as friends.
+
+\item
+It is important to understand that a friend declaration affects access but is not a declaration in an ordinary sense.
+
+\item
+When a member function is defined outside the class body, any name used in the return type is outside the class scope.
+
+\item
+Member function definitions are processed \textit{after} the compiler processes all of the declarations in the class.
+
+\item
+Even though the outer object is hidden, it is still possible to access that object by using the scope operator.
+
+\item
+By the time the body of the constructor begins executing, initialization is complete.\\
+We \textit{must} use the constructor initializer list to provide values for members that are \texttt{const}, reference, or of a class type that does not have a default constructor.
+
+\item
+Members are initialized in the order in which they appear in the class definition: The first member is initialized first, then the next, and so on. The order in which initializers appear in the constructor initializer list does not change the order of initialization.\\
+It is a good idea to write constructor initializers in the same order as the members are declared. Moreover, when possible, avoid using members to initialize other members.
+
+\item
+The new standard extends the use of constructor initializers to let us define so-called \textbf{delegating constructors}. A delegating constructor uses another constructor from its own class to perform its initialization.
+
+\item
+Every constructor that can be called with a single argument defines an implicit conversion \textit{to} a class type. Such constructors are sometimes referred to as \textbf{converting constructors}.\\
+We can prevent the use of a constructor in a context that requires an implicit conversion by declaring the constructor as \textbf{\texttt{explicit}}.\\
+When a constructor is declared \texttt{explicit}, it can be used only with the direct form of initialization. Moreover, the compiler will \textit{not} use this constructor in an automatic conversion.
+
+\item
+An \textbf{aggregate class} gives users direct access to its members and has special initialization syntax.\\
+We can initialize the data members of an aggregate class by providing a braced list of member initializers.
+
+\item
+A \texttt{constexpr} constructor must initialize every data member. The initializers must either use a \texttt{constexpr} constructor or be a constant expression.
+
+\item
+We say a member is associated with the class by adding the keyword \texttt{static} to its declaration.\\
+When we define a \texttt{static} member outside the class, we do not repeat the \texttt{static} keyword;\\
+Even if a \texttt{const static} data member is initialized in the class body, that member ordinarily should be defined outside the class definition.
+
+\end{itemize}
