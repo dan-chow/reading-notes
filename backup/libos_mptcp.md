@@ -31,3 +31,9 @@ mptcp@mptcp-VirtualBox:~/net-next-nuse$ make library ARCH=lib
 
 https://github.com/libos-nuse/net-next-nuse/wiki/Quick-Start
 https://github.com/libos-nuse/net-next-nuse/wiki/Linux-mptcp-with-libos
+
+https://www.nsnam.org/wiki/Installation
+https://askubuntu.com/questions/265471/autoreconf-not-found-error-during-making-qemu-1-4-0/490839
+
+https://github.com/libos-nuse/net-next-nuse/blob/nuse/Documentation/virtual/libos-howto.txt
+https://stackoverflow.com/questions/36252495/unable-to-locate-package-python-gnomedesktop-installing-pyviz-in-ns3
