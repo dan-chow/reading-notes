@@ -28,3 +28,6 @@ configuration written to .config
 *** Execute 'make' to start the build or try 'make help'.
 
 mptcp@mptcp-VirtualBox:~/net-next-nuse$ make library ARCH=lib
+
+https://github.com/libos-nuse/net-next-nuse/wiki/Quick-Start
+https://github.com/libos-nuse/net-next-nuse/wiki/Linux-mptcp-with-libos
