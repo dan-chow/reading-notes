@@ -9,6 +9,7 @@ Our approach has two phases: proactive caching and video streaming. The proactiv
 The key function of our system is a delivery scheduler we call smart scheduler. This scheduler determines content quality and the amount of content segments, and also selects delivery locations and timing.
 
 The content bitrate is computed by fulfilling the following three conditions:
+
 - *Proactive Caching:* content segments have to be delivered to station servers before the trains arrive.
 - *Continuous Playback:* video playback has to be continuous until arrival at the next station to avoid interruption.
 - *Smooth Streaming:* received video segments should be streamed smoothly to the users inside a train.
@@ -38,6 +39,7 @@ OpenCache offers a powerful interface that provides *cache as a service*. This i
 The main entity of OpenCache, namely the OpenCache Controller (OCC), orchestrates the VoD caching and distribution functionalities with the aid of a key-value store, that acts as a database. The OCC communicates with the OpenFlow controller of the network via a JSON-RPC interface. A VoD server is the primary source for the video assets and could be located anywhere on the Internet reachable by its IP address. Finally, the OpenCache Nodes (OCNs) are the caches of the service, inherently being deployed in various locations in the network.
 
 The OpenCache Controller (OCC) is the main orchestrator of the in-network caching functionality that OpenCache provides, and implements the following four main operations:
+
 - Receives requests for content of intrest
 - Implememts the caching logic
 - Manage the available OCNs' resources

@@ -32,3 +32,15 @@ https://github.com/ProjectCCNx/ccnx/releases
 
 https://github.com/libos-nuse/net-next-nuse/wiki/Linux-mptcp-with-libos
 
+Hi,
+
+What you are trying to do is completely wrong both in terms of C++/programing, as well as meaningfulness.
+
+You created a new YansWifiPhy object and called a method named GetRxGain from that.
+Problems with this approach: uninitialized object, you ask for signal strength however you call a method to get the antenna gain...
+
+The signal strength is calculated on per packet basis. You can use the NS3 tracing system (http://www.nsnam.org/docs/release/3.21/manual/html/tracing.html) and hook to one of the trace sources that provide the singal strength (e.g. MonitorSnifferRx).
+Otherwise, you can modify the code slightly and use the SNR tag as it is explained in other threads (just search for it in the mailing list).
+
+Regards,
+K.

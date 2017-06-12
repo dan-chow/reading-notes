@@ -28,3 +28,114 @@ http://blog.csdn.net/xxxxxx91116/article/details/50333161
 https://github.com/apache/incubator-rocketmq/blob/master/store/src/main/java/org/apache/rocketmq/store/CommitLog.java
 
 https://github.com/apache/incubator-rocketmq/blob/master/store/src/main/java/org/apache/rocketmq/store/MappedFile.java
+
+
+    private void init(final String fileName, final int fileSize) throws IOException {
+        this.fileName = fileName;
+        this.fileSize = fileSize;
+        this.file = new File(fileName);
+        this.fileFromOffset = Long.parseLong(this.file.getName());
+        boolean ok = false;
+
+        ensureDirOK(this.file.getParent());
+            this.fileChannel = new RandomAccessFile(this.file, "rw").getChannel();
+            this.mappedByteBuffer = this.fileChannel.map(MapMode.READ_WRITE, 0, fileSize);
+            TOTAL_MAPPED_VIRTUAL_MEMORY.addAndGet(fileSize);
+            TOTAL_MAPPED_FILES.incrementAndGet();
+            ok = true;
+    }
+
+    public boolean appendMessage(final byte[] data) {
+        int currentPos = this.wrotePosition.get();
+
+        if ((currentPos + data.length) <= this.fileSize) {
+                this.fileChannel.position(currentPos);
+                this.fileChannel.write(ByteBuffer.wrap(data));
+            this.wrotePosition.addAndGet(data.length);
+            return true;
+        }
+
+        return false;
+    }
+
+        public AppendMessageResult doAppend(final long fileFromOffset, final ByteBuffer byteBuffer, final int maxBlank, final MessageExtBrokerInner msgInner) {
+            // STORETIMESTAMP + STOREHOSTADDRESS + OFFSET <br>
+
+            // PHY OFFSET
+            long wroteOffset = fileFromOffset + byteBuffer.position();
+
+            this.resetByteBuffer(hostHolder, 8);
+            String msgId = MessageDecoder.createMessageId(this.msgIdMemory, msgInner.getStoreHostBytes(hostHolder), wroteOffset);
+
+            // Record ConsumeQueue information
+            keyBuilder.setLength(0);
+            keyBuilder.append(msgInner.getTopic());
+            keyBuilder.append('-');
+            keyBuilder.append(msgInner.getQueueId());
+            String key = keyBuilder.toString();
+            Long queueOffset = CommitLog.this.topicQueueTable.get(key);
+            if (null == queueOffset) {
+                queueOffset = 0L;
+                CommitLog.this.topicQueueTable.put(key, queueOffset);
+            }
+
+            /**
+             * Serialize message
+             */
+            final byte[] propertiesData =
+                msgInner.getPropertiesString() == null ? null : msgInner.getPropertiesString().getBytes(MessageDecoder.CHARSET_UTF8);
+
+            final int propertiesLength = propertiesData == null ? 0 : propertiesData.length;
+
+            if (propertiesLength > Short.MAX_VALUE) {
+                log.warn("putMessage message properties length too long. length={}", propertiesData.length);
+                return new AppendMessageResult(AppendMessageStatus.PROPERTIES_SIZE_EXCEEDED);
+            }
+
+            final byte[] topicData = msgInner.getTopic().getBytes(MessageDecoder.CHARSET_UTF8);
+            final int topicLength = topicData.length;
+
+            final int bodyLength = msgInner.getBody() == null ? 0 : msgInner.getBody().length;
+
+            final int msgLen = calMsgLength(bodyLength, topicLength, propertiesLength);
+
+            // Determines whether there is sufficient free space
+            if ((msgLen + END_FILE_MIN_BLANK_LENGTH) > maxBlank) {
+                this.resetByteBuffer(this.msgStoreItemMemory, maxBlank);
+                // 1 TOTALSIZE
+                this.msgStoreItemMemory.putInt(maxBlank);
+                // 2 MAGICCODE
+                this.msgStoreItemMemory.putInt(CommitLog.BLANK_MAGIC_CODE);
+                // 3 The remaining space may be any value
+                //
+
+                // Here the length of the specially set maxBlank
+                final long beginTimeMills = CommitLog.this.defaultMessageStore.now();
+                byteBuffer.put(this.msgStoreItemMemory.array(), 0, maxBlank);
+                return new AppendMessageResult(AppendMessageStatus.END_OF_FILE, wroteOffset, maxBlank, msgId, msgInner.getStoreTimestamp(),
+                    queueOffset, CommitLog.this.defaultMessageStore.now() - beginTimeMills);
+            }
+
+            // Initialization of storage space
+            this.resetByteBuffer(msgStoreItemMemory, msgLen);
+            // 1 TOTALSIZE
+            this.msgStoreItemMemory.putInt(msgLen);
+            // 2 MAGICCODE
+            this.msgStoreItemMemory.putInt(CommitLog.MESSAGE_MAGIC_CODE);
+            // omit for breavity
+            // 16 TOPIC
+            this.msgStoreItemMemory.put((byte) topicLength);
+            this.msgStoreItemMemory.put(topicData);
+            // 17 PROPERTIES
+            this.msgStoreItemMemory.putShort((short) propertiesLength);
+            if (propertiesLength > 0)
+                this.msgStoreItemMemory.put(propertiesData);
+
+            final long beginTimeMills = CommitLog.this.defaultMessageStore.now();
+            // Write messages to the queue buffer
+            byteBuffer.put(this.msgStoreItemMemory.array(), 0, msgLen);
+
+            AppendMessageResult result = new AppendMessageResult(AppendMessageStatus.PUT_OK, wroteOffset, msgLen, msgId,
+                msgInner.getStoreTimestamp(), queueOffset, CommitLog.this.defaultMessageStore.now() - beginTimeMills);
+            return result;
+        }
