@@ -1,8 +1,17 @@
 Download 
 
-https://wiki.fd.io/view/Libicnet
+bindings/python/wscript
+REQUIRED_PYBINDGEN_VERSION = 'xxxxxx'
 
-https://www.nsnam.org/wiki/Installation#Ubuntu.2FDebian
+https://askubuntu.com/questions/265471/autoreconf-not-found-error-during-making-qemu-1-4-0/490839
+
+https://stackoverflow.com/questions/36252495/unable-to-locate-package-python-gnomedesktop-installing-pyviz-in-ns3
+
+https://github.com/gjcarneiro/pybindgen
+
+https://plus.google.com/+HajimeTazaki/posts/aYuboVFcQeF
+
+https://wiki.fd.io/view/Libicnet
 
 - ERROR 1: #error This file requires compiler and library support for the ISO C++ 2011 standard
 	- Refer to [this link][cxx11], you have to configure the ns3 project using the following command:  
@@ -20,9 +29,6 @@ https://www.nsnam.org/wiki/Installation#Ubuntu.2FDebian
 [openssl]: https://unix.stackexchange.com/questions/87458/make-fatal-error-openssl-sha-h-no-such-file-or-directory
 [libgcrypt]: http://stackoverflow.com/questions/7150323/configure-unable-to-find-libgcrypt
 
-http://download.eclipse.org/technology/m2e/releases/
-http://www.eclipse.org/m2e/m2e-downloads.html
-
 http://m.blog.csdn.net/article/details?id=50879075
 
 
@@ -30,7 +36,7 @@ https://github.com/GENI-NSF/geni-tutorials/raw/master/OldTutorials/ContentCentri
 
 https://github.com/ProjectCCNx/ccnx/releases
 
-https://github.com/libos-nuse/net-next-nuse/wiki/Linux-mptcp-with-libos
+
 
 Hi,
 
