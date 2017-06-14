@@ -36,7 +36,7 @@ https://github.com/GENI-NSF/geni-tutorials/raw/master/OldTutorials/ContentCentri
 
 https://github.com/ProjectCCNx/ccnx/releases
 
-
+http://mailman.isi.edu/pipermail/ns-developers/2010-November/008455.html
 
 Hi,
 
