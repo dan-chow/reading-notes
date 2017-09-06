@@ -7,12 +7,12 @@
 ### 4.3 Multithreading Models
 
 - Threads  
-![Alt text](img/fig_4_1_Threads.PNG)
+![Alt text](img/fig_4_1_Threads.PNG)  
 
 - Multithreading Models  
-![Alt text](img/fig_4_5_Multithreading_models_1.PNG)
-![Alt text](img/fig_4_6_Multithreading_models_2.PNG)
-![Alt text](img/fig_4_7_Multithreading_models_3.PNG)
+![Alt text](img/fig_4_5_Multithreading_models_1.PNG)  
+![Alt text](img/fig_4_6_Multithreading_models_2.PNG)  
+![Alt text](img/fig_4_7_Multithreading_models_3.PNG)  
 
 ### 4.4 Thread Libraries
 
