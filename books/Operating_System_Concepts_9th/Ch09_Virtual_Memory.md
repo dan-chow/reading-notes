@@ -79,3 +79,7 @@
 
 - slab allocation
 ![alt text](img/fig_9_8_Slab_allocation.PNG)
+
+### 9.9 Other Considerations
+
+### 9.10 Operating-System Examples
