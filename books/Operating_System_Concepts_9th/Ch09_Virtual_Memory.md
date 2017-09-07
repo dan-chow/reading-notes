@@ -72,13 +72,13 @@
 
 - The buddy system allocates memory from a fixed-size segment consisting of physically contiguous pages. Memory is allocated from this segment using a power-of-2 allocator, which satisfies requests in units sized as a power of 2 (4 KB, 8 KB, 16 KB, and so forth). A request in units not appropriately sized is rounded up to the next highest power of 2.
 
-- buddy system allocation
-![alt text](img/fig_9_7_Buddy_system_allocation.PNG)
+- buddy system allocation  
+![alt text](img/fig_9_7_Buddy_system_allocation.PNG)  
 
 - A second strategy for allocating kernel memory is known as slab allocation. A slab is made up of one or more physically contiguous pages. A cache consists of one or more slabs. There is a single cache for each unique kernel data structure - for example, a separate cache for the data structure representing process descriptors, a separate cache for file objects, a separate cache for semaphores, and so forth. Each cache is populated with objects that are instantiations of the kernel data structure the cache represents. For example, the cache representing semaphores stores instances of semaphore objects, the cache representing process descriptors stores instances of process descriptor objects, and so forth.
 
-- slab allocation
-![alt text](img/fig_9_8_Slab_allocation.PNG)
+- slab allocation  
+![alt text](img/fig_9_8_Slab_allocation.PNG)  
 
 ### 9.9 Other Considerations
 
