@@ -17,8 +17,8 @@
 - Traditionally, fork() worked by creating a copy of the parent’s address space for the child, duplicating the pages belonging to the parent. However, considering that many child processes invoke the exec() system call immediately after creation, the copying of the parent’s address space may be unnecessary. Instead, we can use a technique known as copy-on-write, which works by allowing the parent and child processes initially to share the same pages. These shared pages are marked as copy-on-write pages, meaning that if either process writes to a shared page, a copy of the shared page is created.
 
 - copy on write  
-![alt text](/img/fig_9_2_Copy_on_Write_ex1.PNG)  
-![alt text](/img/fig_9_3_Copy_on_Write_ex2.PNG)  
+![alt text](img/fig_9_2_Copy_on_write_1.PNG)  
+![alt text](img/fig_9_3_Copy_on_write_2.PNG)  
 
 ### 9.4 Page Replacement
 
