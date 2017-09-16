@@ -30,11 +30,11 @@
 - When this client-server interaction is taking place over TCP, the application developer needs to make an important decision––should each request/response pair be sent over a separate TCP connection, or should all of the requests and their corresponding responses be sent over the same TCP connection? In the former approach, the application is said to use non-persistent connections; and in the latter approach, persistent connections. 
 
 - Below we provide a typical HTTP request message.
-	> GET /somedir/page.html HTTP/1.1  
-	> Host: www.someschool.edu  
-	> Connection: close  
-	> User-agent: Mozilla/5.0  
-	> Accept-language: fr  
+> GET /somedir/page.html HTTP/1.1  
+> Host: www.someschool.edu  
+> Connection: close  
+> User-agent: Mozilla/5.0  
+> Accept-language: fr  
 
 - HTTP request message  
 ![alt text](img/fig_2_2_HTTP_request_message.PNG)  
