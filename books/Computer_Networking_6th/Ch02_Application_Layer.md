@@ -40,15 +40,15 @@
 ![alt text](img/fig_2_2_HTTP_request_message.PNG)  
 
 - Below we provide a typical HTTP response message.
-	> HTTP/1.1 200 OK  
-	> Connection: close  
-	> Date: Tue, 09 Aug 2011 15:44:04 GMT  
-	> Server: Apache/2.2.3 (CentOS)  
-	> Last-Modified: Tue, 09 Aug 2011 15:11:03 GMT  
-	> Content-Length: 6821  
-	> Content-Type: text/html  
-	> 
-	> (data data data data data ...)  
+> HTTP/1.1 200 OK  
+> Connection: close  
+> Date: Tue, 09 Aug 2011 15:44:04 GMT  
+> Server: Apache/2.2.3 (CentOS)  
+> Last-Modified: Tue, 09 Aug 2011 15:11:03 GMT  
+> Content-Length: 6821  
+> Content-Type: text/html  
+> 
+> (data data data data data ...)  
 
 - HTTP response message  
 ![alt text](img/fig_2_3_HTTP_response_message.PNG)  
@@ -61,16 +61,16 @@
 - The object housed in the Web server may have been modified since the copy was cached at the client. Fortunately, HTTP has a mechanism that allows a cache to verify that its objects are up to date. This mechanism is called the conditional GET. An HTTP request message is a so-called conditional GET message if (1) the request message uses the GET method and (2) the request message includes an If-Modified-Since: header line.
 
 - conditional GET request
-	> GET /fruit/kiwi.gif HTTP/1.1  
-	> Host: www.exotiquecuisine.com  
-	> If-modified-since: Wed, 7 Sep 2011 09:23:24  
+> GET /fruit/kiwi.gif HTTP/1.1  
+> Host: www.exotiquecuisine.com  
+> If-modified-since: Wed, 7 Sep 2011 09:23:24  
 
 - conditional GET response
-	> HTTP/1.1 304 Not Modified  
-	> Date: Sat, 15 Oct 2011 15:39:29  
-	> Server: Apache/1.3.0 (Unix)  
-	> 
-	> (empty entity body)
+> HTTP/1.1 304 Not Modified  
+> Date: Sat, 15 Oct 2011 15:39:29  
+> Server: Apache/1.3.0 (Unix)  
+> 
+> (empty entity body)
 
 ### 2.3 File Transfer: FTP
 
@@ -92,53 +92,53 @@
 ![alt text](img/fig_2_7_SMTP.PNG)  
 
 - SMTP example
-	> S: 220 hamburger.edu  
-	> C: HELO crepes.fr  
-	> S: 250 Hello crepes.fr, pleased to meet you  
-	> C: MAIL FROM: <alice@crepes.fr>  
-	> S: 250 alice@crepes.fr ... Sender ok  
-	> C: RCPT TO: <bob@hamburger.edu>  
-	> S: 250 bob@hamburger.edu ... Recipient ok  
-	> C: DATA  
-	> S: 354 Enter mail, end with “.” on a line by itself  
-	> C: Do you like ketchup?  
-	> C: How about pickles?  
-	> C: .  
-	> S: 250 Message accepted for delivery  
-	> C: QUIT  
-	> S: 221 hamburger.edu closing connection
+> S: 220 hamburger.edu  
+> C: HELO crepes.fr  
+> S: 250 Hello crepes.fr, pleased to meet you  
+> C: MAIL FROM: <alice@crepes.fr>  
+> S: 250 alice@crepes.fr ... Sender ok  
+> C: RCPT TO: <bob@hamburger.edu>  
+> S: 250 bob@hamburger.edu ... Recipient ok  
+> C: DATA  
+> S: 354 Enter mail, end with “.” on a line by itself  
+> C: Do you like ketchup?  
+> C: How about pickles?  
+> C: .  
+> S: 250 Message accepted for delivery  
+> C: QUIT  
+> S: 221 hamburger.edu closing connection
 
 - There are currently a number of popular mail access protocols, including Post Office Protocol—Version 3 (POP3), Internet Mail Access Protocol (IMAP), and HTTP.
 
 - POP3 begins when the user agent (the client) opens a TCP connection to the mail server (the server) on port 110. With the TCP connection established, POP3 progresses through three phases: authorization, transaction, and update. During the first phase, authorization, the user agent sends a username and a password (in the clear) to authenticate the user. During the second phase, transaction, the user agent retrieves messages; also during this phase, the user agent can mark messages for deletion, remove deletion marks, and obtain mail statistics. The third phase, update, occurs after the client has issued the quit command, ending the POP3 session; at this time, the mail server deletes the messages that were marked for deletion.
 
 - POP3 authorization
-	> telnet mailServer 110  
-	> +OK POP3 server ready  
-	> user bob  
-	> +OK  
-	> pass hungry  
-	> +OK user successfully logged on
+> telnet mailServer 110  
+> +OK POP3 server ready  
+> user bob  
+> +OK  
+> pass hungry  
+> +OK user successfully logged on
 
 - POP3 transaction
-	> C: list  
-	> S: 1 498  
-	> S: 2 912  
-	> S: .  
-	> C: retr 1  
-	> S: (blah blah ...  
-	> S: .................  
-	> S: ..........blah)  
-	> S: .  
-	> C: dele 1  
-	> C: retr 2  
-	> S: (blah blah ...  
-	> S: .................  
-	> S: ..........blah)  
-	> S: .  
-	> C: dele 2  
-	> C: quit  
-	> S: +OK POP3 server signing off
+> C: list  
+> S: 1 498  
+> S: 2 912  
+> S: .  
+> C: retr 1  
+> S: (blah blah ...  
+> S: .................  
+> S: ..........blah)  
+> S: .  
+> C: dele 1  
+> C: retr 2  
+> S: (blah blah ...  
+> S: .................  
+> S: ..........blah)  
+> S: .  
+> C: dele 2  
+> C: quit  
+> S: +OK POP3 server signing off
 
 - An IMAP server will associate each message with a folder; when a message first arrives at the server, it is associated with the recipient’s INBOX folder. The recipient can then move the message into a new, user-created folder, read the message, delete the message, and so on. The IMAP protocol provides commands to allow users to create folders and move messages from one folder to another. IMAP also provides commands that allow users to search remote folders for messages matching specific criteria.
 
