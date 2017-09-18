@@ -134,3 +134,5 @@ of link-layer channel is the point-to-point communication link, such as that oft
 ![alt text](img/fig_5_11_A_data_center_network.PNG)  
 
 - One such trend is to deploy new interconnection architectures and network protocols that overcome the drawbacks of the traditional hierarchical designs. Another major trend is to employ shipping container–based modular data centers (MDCs).
+
+### 5.7 Retrospective: A Day in the Life of a Web Page Request
