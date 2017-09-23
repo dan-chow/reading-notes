@@ -18,7 +18,7 @@
 - decorator pattern class diagram  
 ![alt text](img/fig_3_3_Decorator_pattern_2.PNG)  
 
-- Java I/O
+- Java I/O  
 ![alt text](img/fig_3_4_Java_IO_1.PNG)  
 ![alt text](img/fig_3_5_Java_IO_2.PNG)  
 
