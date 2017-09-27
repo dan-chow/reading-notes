@@ -43,4 +43,4 @@
 ### 8.5 Parallelizing recursive algorithms
 
 - Concurrent version of puzzle solver  
-![alt text](img/fig_8_3_Concurrent_version_of_puzzle_solver.PNG)  
+![alt text](img/fig_8_3_ConcurrentPuzzleSolver.PNG)  
