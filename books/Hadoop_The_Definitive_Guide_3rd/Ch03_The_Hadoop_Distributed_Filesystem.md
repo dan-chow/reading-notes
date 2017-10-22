@@ -107,7 +107,7 @@ for a file.
 ![alt text](img/fig_3_3_Network_distance_in_Hadoop.PNG)  
 
 - A client writing data to HDFS  
-![alt text](img/fig_3_4_A client writing data to HDFS.PNG)  
+![alt text](img/fig_3_4_A_client_writing_data_to_HDFS.PNG)  
 
 - As the client writes data, DFSOutputStream splits it into packets, which it writes to an internal queue, called the data queue. The data queue is consumed by the Data Streamer, which is responsible for asking the namenode to allocate new blocks by picking a list of suitable datanodes to store the replicas. The list of datanodes forms a pipeline, and here we’ll assume the replication level is three, so there are three nodes in the pipeline. The DataStreamer streams the packets to the first datanode in the pipeline, which stores the packet and forwards it to the second datanode in the pipeline.
 
