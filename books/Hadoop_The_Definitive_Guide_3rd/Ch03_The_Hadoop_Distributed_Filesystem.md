@@ -30,70 +30,71 @@
 ### The Java Interface
 
 - One of the simplest ways to read a file from a Hadoop filesystem is by using a java.net.URL object to open a stream to read the data from.
-```java
-InputStream in = new URL("hdfs://host/path").openStream();
-```
+  ```java
+  InputStream in = new URL("hdfs://host/path").openStream();
+  ```
+
 - As the previous section explained, sometimes it is impossible to set a URLStreamHand lerFactory for your application. In this case, you will need to use the FileSystem API to open an input stream for a file. A file in a Hadoop filesystem is represented by a Hadoop Path object (and not a java.io.File object, since its semantics are too closely tied to the local filesystem). You can think of a Path as a Hadoop filesystem URI. FileSystem is a general filesystem API, so the first step is to retrieve an instance for the
 filesystem we want to use—HDFS in this case.
 With a FileSystem instance in hand, we invoke an open() method to get the input stream
 for a file.
-```java
-FileSystem fs = FileSystem.get(URI.create(uri), conf);
-InputStream in = fs.open(new Path(uri));
-```
+  ```java
+  FileSystem fs = FileSystem.get(URI.create(uri), conf);
+  InputStream in = fs.open(new Path(uri));
+  ```
 
 - The open() method on FileSystem actually returns a FSDataInputStream rather than a standard java.io class. This class is a specialization of java.io.DataInputStream with support for random access, so you can read from any part of the stream:
-```java
-public class FSDataInputStream extends DataInputStream implements Seekable, PositionedReadable {
-  // implementation elided
-}
-```
-The Seekable interface permits seeking to a position in the file and a query method for the current offset from the start of the file (getPos()):
-```java
-public interface Seekable {
-  void seek(long pos) throws IOException;
-  long getPos() throws IOException;
-}
-```
-FSDataInputStream also implements the PositionedReadable interface for reading parts of a file at a given offset:
-```java
-public interface PositionedReadable {
-  public int read(long position, byte[] buffer, int offset, int length) throws IOException;
-  public void readFully(long position, byte[] buffer, int offset, int length) throws IOException;
-  public void readFully(long position, byte[] buffer) throws IOException;
-}
-```
+  ```java
+  public class FSDataInputStream extends DataInputStream implements Seekable, PositionedReadable {
+    // implementation elided
+  }
+  ```
+	The Seekable interface permits seeking to a position in the file and a query method for the current offset from the start of the file (getPos()):
+  ```java
+  public interface Seekable {
+    void seek(long pos) throws IOException;
+    long getPos() throws IOException;
+  }
+  ```
+	FSDataInputStream also implements the PositionedReadable interface for reading parts of a file at a given offset:
+  ```java
+  public interface PositionedReadable {
+    public int read(long position, byte[] buffer, int offset, int length) throws IOException;
+    public void readFully(long position, byte[] buffer, int offset, int length) throws IOException;
+    public void readFully(long position, byte[] buffer) throws IOException;
+  }
+  ```
 
 - The FileSystem class has a number of methods for creating a file. The simplest is the method that takes a Path object for the file to be created and returns an output stream to write to. There’s also an overloaded method for passing a callback interface, Progressable, so your application can be notified of the progress of the data being written to the datanodes:
-```java
-public interface Progressable {
-  public void progress();
-}
-```
-As an alternative to creating a new file, you can append to an existing file using the append() method.
+  ```java
+  public interface Progressable {
+    public void progress();
+  }
+  ```
+	As an alternative to creating a new file, you can append to an existing file using the append() method.
 
 
 - The create() method on FileSystem returns an FSDataOutputStream, which, like FSDataInputStream, has a method for querying the current position in the file:
-```java
-public class FSDataOutputStream extends DataOutputStream implements Syncable {
-  public long getPos() throws IOException {
+  ```java
+  public class FSDataOutputStream extends DataOutputStream implements Syncable {
+    public long getPos() throws IOException {
+      // implementation elided
+    }
     // implementation elided
   }
-  // implementation elided
-}
-```
-However, unlike FSDataInputStream, FSDataOutputStream does not permit seeking. This is because HDFS allows only sequential writes to an open file or appends to an already written file. In other words, there is no support for writing to anywhere other than the end of the file, so there is no value in being able to seek while writing.
+  ```
+	However, unlike FSDataInputStream, FSDataOutputStream does not permit seeking. This is because HDFS allows only sequential writes to an open file or appends to an already written file. In other words, there is no support for writing to anywhere other than the end of the file, so there is no value in being able to seek while writing.
 
 - The method getFileStatus() on FileSystem provides a way of getting a FileStatus object for a single file or directory. Finding information on a single file or directory is useful, but you also often need to be able to list the contents of a directory. That’s what FileSystem’s listStatus() methods are for. Rather than having to enumerate each file and directory to specify the input, it is convenient to use wildcard characters to match multiple files with a single expression, an operation that is known as globbing. The globStatus() method returns an array of FileStatus objects whose paths match the supplied pattern, sorted by path. An optional PathFilter can be specified to restrict the matches further. The listStatus() and globStatus() methods of FileSystem take an optional PathFilter, which allows programmatic control over matching:
-```java
-public interface PathFilter {
-  boolean accept(Path path);
-}
-```
+  ```java
+  public interface PathFilter {
+    boolean accept(Path path);
+  }
+  ```
 
 ### Data Flow
 
-- A client reading data from HDFS
+- A client reading data from HDFS  
 ![alt text](img/fig_3_2_A_client_reading_data_from_HDFS.PNG)  
 
 - What does it mean for two nodes in a local network to be “close” to each other? In the context of high-volume data processing, the limiting factor is the rate at which we can transfer data between nodes—bandwidth is a scarce commodity. The idea is to use the bandwidth between two nodes as a measure of distance. Rather than measuring bandwidth between nodes, which can be difficult to do in practice (it requires a quiet cluster, and the number of pairs of nodes in a cluster grows as the square of the number of nodes), Hadoop takes a simple approach in which the network is represented as a tree and the distance between two nodes is the sum of their distances to their closest common ancestor. Levels in the tree are not predefined, but it is common to have levels that correspond to the data center, the rack, and the node that a process is running on. The idea is that the bandwidth available for each of the following scenarios becomes progressively less:
@@ -133,15 +134,15 @@ public interface PathFilter {
 - Hadoop Archives, or HAR files, are a file archiving facility that packs files into HDFS blocks more efficiently, thereby reducing namenode memory usage while still allowing transparent access to files. In particular, Hadoop Archives can be used as input to MapReduce.
 
 - Let’s see what the archive has created:
-```bash
-% hadoop fs -ls /my
-Found 2 items
-drwxr-xr-x - tom supergroup 0 2009-04-09 19:13 /my/files
-drwxr-xr-x - tom supergroup 0 2009-04-09 19:13 /my/files.har
-% hadoop fs -ls /my/files.har
-Found 3 items
--rw-r--r-- 10 tom supergroup 165 2009-04-09 19:13 /my/files.har/_index
--rw-r--r-- 10 tom supergroup 23  2009-04-09 19:13 /my/files.har/_masterindex
--rw-r--r-- 1  tom supergroup 2   2009-04-09 19:13 /my/files.har/part-0
-```
-The directory listing shows what a HAR file is made of: two index files and a collection of part files (this example has just one of the latter). The part files contain the contents of a number of the original files concatenated together, and the indexes make it possible to look up the part file that an archived file is contained in, as well as its offset and length. All these details are hidden from the application, however, which uses the har URI scheme to interact with HAR files, using a HAR filesystem that is layered on top of the underlying filesystem (HDFS in this case).
+  ```bash
+  % hadoop fs -ls /my
+  Found 2 items
+  drwxr-xr-x - tom supergroup 0 2009-04-09 19:13 /my/files
+  drwxr-xr-x - tom supergroup 0 2009-04-09 19:13 /my/files.har
+  % hadoop fs -ls /my/files.har
+  Found 3 items
+  -rw-r--r-- 10 tom supergroup 165 2009-04-09 19:13 /my/files.har/_index
+  -rw-r--r-- 10 tom supergroup 23  2009-04-09 19:13 /my/files.har/_masterindex
+  -rw-r--r-- 1  tom supergroup 2   2009-04-09 19:13 /my/files.har/part-0
+  ```
+	The directory listing shows what a HAR file is made of: two index files and a collection of part files (this example has just one of the latter). The part files contain the contents of a number of the original files concatenated together, and the indexes make it possible to look up the part file that an archived file is contained in, as well as its offset and length. All these details are hidden from the application, however, which uses the har URI scheme to interact with HAR files, using a HAR filesystem that is layered on top of the underlying filesystem (HDFS in this case).
