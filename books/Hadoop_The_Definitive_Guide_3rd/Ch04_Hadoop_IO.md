@@ -126,7 +126,8 @@
         if (cmp != 0) {
           return cmp;
         }
-        return TEXT_COMPARATOR.compare(b1, s1 + firstL1, l1 - firstL1, b2, s2 + firstL2, l2 - firstL2);
+        return TEXT_COMPARATOR.compare(b1, s1 + firstL1, l1 - firstL1,
+                                       b2, s2 + firstL2, l2 - firstL2);
       } catch (IOException e) {
         throw new IllegalArgumentException(e);
       }
@@ -258,16 +259,22 @@
       " ]" +
       "}"
     );
-    public static class MaxTemperatureMapper extends AvroMapper<Utf8, Pair<Integer, GenericRecord>> {
+    public static class MaxTemperatureMapper
+        extends AvroMapper<Utf8, Pair<Integer, GenericRecord>> {
       @Override
-      public void map(Utf8 line, AvroCollector<Pair<Integer, GenericRecord>> collector, Reporter reporter) throws IOException {
-          // implementation elided
-          collector.collect(new Pair<Integer, GenericRecord>(...));
+      public void map(Utf8 line,
+          AvroCollector<Pair<Integer, GenericRecord>> collector,
+          Reporter reporter) throws IOException {
+        // implementation elided
+        collector.collect(new Pair<Integer, GenericRecord>(...));
       }
     }
-    public static class MaxTemperatureReducer extends AvroReducer<Integer, GenericRecord, GenericRecord> {
+    public static class MaxTemperatureReducer
+        extends AvroReducer<Integer, GenericRecord, GenericRecord> {
       @Override
-      public void reduce(Integer key, Iterable<GenericRecord> values, AvroCollector<GenericRecord> collector, Reporter reporter) throws IOException {
+      public void reduce(Integer key, Iterable<GenericRecord> values,
+          AvroCollector<GenericRecord> collector,
+          Reporter reporter) throws IOException {
         // implementation elided
         collector.collect(...);
       }
@@ -279,7 +286,8 @@
       FileInputFormat.addInputPath(conf, new Path(args[0]));
       FileOutputFormat.setOutputPath(conf, new Path(args[1]));
       AvroJob.setInputSchema(conf, Schema.create(Schema.Type.STRING));
-      AvroJob.setMapOutputSchema(conf, Pair.getPairSchema(Schema.create(Schema.Type.INT), SCHEMA));
+      AvroJob.setMapOutputSchema(conf,
+          Pair.getPairSchema(Schema.create(Schema.Type.INT), SCHEMA));
       AvroJob.setOutputSchema(conf, SCHEMA);
       conf.setInputFormat(AvroUtf8InputFormat.class);
       AvroJob.setMapperClass(conf, MaxTemperatureMapper.class);

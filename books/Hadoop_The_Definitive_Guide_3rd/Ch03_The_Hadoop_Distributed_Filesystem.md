@@ -45,7 +45,8 @@ for a file.
 
 - The open() method on FileSystem actually returns a FSDataInputStream rather than a standard java.io class. This class is a specialization of java.io.DataInputStream with support for random access, so you can read from any part of the stream:
   ```java
-  public class FSDataInputStream extends DataInputStream implements Seekable, PositionedReadable {
+  public class FSDataInputStream extends DataInputStream
+      implements Seekable, PositionedReadable {
     // implementation elided
   }
   ```
@@ -59,8 +60,10 @@ for a file.
 	FSDataInputStream also implements the PositionedReadable interface for reading parts of a file at a given offset:
   ```java
   public interface PositionedReadable {
-    public int read(long position, byte[] buffer, int offset, int length) throws IOException;
-    public void readFully(long position, byte[] buffer, int offset, int length) throws IOException;
+    public int read(long position, byte[] buffer, int offset, int length)
+        throws IOException;
+    public void readFully(long position, byte[] buffer, int offset, int length)
+        throws IOException;
     public void readFully(long position, byte[] buffer) throws IOException;
   }
   ```
