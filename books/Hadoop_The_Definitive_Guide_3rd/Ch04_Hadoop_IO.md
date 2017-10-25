@@ -1,4 +1,4 @@
-## Chapter 04: Hadoop IO
+## Chapter 04: Hadoop I/O
 
 ### Data Integrity
 
