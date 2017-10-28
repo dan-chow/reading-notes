@@ -15,11 +15,11 @@
 - When a filesystem client performs a write operation (such as creating or moving a file), it is first recorded in the edit log. The fsimage file is a persistent checkpoint of the filesystem metadata. If the namenode fails, then the latest state of its metadata can be reconstructed by loading the fsimage from disk into memory, and then applying each of the operations in the edit log. The fsimage file contains a serialized form of all the directory and file inodes in the filesystem.
 
 - The solution is to run the secondary namenode, whose purpose is to produce checkpoints of the primary’s in-memory filesystem metadata.1 The checkpointing process proceeds as follows:
-	1. The secondary asks the primary to roll its edits file, so new edits go to a new file.
-	2. The secondary retrieves fsimage and edits from the primary (using HTTP GET).
-	3. The secondary loads fsimage into memory, applies each operation from edits, then creates a new consolidated fsimage file.
-	4. The secondary sends the new fsimage back to the primary (using HTTP POST).
-	5. The primary replaces the old fsimage with the new one from the secondary and the old edits file with the new one it started in step 1. It also updates the fstime file to record the time that the checkpoint was taken.
+	- (1) The secondary asks the primary to roll its edits file, so new edits go to a new file.
+	- (2) The secondary retrieves fsimage and edits from the primary (using HTTP GET).
+	- (3) The secondary loads fsimage into memory, applies each operation from edits, then creates a new consolidated fsimage file.
+	- (4) The secondary sends the new fsimage back to the primary (using HTTP POST).
+	- (5) The primary replaces the old fsimage with the new one from the secondary and the old edits file with the new one it started in step 1. It also updates the fstime file to record the time that the checkpoint was taken.
 
 - The checkpointing process  
 ![alt text](img/fig_10_1_The_checkpointing_process.PNG)  

@@ -73,9 +73,9 @@
 ### Sorting
 
 - The sort order for keys is controlled by a RawComparator, which is found as follows:
-	1. If the property mapred.output.key.comparator.class is set, either explicitly or by calling setSortComparatorClass() on Job, then an instance of that class is used. (In the old API, the equivalent method is setOutputKeyComparatorClass() on JobConf.)
-	2. Otherwise, keys must be a subclass of WritableComparable, and the registered comparator for the key class is used.
-	3. If there is no registered comparator, then a RawComparator is used that deserializes the byte streams being compared into objects and delegates to the WritableCompar able’s compareTo() method.
+	- (1) If the property mapred.output.key.comparator.class is set, either explicitly or by calling setSortComparatorClass() on Job, then an instance of that class is used. (In the old API, the equivalent method is setOutputKeyComparatorClass() on JobConf.)
+	- (2) Otherwise, keys must be a subclass of WritableComparable, and the registered comparator for the key class is used.
+	- (3) If there is no registered comparator, then a RawComparator is used that deserializes the byte streams being compared into objects and delegates to the WritableCompar able’s compareTo() method.
 
 - MapFileOutputFormat provides a pair of convenience static methods for performing lookups against MapReduce output.
   ```java

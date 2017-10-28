@@ -19,7 +19,7 @@
 ### Hadoop Configuration
 
 - Hadoop configuration files  
-![alt text](img/fig_9_1_Hadoop configuration files.PNG)  
+![alt text](img/fig_9_1_Hadoop_configuration_files.PNG)  
 
 - For some clusters, the one-size-fits-all configuration model breaks down. For example, if you expand the cluster with new machines that have a different hardware specification from the existing ones, you need a different configuration for the new machines to take advantage of their extra resources. In these cases, you need to have the concept of a class of machine and maintain a separate configuration for each class.
 
@@ -29,8 +29,8 @@
 	- (3) Starts a secondary namenode on each machine listed in the masters file
 
 	There is a similar script called start-mapred.sh, which starts all the MapReduce daemons in the cluster. More specifically, it:
-	1. Starts a jobtracker on the local machine
-	2. Starts a tasktracker on each machine listed in the slaves file
+	- (1) Starts a jobtracker on the local machine
+	- (2) Starts a tasktracker on each machine listed in the slaves file
 
 	Note that masters is not used by the MapReduce control scripts.
 
