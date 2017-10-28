@@ -83,51 +83,51 @@
 - Although commissioning a new node can be as simple as configuring the hdfssite.xml file to point to the namenode, configuring the mapred-site.xml file to point to the jobtracker, and starting the datanode and jobtracker daemons, it is generally best to have a list of authorized nodes.
 
 - To add new nodes to the cluster:
-	1. Add the network addresses of the new nodes to the include file.
-	2. Update the namenode with the new set of permitted datanodes using this command:
+	- (1) Add the network addresses of the new nodes to the include file.
+	- (2) Update the namenode with the new set of permitted datanodes using this command:
         ```bash
         % hadoop dfsadmin -refreshNodes
         ```
-	3. Update the jobtracker with the new set of permitted tasktrackers using:
+	- (3) Update the jobtracker with the new set of permitted tasktrackers using:
         ```bash
         % hadoop mradmin -refreshNodes
         ```
-	4. Update the slaves file with the new nodes, so that they are included in future operations performed by the Hadoop control scripts.
-	5. Start the new datanodes and tasktrackers.
-	6. Check that the new datanodes and tasktrackers appear in the web UI.
+	- (4) Update the slaves file with the new nodes, so that they are included in future operations performed by the Hadoop control scripts.
+	- (5) Start the new datanodes and tasktrackers.
+	- (6) Check that the new datanodes and tasktrackers appear in the web UI.
 
 - Although HDFS is designed to tolerate datanode failures, this does not mean you can just terminate datanodes en masse with no ill effect. The way to decommission datanodes is to inform the namenode of the nodes that you wish to take out of circulation, so that it can replicate the blocks to other datanodes before the datanodes are shut down.
 
 - The rules for whether a tasktracker may connect to the jobtracker are simple: a tasktracker may connect only if it appears in the include file and does not appear in the exclude file. For HDFS, the rules are slightly different. If a datanode appears in both the include and the exclude file, then it may connect, but only to be decommissioned.
 
 - To remove nodes from the cluster:
-	1. Add the network addresses of the nodes to be decommissioned to the exclude file. Do not update the include file at this point.
-	2. Update the namenode with the new set of permitted datanodes, using this command:
+	- (1) Add the network addresses of the nodes to be decommissioned to the exclude file. Do not update the include file at this point.
+	- (2) Update the namenode with the new set of permitted datanodes, using this command:
         ```bash
         % hadoop dfsadmin -refreshNodes
         ```
-	3. Update the jobtracker with the new set of permitted tasktrackers using:
+	- (3) Update the jobtracker with the new set of permitted tasktrackers using:
         ```bash
         % hadoop mradmin -refreshNodes
         ```
-	4. Go to the web UI and check whether the admin state has changed to “Decommission In Progress” for the datanodes being decommissioned. They will start copying their blocks to other datanodes in the cluster.
-	5. When all the datanodes report their state as “Decommissioned,” all the blocks have been replicated. Shut down the decommissioned nodes.
-	6. Remove the nodes from the include file, and run:
+	- (4) Go to the web UI and check whether the admin state has changed to “Decommission In Progress” for the datanodes being decommissioned. They will start copying their blocks to other datanodes in the cluster.
+	- (5) When all the datanodes report their state as “Decommissioned,” all the blocks have been replicated. Shut down the decommissioned nodes.
+	- (6) Remove the nodes from the include file, and run:
         ```bash
         % hadoop dfsadmin -refreshNodes
         % hadoop mradmin -refreshNodes
         ```
-	7. Remove the nodes from the slaves file.
+	- (7) Remove the nodes from the slaves file.
 
 - An upgrade of HDFS makes a copy of the previous version’s metadata and data. Doing an upgrade does not double the storage requirements of the cluster, as the datanodes use hard links to keep two references (for the current and previous version) to the same block of data. This design makes it straightforward to roll back to the previous version of the filesystem, if you need to. You should understand that any changes made to the data on the upgraded system will be lost after the rollback completes. You can keep only the previous version of the filesystem, which means you can’t roll back several versions. Therefore, to carry out another upgrade to HDFS data and metadata, you will need to delete the previous version, a process called finalizing the upgrade. Once an upgrade is finalized, there is no procedure for rolling back to a previous version.
 
 - Here is the high-level procedure for upgrading a cluster when the filesystem layout needs to be migrated:
-	1. Make sure that any previous upgrade is finalized before proceeding with another upgrade.
-	2. Shut down MapReduce, and kill any orphaned task processes on the tasktrackers.
-	3. Shut down HDFS, and back up the namenode directories.
-	4. Install new versions of Hadoop HDFS and MapReduce on the cluster and on clients.
-	5. Start HDFS with the -upgrade option.
-	6. Wait until the upgrade is complete.
-	7. Perform some sanity checks on HDFS.
-	8. Start MapReduce.
-	9. Roll back or finalize the upgrade (optional).
+	- (1) Make sure that any previous upgrade is finalized before proceeding with another upgrade.
+	- (2) Shut down MapReduce, and kill any orphaned task processes on the tasktrackers.
+	- (3) Shut down HDFS, and back up the namenode directories.
+	- (4) Install new versions of Hadoop HDFS and MapReduce on the cluster and on clients.
+	- (5) Start HDFS with the -upgrade option.
+	- (6) Wait until the upgrade is complete.
+	- (7) Perform some sanity checks on HDFS.
+	- (8) Start MapReduce.
+	- (9) Roll back or finalize the upgrade (optional).

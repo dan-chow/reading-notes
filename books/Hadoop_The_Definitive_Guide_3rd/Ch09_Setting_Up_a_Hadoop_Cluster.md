@@ -24,9 +24,9 @@
 - For some clusters, the one-size-fits-all configuration model breaks down. For example, if you expand the cluster with new machines that have a different hardware specification from the existing ones, you need a different configuration for the new machines to take advantage of their extra resources. In these cases, you need to have the concept of a class of machine and maintain a separate configuration for each class.
 
 - For example, the start-dfs.sh script, which starts all the HDFS daemons in the cluster, runs the namenode on the machine that the script is run on. In slightly more detail, it:
-	1. Starts a namenode on the local machine (the machine that the script is run on)
-	2. Starts a datanode on each machine listed in the slaves file
-	3. Starts a secondary namenode on each machine listed in the masters file
+	- (1) Starts a namenode on the local machine (the machine that the script is run on)
+	- (2) Starts a datanode on each machine listed in the slaves file
+	- (3) Starts a secondary namenode on each machine listed in the masters file
 
 	There is a similar script called start-mapred.sh, which starts all the MapReduce daemons in the cluster. More specifically, it:
 	1. Starts a jobtracker on the local machine
@@ -59,9 +59,9 @@
 - Hadoop itself does not manage user credentials; instead, it relies on Kerberos, a mature open-source network authentication protocol, to authenticate the user. In turn, Kerberos doesn’t manage permissions. Kerberos says that a user is who he says he is; it’s Hadoop’s job to determine whether that user has permission to perform a given action.
 
 - At a high level, there are three steps that a client must take to access a service when using Kerberos, each of which involves a message exchange with a server:
-	1. Authentication. The client authenticates itself to the Authentication Server and receives a timestamped Ticket-Granting Ticket (TGT).
-	2. Authorization. The client uses the TGT to request a service ticket from the Ticket Granting Server.
-	3. Service request. The client uses the service ticket to authenticate itself to the server that is providing the service the client is using. In the case of Hadoop, this might be the namenode or the jobtracker.
+	- (1) Authentication. The client authenticates itself to the Authentication Server and receives a timestamped Ticket-Granting Ticket (TGT).
+	- (2) Authorization. The client uses the TGT to request a service ticket from the Ticket Granting Server.
+	- (3) Service request. The client uses the service ticket to authenticate itself to the server that is providing the service the client is using. In the case of Hadoop, this might be the namenode or the jobtracker.
 	
 	Together, the Authentication Server and the Ticket Granting Server form the Key Distribution Center (KDC).
 
