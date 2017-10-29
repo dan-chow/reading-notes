@@ -41,13 +41,11 @@
 	- (6) hadoop-default.xml (or, equivalently, core-default.xml, hdfs-default.xml, and mapred-default.xml)
 
 - Hive architecture  
-**TODO**
 ![alt text](img/fig_12_1_Hive_architecture.PNG)  
 
 - The metastore is the central repository of Hive metadata. The metastore is divided into two pieces: a service and the backing store for the data.
 
 - Metastore configurations  
-**TODO**
 ![alt text](img/fig_12_2_Metastore_configurations.PNG)  
 
 ### Comparison with Traditional Databases
@@ -61,7 +59,7 @@
 ### HiveQL
 
 - A high-level comparison of SQL and HiveQL  
-**TODO**
+![alt text](img/fig_12_3_A_high_level_comparison_of_SQL_and_HiveQL.PNG)  
 
 - Hive has three complex types: ARRAY, MAP, and STRUCT. ARRAY and MAP are like their namesakes in Java, whereas a STRUCT is a record type that encapsulates a set of named fields. Complex types permit an arbitrary level of nesting. Complex type declarations must specify the type of the fields in the collection, using an angled bracket notation, as illustrated in this table definition with three columns, one for each complex type:
   ```sql
@@ -168,8 +166,7 @@
   ```
 
 - Row-oriented versus column-oriented storage  
-**TODO**
-![alt text](img/fig_12_5_Row_oriented_versus_column_oriented_storage.PNG)  
+![alt text](img/fig_12_4_Row_oriented_versus_column_oriented_storage.PNG)  
 
 - Use the following CREATE TABLE clauses to enable column-oriented storage in Hive:
   ```sql
@@ -374,5 +371,4 @@
   ```
 
 - Data flow with partial results for a UDAF  
-**TODO**
-![alt text](img/fig_12_6_UDAF.PNG)  
+![alt text](img/fig_12_5_Data_flow_with_partial_results_for_a_UDAF.PNG)  

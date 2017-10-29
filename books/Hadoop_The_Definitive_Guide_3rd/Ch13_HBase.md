@@ -17,8 +17,7 @@
 - Just as HDFS and MapReduce are built of clients, slaves, and a coordinating master—namenode and datanodes in HDFS and jobtracker and tasktrackers in MapReduce—so is HBase modeled with an HBase master node orchestrating a cluster of one or more regionserver slaves.
 
 - HBase cluster members  
-**TODO**
-![alt text](img/fig_13_1_HBase.PNG)  
+![alt text](img/fig_13_1_HBase_cluster_members.PNG)  
 
 - The HBase master is responsible for bootstrapping a virgin install, for assigning regions to registered regionservers, and for recovering regionserver failures. The master node is lightly loaded. The regionservers carry zero or more regions and field client read/write requests. They also manage region splits informing the HBase master about the new daughter regions for it to manage the offlining of parent region and assignment of the replacement daughters.
 

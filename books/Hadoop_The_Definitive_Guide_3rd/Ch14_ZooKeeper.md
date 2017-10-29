@@ -3,16 +3,14 @@
 ### Installing and Running ZooKeeper
 
 - ZooKeeper commands: the four-letter words  
-**TODO**
-![alt text](img/fig_14_1_ZooKeeper_commands_1.PNG)  
-![alt text](img/fig_14_2_ZooKeeper_commands_2.PNG)  
+![alt text](img/fig_14_1_ZooKeeper_commands_the_four_letter_words.PNG)  
 
 ### An Example
 
 - One way of understanding ZooKeeper is to think of it as providing a high-availability filesystem. It doesn’t have files and directories, but a unified concept of a node, called a znode, which acts both as a container of data (like a file) and a container of other znodes (like a directory). Znodes form a hierarchical namespace, and a natural way to build a membership list is to create a parent znode with the name of the group and child znodes with the name of the group members (servers).
 
 - ZooKeeper znodes  
-![alt text](img/fig_14_3_ZooKeeper_znodes.PNG
+![alt text](img/fig_14_2_ZooKeeper_znodes.PNG)  
 
 - A program to create a znode representing a group in ZooKeeper
   ```java
@@ -32,7 +30,8 @@
     }
     public void create(String groupName) throws KeeperException, InterruptedException {
       String path = "/" + groupName;
-      String createdPath = zk.create(path, null/*data*/, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+      String createdPath = zk.create(path, null/*data*/,
+          Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
       System.out.println("Created " + createdPath);
     }
     public void close() throws InterruptedException {
@@ -56,9 +55,11 @@
 - A program that joins a group
   ```java
   public class JoinGroup extends ConnectionWatcher {
-    public void join(String groupName, String memberName) throws KeeperException, InterruptedException {
+    public void join(String groupName, String memberName)
+        throws KeeperException, InterruptedException {
       String path = "/" + groupName + "/" + memberName;
-      String createdPath = zk.create(path, null/*data*/, Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
+      String createdPath = zk.create(path, null/*data*/,
+          Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL);
       System.out.println("Created " + createdPath);
     }
     public static void main(String[] args) throws Exception {
@@ -165,14 +166,12 @@
 - Watches allow clients to get notifications when a znode changes in some way. Watches are set by operations on the ZooKeeper service and are triggered by other operations on the service. Watchers are triggered only once. To receive multiple notifications, a client needs to reregister the watch.
 
 - Operations in the ZooKeeper service  
-**TODO**
-![alt text](img/fig_14_4_Operations_in_the_ZooKeeper_service.PNG)  
+![alt text](img/fig_14_3_Operations_in_the_ZooKeeper_service.PNG)  
 
 - There is another ZooKeeper operation, called multi, which batches together multiple primitive operations into a single unit that either succeeds or fails in its entirety. The situation where some of the primitive operations succeed and some fail can never arise.
 
 - Watch creation operations and their corresponding triggers  
-**TODO**
-![alt text](img/fig_14_5_Watch_creation_operations_and_their_corresponding_triggers.PNG)  
+![alt text](img/fig_14_4_Watch_creation_operations_and_their_corresponding_triggers.PNG)  
 
 - ACLs depend on authentication, the process by which the client identifies itself to ZooKeeper. There are a few authentication schemes that ZooKeeper provides:
 	- **digest** The client is authenticated by a username and password.
@@ -180,8 +179,7 @@
 	- **ip** The client is authenticated by its IP address.
 
 - ACL permissions  
-**TODO**
-![alt text](img/fig_14_6_ACL_permissions.PNG)  
+![alt text](img/fig_14_5_ACL_permissions.PNG)  
 
 - Conceptually, ZooKeeper is very simple: all it has to do is ensure that every modification to the tree of znodes is replicated to a majority of the ensemble. If a minority of the machines fail, then a minimum of one machine will survive with the latest state. The other remaining replicas will eventually catch up with this state.
 
@@ -192,8 +190,7 @@
 - Every update made to the znode tree is given a globally unique identifier, called a zxid (which stands for “ZooKeeper transaction ID”). Updates are ordered according to ZooKeeper, which is the single authority on ordering in the distributed system.
 
 - Reads are satisfied by followers, whereas writes are committed by the leader  
-**TODO**
-![alt text](img/fig_14_7_Zookeeper_service.PNG)  
+![alt text](img/fig_14_6_Reads_are_satisfied_by_followers_whereas_writes_are_committed_by_the_leader.PNG)  
 
 - When a server fails and a client tries to connect to another in the ensemble, a server that is behind the one that failed will not accept connections from the client until it has caught up with the failed server.
 
@@ -206,8 +203,7 @@
 - As a general rule, the larger the ZooKeeper ensemble, the larger the session timeout should be. Connection timeouts, read timeouts, and ping periods are all defined internally as a function of the number of servers in the ensemble, so as the ensemble grows, these periods decrease. Consider increasing the timeout if you experience frequent connection loss.
 
 - ZooKeeper state transitions  
-**TODO**
-![alt text](img/fig_14_8_ZooKeeper_state_transitions.PNG)  
+![alt text](img/fig_14_7_ZooKeeper_state_transitions.PNG)  
 
 - A ZooKeeper Watcher object serves double duty: it can be used to be notified of changes in the ZooKeeper state (as described in this section), and it can be used to be notified of changes in znodes. The (default) watcher passed into the ZooKeeper object constructor is used for state changes, but znode changes may either use a dedicated instance of Watcher (by passing one in to the appropriate read operation) or share the default one if using the form of the read operation that takes a Boolean flag to specify whether to use a watcher.
 
@@ -227,7 +223,8 @@
         zk.setData(path, value.getBytes(CHARSET), -1);
       }
     }
-    public String read(String path, Watcher watcher) throws InterruptedException, KeeperException {
+    public String read(String path, Watcher watcher)
+        throws InterruptedException, KeeperException {
       byte[] data = zk.getData(path, watcher, null/*stat*/);
       return new String(data, CHARSET);
     }

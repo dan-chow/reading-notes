@@ -21,20 +21,20 @@
 ### Imports: A Deeper Look
 
 - Sqoop’s import process  
-**TODO**
+![alt text](img/fig_15_1_Sqoop’s_import_process.PNG)  
 
 - More critical to the import system’s operation, though, are the serialization methods that form the DBWritable interface, which allow the Widget class to interact with JDBC:
-```java
-public void readFields(ResultSet __dbResults) throws SQLException;
-public void write(PreparedStatement __dbStmt) throws SQLException;
-```
-JDBC’s ResultSet interface provides a cursor that retrieves records from a query; the readFields() method here will populate the fields of the Widget object with the columns from one row of the ResultSet’s data. The write() method shown here allows Sqoop to insert new Widget rows into a table, a process called exporting.
+  ```java
+  public void readFields(ResultSet __dbResults) throws SQLException;
+  public void write(PreparedStatement __dbStmt) throws SQLException;
+  ```
+	JDBC’s ResultSet interface provides a cursor that retrieves records from a query; the readFields() method here will populate the fields of the Widget object with the columns from one row of the ResultSet’s data. The write() method shown here allows Sqoop to insert new Widget rows into a table, a process called exporting.
 
 - Reading a table is typically done with a simple query such as:
-```sql
-SELECT col1,col2,col3,... FROM tableName
-```
-But often, better import performance can be gained by dividing this query across multiple nodes. This is done using a splitting column. Using metadata about the table, Sqoop will guess a good column to use for splitting the table (typically the primary key for the table, if one exists). The minimum and maximum values for the primary key column are retrieved, and then these are used in conjunction with a target number of tasks to determine the queries that each map task should issue.
+  ```sql
+  SELECT col1,col2,col3,... FROM tableName
+  ```
+	But often, better import performance can be gained by dividing this query across multiple nodes. This is done using a splitting column. Using metadata about the table, Sqoop will guess a good column to use for splitting the table (typically the primary key for the table, if one exists). The minimum and maximum values for the primary key column are retrieved, and then these are used in conjunction with a target number of tasks to determine the queries that each map task should issue.
 
 - After generating the deserialization code and configuring the InputFormat, Sqoop sends the job to the MapReduce cluster. Map tasks execute the queries and deserialize rows from the ResultSet into instances of the generated class, which are either stored directly in SequenceFiles or transformed into delimited text before being written to HDFS.
 
@@ -49,10 +49,10 @@ But often, better import performance can be gained by dividing this query across
 - Most databases provide the capability to store large amounts of data in a single field. Depending on whether this data is textual or binary in nature, it is usually represented as a CLOB or BLOB column in the table.
 
 - Database tables are typically physically represented as an array of rows, with all the columns in a row stored adjacent to one another  
-**TODO**
+![alt text](img/fig_15_2_Database_tables_are_typically_physically_represented_as_an_array_of_rows_with_all_the_columns_in_a_row_stored_adjacent_to_one_another.PNG)  
 
 - Large objects are usually held in a separate area of storage; the main row storage contains indirect references to the large objects  
-**TODO**
+![alt text](img/fig_15_3_Large_objects_are_usually_held_in_a_separate_area_of_storage_the_main_row_storage_contains_indirect_references_to_the_large_objects.PNG)  
 
 - To overcome these difficulties, Sqoop will store imported large objects in a separate file called a LobFile. The LobFile format can store individual records of very large size (a 64-bit address space is used). When a record is imported, the “normal” fields will be materialized together in a text file, along with a reference to the LobFile where a CLOB or BLOB column is stored.
 
@@ -61,7 +61,7 @@ But often, better import performance can be gained by dividing this query across
 ### Exports: A Deeper Look
 
 - Exports are performed in parallel using MapReduce  
-**TODO**
+![alt text](img/fig_15_4_Exports_are_performed_in_parallel_using_MapReduce.PNG)  
 
 - The JDBC-based export strategy builds up batch INSERT statements that will each add multiple records to the target table. Inserting many records per statement performs much better than executing many single-row INSERT statements on most database systems.
 
