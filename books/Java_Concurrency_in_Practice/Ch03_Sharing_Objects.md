@@ -4,8 +4,25 @@
 
 ### 3.1 Visibility
 
-- NoVisibility  
-![alt text](img/fig_3_1_NoVisibility.PNG)  
+- Sharing variables without synchronization. Don’t do this.
+```java
+public class NoVisibility {
+  private static boolean ready;
+  private static int number;
+  private static class ReaderThread extends Thread {
+    public void run() {
+    while (!ready)
+      Thread.yield();
+      System.out.println(number);
+    }
+  }
+  public static void main(String[] args) {
+    new ReaderThread().start();
+    number = 42;
+    ready = true;
+  }
+}
+```
 
 - In the absence of synchronization, the compiler, processor, and runtime can do some downright weird things to the order in which operations appear to execute. Attempts to reason about the order in which memory actions “must” happen in insufficiently synchronized multithreaded programs will almost certainly be incorrect.
 
@@ -30,13 +47,39 @@
 
 - Whether another thread actually does something with a published reference doesn’t really matter, because the risk of misuse is still present. Once an object escapes, you have to assume that another class or thread may, maliciously or carelessly, misuse it. This is a compelling reason to use encapsulation: it makes it practical to analyze programs for correctness and harder to violate design constraints accidentally.
 
-- ThisEscape  
-![alt text](img/fig_3_2_ThisEscape.PNG)  
+- Implicitly allowing the this reference to escape. Don’t do this.
+```java
+public class ThisEscape {
+  public ThisEscape(EventSource source) {
+    source.registerListener(new EventListener() {
+      public void onEvent(Event e) {
+        doSomething(e);
+      }
+    });
+  }
+}
+```
 
 - Do not allow the this reference to escape during construction.
 
-- SafeListener  
-![alt text](img/fig_3_3_SafeListener.PNG)  
+- Using a factory method to prevent the this reference from escaping during construction.
+```java
+public class SafeListener {
+  private final EventListener listener;
+  private SafeListener() {
+    listener = new EventListener() {
+      public void onEvent(Event e) {
+        doSomething(e);
+      }
+    };
+  }
+  public static SafeListener newInstance(EventSource source) {
+    SafeListener safe = new SafeListener();
+    source.registerListener(safe.listener);
+    return safe;
+  }
+}
+```
 
 ### 3.3 Thread confinement
 
@@ -52,8 +95,17 @@
 
 - A more formal means of maintaining thread confinement is ThreadLocal, which allows you to associate a per-thread value with a value-holding object. ThreadLocal provides get and set accessor methods that maintain a separate copy of the value for each thread that uses it, so a get returns the most recent value passed to set from the currently executing thread.
 
-- ThreadLocal  
-![alt text](img/fig_3_4_ThreadLocal.PNG)  
+- Using ThreadLocal to ensure thread confinement.
+```java
+private static ThreadLocal<Connection> connectionHolder = new ThreadLocal<Connection>() {
+  public Connection initialValue() {
+    return DriverManager.getConnection(DB_URL);
+  }
+};
+public static Connection getConnection() {
+  return connectionHolder.get();
+}
+```
 
 ### 3.4 Immutability
 
@@ -63,7 +115,7 @@
 
 - An object is immutable if:
 	- Its state cannot be modified after construction;
-	- All its fields are final;12 and
+	- All its fields are final; and
 	- It is properly constructed (the this reference does not escape during construction).
 
 - The final keyword, a more limited version of the const mechanism from C++, supports the construction of immutable objects. Final fields can’t be modified (although the objects they refer to can be modified if they are mutable), but they also have special semantics under the Java Memory Model. It is the use of final fields that makes possible the guarantee of initialization safety that lets immutable objects be freely accessed and shared without synchronization.
