@@ -5,9 +5,9 @@
 
 - The Template Method defines the steps of an algorithm and allows subclasses to provide the implementation for one or more steps.
 
-- The Template Method Pattern defi nes the skeleton of an algorithm in a method, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
+- The Template Method Pattern defines the skeleton of an algorithm in a method, deferring some steps to subclasses. Template Method lets subclasses redefine certain steps of an algorithm without changing the algorithm’s structure.
 
-- This pattern is all about creating a template for an algorithm. What’s a template? As you’ve seen it’s just a method; more specifi cally, it’s a method that defines an algorithm as a set of steps. One or more of these steps is defi ned to be abstract and implemented by a subclass. This ensures the algorithm’s structure stays unchanged, while subclasses provide some part of the implementation.
+- This pattern is all about creating a template for an algorithm. What’s a template? As you’ve seen it’s just a method; more specifically, it’s a method that defines an algorithm as a set of steps. One or more of these steps is defined to be abstract and implemented by a subclass. This ensures the algorithm’s structure stays unchanged, while subclasses provide some part of the implementation.
 
 - Template method pattern class diagram  
 ![alt text](img/fig_8_2_Template_method_pattern_class_diagram.PNG)  

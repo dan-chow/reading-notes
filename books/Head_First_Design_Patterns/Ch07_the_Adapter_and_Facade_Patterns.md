@@ -38,7 +38,7 @@
 
 - Facades and adapters may wrap multiple classes, but a facade’s intent is to simplify, while an adapter’s is to convert the interface to something different.
 
-- The Facade Pattern provides a unified interface to a set of interfaces in a subsytem. Facade defi nes a higherlevel interface that makes the subsystem easier to use.
+- The Facade Pattern provides a unified interface to a set of interfaces in a subsytem. Facade defines a higher-level interface that makes the subsystem easier to use.
 
 - Facade pattern class diagram  
 ![alt text](img/fig_7_8_Facade_pattern_class_diagram.PNG)  
