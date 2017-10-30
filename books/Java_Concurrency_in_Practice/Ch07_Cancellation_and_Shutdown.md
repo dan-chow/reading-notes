@@ -12,8 +12,15 @@
 
 - Each thread has a boolean interrupted status; interrupting a thread sets its interrupted status to true. Thread contains methods for interrupting a thread and querying the interrupted status of a thread. The interrupt method interrupts the target thread, and isInterrupted returns the interrupted status of the target thread. The poorly named static interrupted method clears the interrupted status of the current thread and returns its previous value; this is the only way to clear the interrupted status.
 
-- Interruption  
-![alt text](img/fig_7_1_Interruption.PNG)  
+- Interruption methods in Thread.
+  ```java
+  public class Thread {
+    public void interrupt() { ... }
+    public boolean isInterrupted() { ... }
+    public static boolean interrupted() { ... }
+    ...
+  }
+  ```
 
 - Blocking library methods like Thread.sleep and Object.wait try to detect when a thread has been interrupted and return early. They respond to interruption by clearing the interrupted status and throwing InterruptedException, indicating that the blocking operation completed early due to interruption. The JVM makes no guarantees on how quickly a blocking method will detect interruption, but in practice this happens reasonably quickly.
 
@@ -41,8 +48,44 @@
 	- Asynchronous I/O with Selector.
 	- Lock acquisition.
 
-- newTaskFor  
-![alt text](img/fig_7_2_newTaskFor.PNG)  
+- Encapsulating nonstandard cancellation in a task with newTaskFor.
+  ```java
+  public interface CancellableTask<T> extends Callable<T> {
+    void cancel();
+    RunnableFuture<T> newTask();
+  }
+  @ThreadSafe
+  public class CancellingExecutor extends ThreadPoolExecutor {
+    ...
+    protected<T> RunnableFuture<T> newTaskFor(Callable<T> callable) {
+      if (callable instanceof CancellableTask)
+        return ((CancellableTask<T>) callable).newTask();
+      else
+        return super.newTaskFor(callable);
+    }
+  }
+  public abstract class SocketUsingTask<T> implements CancellableTask<T> {
+    @GuardedBy("this") private Socket socket;
+    protected synchronized void setSocket(Socket s) { socket = s; }
+    public synchronized void cancel() {
+      try {
+        if (socket != null)
+          socket.close();
+      } catch (IOException ignored) { }
+    }
+    public RunnableFuture<T> newTask() {
+      return new FutureTask<T>(this) {
+        public boolean cancel(boolean mayInterruptIfRunning) {
+          try {
+            SocketUsingTask.this.cancel();
+          } finally {
+            return super.cancel(mayInterruptIfRunning);
+          }
+        }
+      };
+    }
+  }
+  ```
 
 ### 7.2 Stopping a thread-based service
 
@@ -58,8 +101,12 @@
 
 - When a thread exits due to an uncaught exception, the JVM reports this event to an application-provided UncaughtExceptionHandler; if no handler exists, the default behavior is to print the stack trace to System.err.
 
-- UncaughtExceptionHandler  
-![alt text](img/fig_7_3_UncaughtExceptionHandler.PNG)  
+- UncaughtExceptionHandler interface.
+  ```java
+  public interface UncaughtExceptionHandler {
+    void uncaughtException(Thread t, Throwable e);
+  }
+  ```
 
 - To set an UncaughtExceptionHandler for pool threads, provide a ThreadFactory to the ThreadPoolExecutor constructor. (As with all thread manipulation, only the thread’s owner should change its UncaughtExceptionHandler.) The standard thread pools allow an uncaught task exception to terminate the pool thread, but use a try-finally block to be notified when this happens so the thread can be replaced. Without an uncaught exception handler or other failure notification mechanism, tasks can appear to fail silently, which can be very confusing. If you want to be notified when a task fails due to an exception so that you can take some task-specific recovery action, either wrap the task with a Runnable or Callable that catches the exception or override the afterExecute hook in ThreadPoolExecutor. Somewhat confusingly, exceptions thrown from tasks make it to the uncaught exception handler only for tasks submitted with execute; for tasks submitted with submit, any thrown exception, checked or not, is considered to be part of the task’s return status. If a task submitted with submit terminates with an exception, it is rethrown by Future.get, wrapped in an ExecutionException.
 

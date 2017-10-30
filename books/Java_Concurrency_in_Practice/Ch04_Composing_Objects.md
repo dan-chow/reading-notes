@@ -28,27 +28,27 @@
 ### 4.3 Delegating thread safety
 
 - Delegating thread safety to a ConcurrentHashMap.
-```java
-@ThreadSafe
-public class DelegatingVehicleTracker {
-  private final ConcurrentMap<String, Point> locations;
-  private final Map<String, Point> unmodifiableMap;
-  public DelegatingVehicleTracker(Map<String, Point> points) {
-    locations = new ConcurrentHashMap<String, Point>(points);
-    unmodifiableMap = Collections.unmodifiableMap(locations);
+  ```java
+  @ThreadSafe
+  public class DelegatingVehicleTracker {
+    private final ConcurrentMap<String, Point> locations;
+    private final Map<String, Point> unmodifiableMap;
+    public DelegatingVehicleTracker(Map<String, Point> points) {
+      locations = new ConcurrentHashMap<String, Point>(points);
+      unmodifiableMap = Collections.unmodifiableMap(locations);
+    }
+    public Map<String, Point> getLocations() {
+      return unmodifiableMap;
+    }
+    public Point getLocation(String id) {
+      return locations.get(id);
+    }
+    public void setLocation(String id, int x, int y) {
+      if (locations.replace(id, new Point(x, y)) == null)
+        throw new IllegalArgumentException("invalid vehicle name: " + id);
+    }
   }
-  public Map<String, Point> getLocations() {
-    return unmodifiableMap;
-  }
-  public Point getLocation(String id) {
-    return locations.get(id);
-  }
-  public void setLocation(String id, int x, int y) {
-    if (locations.replace(id, new Point(x, y)) == null)
-      throw new IllegalArgumentException("invalid vehicle name: " + id);
-  }
-}
-```
+  ```
 
 - If a class is composed of multiple independent thread-safe state variables and has no operations that have any invalid state transitions, then it can delegate thread safety to the underlying state variables.
 
@@ -57,52 +57,52 @@ public class DelegatingVehicleTracker {
 ### 4.4 Adding functionality to existing thread-safe classes
 
 - Non-thread-safe attempt to implement put-if-absent. Don’t do this.
-```java
-@NotThreadSafe
-public class ListHelper<E> {
-  public List<E> list = Collections.synchronizedList(new ArrayList<E>());
-  ...
-  public synchronized boolean putIfAbsent(E x) {
-    boolean absent = !list.contains(x);
-    if (absent)
-      list.add(x);
-    return absent;
-  }
-}
-```
-
-- Why wouldn’t this work? After all, putIfAbsent is synchronized, right? The problem is that it synchronizes on the wrong lock. Whatever lock the List uses to guard its state, it sure isn’t the lock on the ListHelper. ListHelper provides only the illusion of synchronization; the various list operations, while all synchronized, use different locks, which means that putIfAbsent is not atomic relative to other operations on the List. So there is no guarantee that another thread won’t modify the list while putIfAbsent is executing.
-
-- Implementing put-if-absent with client-side locking.
-```java
-@ThreadSafe
-public class ListHelper<E> {
-  public List<E> list = Collections.synchronizedList(new ArrayList<E>());
-  ...
-  public boolean putIfAbsent(E x) {
-    synchronized (list) {
+  ```java
+  @NotThreadSafe
+  public class ListHelper<E> {
+    public List<E> list = Collections.synchronizedList(new ArrayList<E>());
+    ...
+    public synchronized boolean putIfAbsent(E x) {
       boolean absent = !list.contains(x);
       if (absent)
         list.add(x);
       return absent;
     }
   }
-}
-```
+  ```
+
+- Why wouldn’t this work? After all, putIfAbsent is synchronized, right? The problem is that it synchronizes on the wrong lock. Whatever lock the List uses to guard its state, it sure isn’t the lock on the ListHelper. ListHelper provides only the illusion of synchronization; the various list operations, while all synchronized, use different locks, which means that putIfAbsent is not atomic relative to other operations on the List. So there is no guarantee that another thread won’t modify the list while putIfAbsent is executing.
+
+- Implementing put-if-absent with client-side locking.
+  ```java
+  @ThreadSafe
+  public class ListHelper<E> {
+    public List<E> list = Collections.synchronizedList(new ArrayList<E>());
+    ...
+    public boolean putIfAbsent(E x) {
+      synchronized (list) {
+        boolean absent = !list.contains(x);
+        if (absent)
+          list.add(x);
+        return absent;
+      }
+    }
+  }
+  ```
 
 - Implementing put-if-absent using composition.
-```java
-@ThreadSafe
-public class ImprovedList<T> implements List<T> {
-  private final List<T> list;
-  public ImprovedList(List<T> list) { this.list = list; }
-  public synchronized boolean putIfAbsent(T x) {
-    boolean contains = list.contains(x);
-    if (contains)
-      list.add(x);
-    return !contains;
+  ```java
+  @ThreadSafe
+  public class ImprovedList<T> implements List<T> {
+    private final List<T> list;
+    public ImprovedList(List<T> list) { this.list = list; }
+    public synchronized boolean putIfAbsent(T x) {
+      boolean contains = list.contains(x);
+      if (contains)
+        list.add(x);
+      return !contains;
+    }
+    public synchronized void clear() { list.clear(); }
+    // ... similarly delegate other List methods
   }
-  public synchronized void clear() { list.clear(); }
-  // ... similarly delegate other List methods
-}
-```
+  ```
