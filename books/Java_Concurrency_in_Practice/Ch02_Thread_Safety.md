@@ -40,19 +40,19 @@
 - Because intrinsic locks are reentrant, if a thread tries to acquire a lock that it already holds, the request succeeds. Reentrancy means that locks are acquired on a per-thread rather than per-invocation basis.7 Reentrancy is implemented by associating with each lock an acquisition count and an owning thread. When the count is zero, the lock is considered unheld. When a thread acquires a previously unheld lock, the JVM records the owner and sets the acquisition count to one. If that same thread acquires the lock again, the count is incremented, and when the owning thread exits the synchronized block, the count is decremented. When the count reaches zero, the lock is released.
 
 - Code that would deadlock if intrinsic locks were not reentrant.
-```java
-public class Widget {
-  public synchronized void doSomething() {
-    ...
+  ```java
+  public class Widget {
+    public synchronized void doSomething() {
+      ...
+    }
   }
-}
-public class LoggingWidget extends Widget {
-  public synchronized void doSomething() {
-    System.out.println(toString() + ": calling doSomething");
-    super.doSomething();
+  public class LoggingWidget extends Widget {
+    public synchronized void doSomething() {
+      System.out.println(toString() + ": calling doSomething");
+      super.doSomething();
+    }
   }
-}
-```
+  ```
 
 ### 2.4 Guarding state with locks
 
@@ -67,38 +67,38 @@ public class LoggingWidget extends Widget {
 - Fortunately, it is easy to improve the concurrency of the servlet while maintaining thread safety by narrowing the scope of the synchronized block. You should be careful not to make the scope of the synchronized block too small; you would not want to divide an operation that should be atomic into more than one synchronized block. But it is reasonable to try to exclude from synchronized blocks long-running operations that do not affect shared state, so that other threads are not prevented from accessing the shared state while the long-running operation is in progress.
 
 - Servlet that caches its last request and result.
-```java
-@ThreadSafe
-public class CachedFactorizer implements Servlet {
-  @GuardedBy("this") private BigInteger lastNumber;
-  @GuardedBy("this") private BigInteger[] lastFactors;
-  @GuardedBy("this") private long hits;
-  @GuardedBy("this") private long cacheHits;
-  public synchronized long getHits() { return hits; }
-  public synchronized double getCacheHitRatio() {
-    return (double) cacheHits / (double) hits;
-  }
-  public void service(ServletRequest req, ServletResponse resp) {
-    BigInteger i = extractFromRequest(req);
-    BigInteger[] factors = null;
-    synchronized (this) {
-      ++hits;
-      if (i.equals(lastNumber)) {
-        ++cacheHits;
-        factors = lastFactors.clone();
-      }
+  ```java
+  @ThreadSafe
+  public class CachedFactorizer implements Servlet {
+    @GuardedBy("this") private BigInteger lastNumber;
+    @GuardedBy("this") private BigInteger[] lastFactors;
+    @GuardedBy("this") private long hits;
+    @GuardedBy("this") private long cacheHits;
+    public synchronized long getHits() { return hits; }
+    public synchronized double getCacheHitRatio() {
+      return (double) cacheHits / (double) hits;
     }
-    if (factors == null) {
-      factors = factor(i);
+    public void service(ServletRequest req, ServletResponse resp) {
+      BigInteger i = extractFromRequest(req);
+      BigInteger[] factors = null;
       synchronized (this) {
-        lastNumber = i;
-        lastFactors = factors.clone();
+        ++hits;
+        if (i.equals(lastNumber)) {
+          ++cacheHits;
+          factors = lastFactors.clone();
+        }
       }
+      if (factors == null) {
+        factors = factor(i);
+        synchronized (this) {
+          lastNumber = i;
+          lastFactors = factors.clone();
+        }
+      }
+      encodeIntoResponse(resp, factors);
     }
-    encodeIntoResponse(resp, factors);
   }
-}
-```
+  ```
 
 - Deciding how big or small to make synchronized blocks may require tradeoffs among competing design forces, including safety (which must not be compromised), simplicity, and performance.
 
