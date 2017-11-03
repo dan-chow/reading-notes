@@ -43,7 +43,7 @@
 - ThreadFactory interface.
   ```java
   public interface ThreadFactory {
-  Thread newThread(Runnable r);
+    Thread newThread(Runnable r);
   }
   ```
 
