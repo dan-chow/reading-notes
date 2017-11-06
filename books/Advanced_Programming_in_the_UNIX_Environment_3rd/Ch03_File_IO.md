@@ -182,9 +182,6 @@
   int ioctl(int fd, int request, ...);
   ```
 
-- Common FreeBSD ioctl operations  
-![alt text](img/fig_3_4_Common_FreeBSD_ioctl_operations.PNG)  
-
 ### 3.16 /dev/fd
 
 - Newer systems provide a directory named /dev/fd whose entries are files named 0, 1, 2, and so on. Opening the file /dev/fd/n is equivalent to duplicating descriptor n, assuming that descriptor n is open.
