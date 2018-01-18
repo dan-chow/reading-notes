@@ -94,3 +94,5 @@ doesn’t allow clients to specify a preference for a server to connect to.
 	- **Master** The master watches for new workers and tasks, assigning tasks to available workers.
 	- **Worker** Workers register themselves with the system, to make sure that the master sees they are available to execute tasks, and then watch for new tasks.
 	- **Client** Clients create new tasks and wait for responses from the system.
+
+### Takeaway Messages
