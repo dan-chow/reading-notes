@@ -11,7 +11,7 @@
   if (smodule.getDependSubsystems().contains(subSysMod.getSubSystem()))
   ```
 	This could be rephrased without the comment as
-  ```
+  ```java
   ArrayList moduleDependees = smodule.getDependSubsystems();
   String ourSubSystem = subSysMod.getSubSystem();
   if (moduleDependees.contains(ourSubSystem))

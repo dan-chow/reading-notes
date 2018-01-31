@@ -1,7 +1,7 @@
 ## Chapter 08: Boundaries
 
 - A cleaner way to use Map might look like the following. No user of Sensors would care one bit if generics were used or not. That choice has become (and always should be) an implementation detail.
-  ```
+  ```java
   public class Sensors {
     private Map sensors = new HashMap();
     public Sensor getById(String id) {
