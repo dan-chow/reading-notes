@@ -113,3 +113,58 @@ demand.
 The “Russian doll” of decorators
 fig_11_1_The_Russian_doll_of_decorators.PNG
 
+
+
+Finally, the most full-featured tool for separating concerns through aspects is the AspectJ
+language, an extension of Java that provides “first-class” support for aspects as modularity
+constructs. The pure Java approaches provided by Spring AOP and JBoss AOP are sufficient
+for 80–90 percent of the cases where aspects are most useful. However, AspectJ
+provides a very rich and powerful tool set for separating concerns. The drawback of
+AspectJ is the need to adopt several new tools and to learn new language constructs and
+usage idioms.
+
+
+
+
+The power of separating concerns through aspect-like approaches can’t be overstated. If
+you can write your application’s domain logic using POJOs, decoupled from any architecture
+concerns at the code level, then it is possible to truly test drive your architecture. You
+can evolve it from simple to sophisticated, as needed, by adopting new technologies on
+demand. It is not necessary to do a Big Design Up Front (BDUF). In fact, BDUF is even
+harmful because it inhibits adapting to change, due to the psychological resistance to discarding
+prior effort and because of the way architecture choices influence subsequent
+thinking about the design.
+
+
+
+An optimal system architecture consists of modularized domains of concern, each of which
+is implemented with Plain Old Java (or other) Objects. The different domains are integrated
+together with minimally invasive Aspects or Aspect-like tools. This architecture can
+be test-driven, just like the code.
+
+
+We all know it is best to give responsibilities to the most qualified persons. We often
+forget that it is also best to postpone decisions until the last possible moment. This isn’t
+lazy or irresponsible; it lets us make informed choices with the best possible information.
+A premature decision is a decision made with suboptimal knowledge. We will have that
+much less customer feedback, mental reflection on the project, and experience with our
+implementation choices if we decide too soon.
+
+The agility provided by a POJO system with modularized concerns allows us to make optimal,
+just-in-time decisions, based on the most recent knowledge. The complexity of these
+decisions is also reduced.
+
+
+
+
+Standards make it easier to reuse ideas and components, recruit people with relevant experience,
+encapsulate good ideas, and wire components together. However, the process of
+creating standards can sometimes take too long for industry to wait, and some standards
+lose touch with the real needs of the adopters they are intended to serve.
+
+
+
+Domain-Specific Languages allow all levels of abstraction and all domains in the application
+to be expressed as POJOs, from high-level policy to low-level details.
+
+
