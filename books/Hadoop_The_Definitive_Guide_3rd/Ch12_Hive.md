@@ -1,10 +1,6 @@
 ## Chapter 12: Hive
 
-### Installing Hive
-
 - In normal use, Hive runs on your workstation and converts your SQL query into a series of MapReduce jobs for execution on a Hadoop cluster. Hive organizes data into tables, which provide a means for attaching structure to data stored in HDFS. Metadata—such as table schemas—is stored in a database called the metastore.
-
-### An Example
 
 - We create a table to hold the weather data using the CREATE TABLE statement:
   ```sql
@@ -12,11 +8,13 @@
   ROW FORMAT DELIMITED
     FIELDS TERMINATED BY '\t';
   ```
+
 	Next, we can populate Hive with the data.
   ```sql
   LOAD DATA LOCAL INPATH 'input/ncdc/micro-tab/sample.txt'
   OVERWRITE INTO TABLE records;
   ```
+
 	Now that the data is in Hive, we can run a query against it:
   ```bash
   hive> SELECT year, MAX(temperature)
@@ -28,11 +26,11 @@
   1950	22
   ```
 
-- But the remarkable thing is that Hive transforms this query into a MapReduce job, which it executes on our behalf, then prints the results to the console.
+	But the remarkable thing is that Hive transforms this query into a MapReduce job, which it executes on our behalf, then prints the results to the console.
 
-### Running Hive
+- Hive is configured using an XML configuration file like Hadoop’s. The file is called hive-site.xml and is located in Hive’s conf directory.
 
-- There is a precedence hierarchy to setting properties. In the following list, lower numbers take precedence over higher numbers:
+There is a precedence hierarchy to setting properties. In the following list, lower numbers take precedence over higher numbers:
 	- (1) The Hive SET command
 	- (2) The command-line -hiveconf option
 	- (3) hive-site.xml
