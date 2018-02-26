@@ -10,7 +10,7 @@
 
 - If you are using a native library and you are doing a lot of compression or decompression in your application, consider using CodecPool, which allows you to reuse compressors and decompressors, thereby amortizing the cost of creating these objects.
 
-- Example 4-3. A program to compress data read from standard input and write it to standard output using a pooled compressor
+- A program to compress data read from standard input and write it to standard output using a pooled compressor
   ```java
   public class PooledStreamCompressor {
     public static void main(String[] args) throws Exception {
@@ -73,7 +73,7 @@ compresses groups of records, is recommended because it compresses better.
   ```
 
 	Comparison of types is crucial for MapReduce, where there is a sorting phase during which keys are compared with one another. One optimization that Hadoop provides is the RawComparator extension of Java’s Comparator:
-  ```
+  ```java
   package org.apache.hadoop.io;
   import java.util.Comparator;
   public interface RawComparator<T> extends Comparator<T> {
@@ -164,7 +164,7 @@ compresses groups of records, is recommended because it compresses better.
 
 	If you ever plan to use your custom Writable with TextOutputFormat, then you must implement its toString() method. TextOutputFormat calls toString() on keys and values for their output representation.
 
-- Example 4-8. A RawComparator for comparing TextPair byte representations
+- A RawComparator for comparing TextPair byte representations
   ```java
   public static class Comparator extends WritableComparator {
     private static final Text.Comparator TEXT_COMPARATOR = new Text.Comparator();
@@ -189,7 +189,7 @@ compresses groups of records, is recommended because it compresses better.
   }
 
   static {
-  WritableComparator.define(TextPair.class, new Comparator());
+    WritableComparator.define(TextPair.class, new Comparator());
   }
   ```
 
@@ -349,7 +349,7 @@ compresses groups of records, is recommended because it compresses better.
 
 - One way of looking at a MapFile is as an indexed and sorted SequenceFile. So it’s quite natural to want to be able to convert a SequenceFile into a MapFile.
 
-	Example 4-17. Re-creating the index for a MapFile
+	Re-creating the index for a MapFile
   ```java
   public class MapFileFixer {
     public static void main(String[] args) throws Exception {
