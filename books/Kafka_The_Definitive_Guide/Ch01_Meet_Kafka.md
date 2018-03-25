@@ -41,10 +41,6 @@
 - Replication of partitions in a cluster  
 ![alt text](res/fig_01_03_Replication_of_partitions_in_a_cluster.PNG)  
 
-
-
-
-
 - The replication mechanisms within the Kafka clusters are designed only to work within a single cluster, not between multiple clusters.
 
 	The Kafka project includes a tool called MirrorMaker, used for this purpose. At its core, MirrorMaker is simply a Kafka consumer and producer, linked together with a queue. Messages are consumed from one Kafka cluster and produced for another.
