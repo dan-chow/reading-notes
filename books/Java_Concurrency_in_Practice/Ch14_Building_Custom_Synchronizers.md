@@ -108,7 +108,7 @@
 - AQS is a framework for building locks and synchronizers, and a surprisingly broad range of synchronizers can be built easily and efficiently using it. Not only are ReentrantLock and Semaphore built using AQS, but so are CountDownLatch, ReentrantReadWriteLock, SynchronousQueue, and FutureTask.
 
 	Canonical forms for acquisition and release in AQS.
-  ```java
+  ```bash
   boolean acquire() throws InterruptedException {
     while (state does not permit acquire) {
       if (blocking acquisition requested) {

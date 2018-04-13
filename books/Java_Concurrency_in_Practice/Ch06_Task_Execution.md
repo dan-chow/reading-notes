@@ -25,7 +25,7 @@
   public class ThreadPerTaskExecutor implements Executor {
     public void execute(Runnable r) {
       new Thread(r).start();
-    };
+    }
   }
   ```
 
@@ -36,7 +36,7 @@
   public class WithinThreadExecutor implements Executor {
     public void execute(Runnable r) {
       r.run();
-    };
+    }
   }
   ```
 

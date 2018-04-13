@@ -9,8 +9,8 @@
     private static int number;
     private static class ReaderThread extends Thread {
       public void run() {
-      while (!ready)
-        Thread.yield();
+        while (!ready)
+          Thread.yield();
         System.out.println(number);
       }
     }
